@@ -1,0 +1,68 @@
+:root {
+  --hoofdkleur: #a88331;
+  --headerHeight: 200px;
+  --maxWidth: 1200px;
+  --docWidth: 100vw;
+  --colWidth: calc(var(--docWidth) / 12);
+  --mobileWidth: 600px;
+  --displayMobile: block;
+  --hideMobile: none;
+  --imageHeight: 275px;
+}
+@media (min-width: 600px) {
+  :root {
+    --displayMobile: none;
+    --hideMobile: block;
+  }
+}
+.foo {
+  padding: var(--responsive-padding);
+}
+body {
+  margin: 0 auto;
+  max-width: 1200px;
+  font-family: 'Open Sans', sans-serif;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style-type: none;
+}
+header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: flex-end;
+  height: var(--headerHeight);
+  padding-bottom: 30px;
+  background-color: white;
+  text-transform: uppercase;
+}
+header .logoWrapper {
+  flex: 0 0 calc(5.25 * var(--colWidth));
+}
+header .logo {
+  width: calc(var(--colWidth) * 2.25);
+  height: auto;
+  margin-left: var(--colWidth);
+}
+header h1 {
+  margin-block: 0;
+  color: var(--hoofdkleur);
+  display: var(--hideMobile);
+}
+header ul {
+  margin: 0;
+  padding: 0;
+}
+section {
+  height: calc(100% - var(--headerHeight));
+}
+section.diensten h1 {
+  display: var(--displayMobile);
+  text-transform: uppercase;
+}
+section.fotosWerk img {
+  height: var(--imageHeight);
+}
