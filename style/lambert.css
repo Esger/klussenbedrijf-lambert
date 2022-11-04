@@ -22,6 +22,14 @@
 .foo {
   padding: var(--responsive-padding);
 }
+html {
+  scroll-behavior: smooth;
+}
+@media screen and (prefers-reduced-motion: reduce) {
+  html html {
+    scroll-behavior: auto;
+  }
+}
 body {
   margin: 0 auto;
   max-width: 1200px;
@@ -42,7 +50,7 @@ header {
   height: var(--headerHeight);
   padding-bottom: 30px;
   background-color: white;
-  box-shadow: 600px -600px 0 600px white;
+  box-shadow: 0 -600px 0 600px white;
   text-transform: uppercase;
 }
 header .logoWrapper {
@@ -55,6 +63,7 @@ header .logo {
 }
 header h1 {
   font-size: 1rem;
+  line-height: 0.8;
   width: calc(var(--colWidth) * 2.75);
   margin-block: 0;
   color: var(--hoofdkleur);
@@ -62,6 +71,8 @@ header h1 {
 }
 header h1 strong {
   display: block;
+  font-weight: normal;
+  padding-top: 0.8rem;
 }
 header nav ul {
   font-size: 1rem;
@@ -71,6 +82,12 @@ header nav ul {
 }
 header nav ul li {
   flex: 0 0 var(--colWidth);
+}
+header nav ul li a {
+  display: inline-block;
+  color: black;
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid var(--hoofdkleur);
 }
 section {
   height: calc(100% - var(--headerHeight));
