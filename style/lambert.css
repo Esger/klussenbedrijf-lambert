@@ -1,10 +1,11 @@
 :root {
   --hoofdkleur: #a88331;
-  --headerHeight: 200px;
+  --tint1: #b4934c;
   --maxWidth: 1200px;
+  --mobileWidth: 600px;
   --docWidth: 100vw;
   --colWidth: calc(var(--docWidth) / 12);
-  --mobileWidth: 600px;
+  --headerHeight: calc(var(--colWidth) * 2);
   --displayMobile: block;
   --hideMobile: none;
   --imageHeight: 275px;
@@ -22,6 +23,7 @@ body {
   margin: 0 auto;
   max-width: 1200px;
   font-family: 'Open Sans', sans-serif;
+  background-color: var(--tint1);
 }
 a {
   text-decoration: none;
@@ -37,6 +39,7 @@ header {
   height: var(--headerHeight);
   padding-bottom: 30px;
   background-color: white;
+  box-shadow: 600px -600px 0 600px white;
   text-transform: uppercase;
 }
 header .logoWrapper {
@@ -48,13 +51,23 @@ header .logo {
   margin-left: var(--colWidth);
 }
 header h1 {
+  font-size: 1rem;
+  width: calc(var(--colWidth) * 2.75);
   margin-block: 0;
   color: var(--hoofdkleur);
   display: var(--hideMobile);
 }
-header ul {
+header h1 strong {
+  display: block;
+}
+header nav ul {
+  font-size: 1rem;
   margin: 0;
   padding: 0;
+  display: flex;
+}
+header nav ul li {
+  flex: 0 0 var(--colWidth);
 }
 section {
   height: calc(100% - var(--headerHeight));
