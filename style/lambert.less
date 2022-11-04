@@ -22,12 +22,10 @@
     box-sizing: border-box;
 }
 
-.foo {
-    padding: var(--responsive-padding);
-}
-
 html {
-    scroll-behavior: smooth;
+    scroll-behavior   : smooth;
+    scroll-padding-top: calc(var(--headerHeight) + 16px);
+    scroll-snap-type  : y mandatory;
 
     @media screen and (prefers-reduced-motion: reduce) {
         html {
@@ -36,10 +34,16 @@ html {
     }
 }
 
+html,
+body {
+    background-image: linear-gradient(white var(--colWidth), var(--hoofdkleur) 0 100%);
+}
+
 body {
     margin          : 0 auto;
     max-width       : 1200px;
     font-family     : 'Open Sans', sans-serif;
+    font-weight     : 400;
     background-color: var(--tint1);
 }
 
@@ -51,13 +55,18 @@ ul {
     list-style-type: none;
 }
 
+h1,
+h2 {
+    text-transform: uppercase;
+}
+
 header {
     position        : sticky;
     top             : 0;
     display         : flex;
     align-items     : flex-end;
     height          : var(--headerHeight);
-    padding-bottom  : 30px;
+    padding-bottom  : calc(.15 * var(--headerHeight));
     background-color: white;
     box-shadow      : 0 -600px 0 600px white;
     text-transform  : uppercase;
@@ -67,8 +76,8 @@ header {
     }
 
     .logo {
-        width      : ~'min(200px, var(--colWidth) * 2.25)';
-        height     : auto;
+        width      : auto;
+        height     : calc(.65 * var(--headerHeight));
         margin-left: var(--colWidth);
     }
 
@@ -82,7 +91,7 @@ header {
 
         strong {
             display    : block;
-            font-weight: normal;
+            font-weight: 600;
             padding-top: .8rem;
         }
     }
@@ -107,18 +116,76 @@ header {
 }
 
 section {
-    height: calc(100% - var(--headerHeight));
+    height           : calc(100% - var(--headerHeight));
+    scroll-snap-align: start;
 
     &.diensten {
+        text-transform: uppercase;
+
         h1 {
-            display       : var(--displayMobile);
-            text-transform: uppercase;
+            display: var(--displayMobile);
+        }
+
+        ul {
+            padding    : 0;
+            margin-left: var(--colWidth);
+            line-height: 2.2rem;
+
+            li {
+                color: white;
+
+                &:before {
+                    content         : '';
+                    display         : inline-block;
+                    width           : .75rem;
+                    height          : .75rem;
+                    margin-right    : .5rem;
+                    background-color: black;
+                }
+            }
         }
     }
 
     &.fotosWerk {
         img {
             height: var(--imageHeight);
+        }
+    }
+
+    &.contact {
+        .inzet {
+            display         : flex;
+            background-color: #ffffffbb;
+            width           : calc(4.75 * var(--colWidth));
+            margin-left     : var(--colWidth; )
+        }
+
+        .gegevens {
+            padding    : calc(.4 * var(--colWidth)) calc(.25 * var(--colWidth));
+            line-height: 1.8rem;
+            flex       : 0 0 calc(3 * var(--colWidth));
+        }
+
+        h2,
+        p,
+        a {
+            color      : black;
+            margin     : 0;
+            font-size  : 1rem;
+            font-weight: 400;
+
+            &+h2 {
+                margin-top: 1rem;
+            }
+        }
+
+        h2:last-child {
+            text-transform: none;
+        }
+
+        p span {
+            display: inline-block;
+            width  : 1rem;
         }
     }
 }

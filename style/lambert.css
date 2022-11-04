@@ -19,21 +19,25 @@
 * {
   box-sizing: border-box;
 }
-.foo {
-  padding: var(--responsive-padding);
-}
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--headerHeight) + 16px);
+  scroll-snap-type: y mandatory;
 }
 @media screen and (prefers-reduced-motion: reduce) {
   html html {
     scroll-behavior: auto;
   }
 }
+html,
+body {
+  background-image: linear-gradient(white var(--colWidth), var(--hoofdkleur) 0 100%);
+}
 body {
   margin: 0 auto;
   max-width: 1200px;
   font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
   background-color: var(--tint1);
 }
 a {
@@ -42,13 +46,17 @@ a {
 ul {
   list-style-type: none;
 }
+h1,
+h2 {
+  text-transform: uppercase;
+}
 header {
   position: sticky;
   top: 0;
   display: flex;
   align-items: flex-end;
   height: var(--headerHeight);
-  padding-bottom: 30px;
+  padding-bottom: calc(0.15 * var(--headerHeight));
   background-color: white;
   box-shadow: 0 -600px 0 600px white;
   text-transform: uppercase;
@@ -57,8 +65,8 @@ header .logoWrapper {
   flex: 0 0 calc(5.25 * var(--colWidth));
 }
 header .logo {
-  width: min(200px, var(--colWidth) * 2.25);
-  height: auto;
+  width: auto;
+  height: calc(0.65 * var(--headerHeight));
   margin-left: var(--colWidth);
 }
 header h1 {
@@ -71,7 +79,7 @@ header h1 {
 }
 header h1 strong {
   display: block;
-  font-weight: normal;
+  font-weight: 600;
   padding-top: 0.8rem;
 }
 header nav ul {
@@ -91,11 +99,61 @@ header nav ul li a {
 }
 section {
   height: calc(100% - var(--headerHeight));
+  scroll-snap-align: start;
+}
+section.diensten {
+  text-transform: uppercase;
 }
 section.diensten h1 {
   display: var(--displayMobile);
-  text-transform: uppercase;
+}
+section.diensten ul {
+  padding: 0;
+  margin-left: var(--colWidth);
+  line-height: 2.2rem;
+}
+section.diensten ul li {
+  color: white;
+}
+section.diensten ul li:before {
+  content: '';
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-right: 0.5rem;
+  background-color: black;
 }
 section.fotosWerk img {
   height: var(--imageHeight);
+}
+section.contact .inzet {
+  display: flex;
+  background-color: #ffffffbb;
+  width: calc(4.75 * var(--colWidth));
+  margin-left: var(--colWidth);
+}
+section.contact .gegevens {
+  padding: calc(0.4 * var(--colWidth)) calc(0.25 * var(--colWidth));
+  line-height: 1.8rem;
+  flex: 0 0 calc(3 * var(--colWidth));
+}
+section.contact h2,
+section.contact p,
+section.contact a {
+  color: black;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 400;
+}
+section.contact h2 + h2,
+section.contact p + h2,
+section.contact a + h2 {
+  margin-top: 1rem;
+}
+section.contact h2:last-child {
+  text-transform: none;
+}
+section.contact p span {
+  display: inline-block;
+  width: 1rem;
 }
