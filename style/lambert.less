@@ -5,6 +5,7 @@
     --mobileWidth  : 768px;
     --docWidth     : ~"min(100vw, var(--maxWidth))";
     --colWidth     : calc(var(--docWidth) / 12);
+    --gutterWidth  : calc(var(--colWidth) / 4);
     --headerHeight : calc(var(--colWidth) * 2);
     --displayMobile: block;
     --hideMobile   : none;
@@ -53,6 +54,7 @@ a {
 
 ul {
     list-style-type: none;
+    padding        : 0;
 }
 
 h1,
@@ -63,6 +65,7 @@ h2 {
 header {
     position        : sticky;
     top             : 0;
+    z-index         : 2;
     display         : flex;
     align-items     : flex-end;
     height          : var(--headerHeight);
@@ -147,21 +150,100 @@ section {
     }
 
     &.fotosWerk {
+        display: flex;
+
+        ul {
+            position           : relative;
+            display            : flex;
+            justify-content    : flex-start;
+            align-items        : center;
+            column-gap         : var(--gutterWidth);
+            padding-block      : var(--colWidth);
+            scroll-behavior    : smooth;
+            overscroll-behavior: none;
+            scroll-padding-left: var(--colWidth);
+            scroll-snap-type   : x mandatory;
+            scrollbar-width    : none;
+            overflow-x         : scroll;
+            height             : min-content;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+        li {
+            scroll-snap-align: start;
+
+            &:not(.control) {
+                --maxZoom  : 1.5;
+                transition : all 300ms ease-in-out;
+                will-change: scale;
+                transform  : scale3d(1, 1, 1);
+
+                &:hover {
+                    z-index  : 100;
+                    transform: scale3d(var(--maxZoom), var(--maxZoom), var(--maxZoom));
+                }
+            }
+
+            &.control {
+                scroll-snap-align: unset;
+                display          : flex;
+                align-items      : center;
+                justify-content  : center;
+                position         : sticky;
+                z-index          : 1;
+                height           : calc(var(--imageHeight) + 1rem);
+                flex             : 0 0 var(--colWidth);
+                background-color : var(--hoofdkleur);
+
+                a {
+                    font-size: 2rem;
+                    color    : white;
+                }
+            }
+
+            &.control--left {
+                left: 0;
+            }
+
+            &.control--right {
+                right: 0;
+            }
+        }
+
         img {
             height: var(--imageHeight);
+            width : auto;
+            border: 1px solid #ffffffbb;
         }
     }
 
     &.contact {
+        --bgColor: #ffffffbb;
+
         .inzet {
+            position        : relative;
             display         : flex;
-            background-color: #ffffffbb;
+            background-color: var(--bgColor);
             width           : calc(4.75 * var(--colWidth));
-            margin-left     : var(--colWidth; )
+            margin          : 0 0 0 var(--colWidth);
+
+            &::before {
+                content         : '';
+                display         : block;
+                position        : absolute;
+                left            : 0;
+                right           : 0;
+                top             : -1rem;
+                height          : 16px;
+                background-color: inherit;
+            }
         }
 
         .gegevens {
-            padding    : calc(.4 * var(--colWidth)) calc(.25 * var(--colWidth));
+            padding    : 1rem var(--gutterWidth) calc(.4 * var(--colWidth)) var(--gutterWidth);
             line-height: 1.8rem;
             flex       : 0 0 calc(3 * var(--colWidth));
         }
