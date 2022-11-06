@@ -3,12 +3,18 @@ $(() => {
         $('nav a').removeClass('active');
         $(element).addClass('active');
     };
+    const setVisibleSection = element => {
+        $('section').removeClass('visible');
+        $(element).addClass('visible');
+    };
 
     const intersectionCallback = (entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 if (entry.intersectionRatio >= 0.9) {
-                    const sectionClassName = $(entry.target).closest('section')[0].classList[0];
+                    const visibleSection = $(entry.target).closest('section')[0];
+                    setVisibleSection(visibleSection);
+                    const sectionClassName = visibleSection.classList[0];
                     const menuItem = $('nav .' + sectionClassName)[0];
                     console.log(menuItem, entry.intersectionRatio);
                     setActiveItem(menuItem);
