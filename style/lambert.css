@@ -10,8 +10,15 @@
   --displayMobile: block;
   --hideMobile: none;
   --imageHeight: 275px;
+  --slickMargin: var(--colWidth) 0;
 }
 @media (min-width: 768px) {
+  :root {
+    --displayMobile: none;
+    --hideMobile: block;
+  }
+}
+@media (min-width: 1200px) {
   :root {
     --displayMobile: none;
     --hideMobile: block;
@@ -58,14 +65,12 @@ header {
   z-index: 2;
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
   height: var(--headerHeight);
   padding-bottom: calc(0.15 * var(--headerHeight));
   background-color: white;
   box-shadow: 0 -600px 0 600px white;
   text-transform: uppercase;
-}
-header .logoWrapper {
-  flex: 0 0 calc(5.25 * var(--colWidth));
 }
 header .logo {
   width: auto;
@@ -75,7 +80,6 @@ header .logo {
 header h1 {
   font-size: 1rem;
   line-height: 0.8;
-  width: calc(var(--colWidth) * 2.75);
   margin-block: 0;
   color: var(--hoofdkleur);
   display: var(--hideMobile);
@@ -90,18 +94,22 @@ header nav ul {
   margin: 0;
   padding: 0;
   display: flex;
-}
-header nav ul li {
-  flex: 0 0 var(--colWidth);
+  justify-content: space-between;
+  width: calc(3 * var(--colWidth));
+  margin-right: var(--colWidth);
 }
 header nav ul li a {
   display: inline-block;
   color: black;
   padding-bottom: 0.3rem;
+  border-bottom: 2px solid transparent;
+}
+header nav ul li a.active,
+header nav ul li a:hover {
   border-bottom: 2px solid var(--hoofdkleur);
 }
 section {
-  height: calc(100% - var(--headerHeight));
+  min-height: calc(100vh - var(--headerHeight));
   scroll-snap-align: start;
 }
 section.diensten {
@@ -129,27 +137,20 @@ section.diensten ul li:before {
 section.fotosWerk {
   display: flex;
 }
-section.fotosWerk ul {
+section.fotosWerk .slick {
   position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  column-gap: var(--gutterWidth);
-  padding-block: var(--colWidth);
+  margin: var(--slickMargin);
   scroll-behavior: smooth;
   overscroll-behavior: none;
-  scroll-padding-left: var(--colWidth);
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
   overflow-x: scroll;
   height: -webkit-min-content;
   height: min-content;
 }
-section.fotosWerk ul::-webkit-scrollbar {
+section.fotosWerk .slick::-webkit-scrollbar {
   display: none;
-}
-section.fotosWerk li {
-  scroll-snap-align: start;
 }
 section.fotosWerk li:not(.control) {
   --maxZoom: 1.5;
@@ -161,7 +162,8 @@ section.fotosWerk li:not(.control):hover {
   z-index: 100;
   transform: scale3d(var(--maxZoom), var(--maxZoom), var(--maxZoom));
 }
-section.fotosWerk li.control {
+section.fotosWerk .slick-arrow {
+  border: none;
   scroll-snap-align: unset;
   display: flex;
   align-items: center;
@@ -171,21 +173,21 @@ section.fotosWerk li.control {
   height: calc(var(--imageHeight) + 1rem);
   flex: 0 0 var(--colWidth);
   background-color: var(--hoofdkleur);
-}
-section.fotosWerk li.control a {
   font-size: 2rem;
   color: white;
+  cursor: pointer;
 }
-section.fotosWerk li.control--left {
+section.fotosWerk .slick-prev {
   left: 0;
 }
-section.fotosWerk li.control--right {
+section.fotosWerk.slick-next {
   right: 0;
 }
 section.fotosWerk img {
   height: var(--imageHeight);
   width: auto;
   border: 1px solid #ffffffbb;
+  margin: 0 calc(var(--gutterWidth) / 2);
 }
 section.contact {
   --bgColor: #ffffffbb;

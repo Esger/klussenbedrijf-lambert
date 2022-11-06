@@ -10,9 +10,17 @@
     --displayMobile: block;
     --hideMobile   : none;
     --imageHeight  : 275px;
+    --slickMargin  : var(--colWidth) 0;
 }
 
 @media (min-width:768px) {
+    :root {
+        --displayMobile: none;
+        --hideMobile   : block;
+    }
+}
+
+@media (min-width:1200px) {
     :root {
         --displayMobile: none;
         --hideMobile   : block;
@@ -68,15 +76,12 @@ header {
     z-index         : 2;
     display         : flex;
     align-items     : flex-end;
+    justify-content : space-between;
     height          : var(--headerHeight);
-    padding-bottom  : calc(.15 * var(--headerHeight));
+    padding-bottom  : calc(0.15 * var(--headerHeight));
     background-color: white;
     box-shadow      : 0 -600px 0 600px white;
     text-transform  : uppercase;
-
-    .logoWrapper {
-        flex: 0 0 calc(5.25 * var(--colWidth));
-    }
 
     .logo {
         width      : auto;
@@ -87,7 +92,6 @@ header {
     h1 {
         font-size   : 1rem;
         line-height : .8;
-        width       : calc(var(--colWidth) * 2.75);
         margin-block: 0;
         color       : var(--hoofdkleur);
         display     : var(--hideMobile);
@@ -100,26 +104,33 @@ header {
     }
 
     nav ul {
-        font-size: 1rem;
-        margin   : 0;
-        padding  : 0;
-        display  : flex;
+        font-size      : 1rem;
+        margin         : 0;
+        padding        : 0;
+        display        : flex;
+        justify-content: space-between;
+        width          : calc(3 * var(--colWidth));
+        margin-right   : var(--colWidth);
 
         li {
-            flex: 0 0 var(--colWidth);
 
             a {
                 display       : inline-block;
                 color         : black;
                 padding-bottom: .3rem;
-                border-bottom : 2px solid var(--hoofdkleur)
+                border-bottom : 2px solid transparent;
+
+                &.active,
+                &:hover {
+                    border-bottom: 2px solid var(--hoofdkleur);
+                }
             }
         }
     }
 }
 
 section {
-    height           : calc(100% - var(--headerHeight));
+    min-height       : calc(100vh - var(--headerHeight));
     scroll-snap-align: start;
 
     &.diensten {
@@ -152,18 +163,14 @@ section {
     &.fotosWerk {
         display: flex;
 
-        ul {
+        .slick {
             position           : relative;
             display            : flex;
             justify-content    : flex-start;
             align-items        : center;
-            column-gap         : var(--gutterWidth);
-            padding-block      : var(--colWidth);
+            margin             : var(--slickMargin);
             scroll-behavior    : smooth;
             overscroll-behavior: none;
-            scroll-padding-left: var(--colWidth);
-            scroll-snap-type   : x mandatory;
-            scrollbar-width    : none;
             overflow-x         : scroll;
             height             : min-content;
 
@@ -173,8 +180,6 @@ section {
         }
 
         li {
-            scroll-snap-align: start;
-
             &:not(.control) {
                 --maxZoom  : 1.5;
                 transition : all 300ms ease-in-out;
@@ -187,36 +192,38 @@ section {
                 }
             }
 
-            &.control {
-                scroll-snap-align: unset;
-                display          : flex;
-                align-items      : center;
-                justify-content  : center;
-                position         : sticky;
-                z-index          : 1;
-                height           : calc(var(--imageHeight) + 1rem);
-                flex             : 0 0 var(--colWidth);
-                background-color : var(--hoofdkleur);
 
-                a {
-                    font-size: 2rem;
-                    color    : white;
-                }
-            }
+        }
 
-            &.control--left {
-                left: 0;
-            }
+        .slick-arrow {
+            border           : none;
+            scroll-snap-align: unset;
+            display          : flex;
+            align-items      : center;
+            justify-content  : center;
+            position         : sticky;
+            z-index          : 1;
+            height           : calc(var(--imageHeight) + 1rem);
+            flex             : 0 0 var(--colWidth);
+            background-color : var(--hoofdkleur);
+            font-size        : 2rem;
+            color            : white;
+            cursor           : pointer;
+        }
 
-            &.control--right {
-                right: 0;
-            }
+        .slick-prev {
+            left: 0;
+        }
+
+        &.slick-next {
+            right: 0;
         }
 
         img {
             height: var(--imageHeight);
             width : auto;
             border: 1px solid #ffffffbb;
+            margin: 0 calc(var(--gutterWidth) / 2);
         }
     }
 
