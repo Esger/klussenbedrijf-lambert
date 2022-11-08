@@ -4,14 +4,14 @@ $(() => {
         $(element).addClass('active');
     };
     const setVisibleSection = element => {
-        $('section').removeClass('visible');
+        // $('section').not(element).removeClass('visible');
         $(element).addClass('visible');
     };
 
     const intersectionCallback = (entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                if (entry.intersectionRatio >= 0.9) {
+                if (entry.intersectionRatio >= 0.7) {
                     const visibleSection = $(entry.target).closest('section')[0];
                     setVisibleSection(visibleSection);
                     const sectionClassName = visibleSection.classList[0];

@@ -1,4 +1,6 @@
-:root {
+:root,
+*::after,
+*::before {
     --hoofdkleur   : #a88331;
     --tint1        : #b4934c;
     --maxWidth     : 1200px;
@@ -17,6 +19,52 @@
     :root {
         --displayMobile: none;
         --hideMobile   : block;
+
+        .visible {
+            &.diensten li {
+                position: absolute;
+            }
+
+            .dienst1 {
+                --offset: 0, 2rem, 0;
+            }
+
+            .dienst2 {
+                --offset: calc(7 * var(--colWidth)), 2rem, 0;
+            }
+
+            .dienst3 {
+                --offset: calc(.75 * var(--colWidth)), calc(1.3 * var(--colWidth)), 0;
+            }
+
+            .dienst4 {
+                --offset: calc(2 * var(--colWidth)), calc(2 * var(--colWidth)), 0;
+            }
+
+            .dienst5 {
+                --offset: calc(0 * var(--colWidth)), calc(4 * var(--colWidth)), 0;
+            }
+
+            .dienst6 {
+                --offset: calc(7.5 * var(--colWidth)), calc(1.1 * var(--colWidth)), 0;
+            }
+
+            .dienst7 {
+                --offset: calc(3 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
+            }
+
+            .dienst8 {
+                --offset: calc(7 * var(--colWidth)), calc(2.2 * var(--colWidth)), 0;
+            }
+
+            .dienst9 {
+                --offset: calc(3.25 * var(--colWidth)), calc(2.7 * var(--colWidth)), 0;
+            }
+
+            .dienst10 {
+                --offset: calc(5.25 * var(--colWidth)), calc(4 * var(--colWidth)), 0;
+            }
+        }
     }
 }
 
@@ -37,15 +85,8 @@ html {
     scroll-snap-type  : y mandatory;
 
     @media screen and (prefers-reduced-motion: reduce) {
-        html {
-            scroll-behavior: auto;
-        }
+        scroll-behavior: auto;
     }
-}
-
-html,
-body {
-    background-image: linear-gradient(white var(--colWidth), var(--hoofdkleur) 0 100%);
 }
 
 body {
@@ -53,7 +94,20 @@ body {
     max-width       : 1200px;
     font-family     : 'Open Sans', sans-serif;
     font-weight     : 400;
-    background-color: var(--tint1);
+    background-color: var(--hoofdkleur);
+
+    &::before {
+        content            : '';
+        position           : fixed;
+        left               : var(--colWidth);
+        right              : var(--colWidth);
+        top                : var(--headerHeight);
+        bottom             : 0;
+        background-size    : contain;
+        background-image   : url('../images/Ornament-achtergrond.svg');
+        background-repeat  : no-repeat;
+        background-position: center;
+    }
 }
 
 a {
@@ -135,9 +189,47 @@ section {
 
     &.diensten {
         text-transform: uppercase;
+        position      : relative;
 
         h1 {
-            display: var(--displayMobile);
+            display      : var(--displayMobile);
+            margin       : 1rem var(--colWidth);
+            padding-block: 1rem;
+            font-size    : .9rem;
+
+            strong+strong:before {
+                content         : '';
+                display         : inline-block;
+                width           : .4rem;
+                height          : .4rem;
+                margin-inline   : .4rem;
+                background-color: white;
+            }
+        }
+
+        .werkLink {
+            display         : var(--hideMobile);
+            position        : absolute;
+            top             : -1rem;
+            left            : calc(5 * var(--colWidth));
+            width           : calc(1.25 * var(--colWidth));
+            height          : calc(1.25 * var(--colWidth));
+            background-color: #000b;
+            padding         : var(--gutterWidth);
+            color           : white;
+            white-space     : nowrap;
+
+            p {
+                line-height: 1.6rem;
+                margin     : 0;
+            }
+
+            b {
+                display    : inline-block;
+                color      : var(--hoofdkleur);
+                margin-left: 1.8rem;
+                scale      : 2 1.8;
+            }
         }
 
         ul {
@@ -145,9 +237,9 @@ section {
             margin-left: var(--colWidth);
             font-size  : .8rem;
             line-height: 2.2rem;
+            min-height : 50vh;
 
             li {
-                position  : absolute;
                 color     : white;
                 transition: all 500ms ease-in-out;
                 transform : translate3d(var(--offset));
@@ -163,53 +255,19 @@ section {
                 }
             }
         }
-
-        &.visible {
-            .dienst1 {
-                --offset: 0, 2rem, 0;
-            }
-
-            .dienst2 {
-                --offset: calc(7 * var(--colWidth)), 2rem, 0;
-            }
-
-            .dienst3 {
-                --offset: calc(.75 * var(--colWidth)), calc(1.3 * var(--colWidth)), 0;
-            }
-
-            .dienst4 {
-                --offset: calc(2 * var(--colWidth)), calc(2 * var(--colWidth)), 0;
-            }
-
-            .dienst5 {
-                --offset: calc(0 * var(--colWidth)), calc(4 * var(--colWidth)), 0;
-            }
-
-            .dienst6 {
-                --offset: calc(7.5 * var(--colWidth)), calc(1.1 * var(--colWidth)), 0;
-            }
-
-            .dienst7 {
-                --offset: calc(3 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
-            }
-
-            .dienst8 {
-                --offset: calc(7 * var(--colWidth)), calc(2.2 * var(--colWidth)), 0;
-            }
-
-            .dienst9 {
-                --offset: calc(3.25 * var(--colWidth)), calc(2.7 * var(--colWidth)), 0;
-            }
-
-            .dienst10 {
-                --offset: calc(5.25 * var(--colWidth)), calc(4 * var(--colWidth)), 0;
-            }
-
-        }
     }
 
     &.fotosWerk {
         display: flex;
+
+        h2 {
+            position   : absolute;
+            color      : white;
+            margin     : 0 0 0 var(--colWidth);
+            font-size  : 1rem;
+            font-weight: 400;
+            line-height: 1;
+        }
 
         .slick {
             position           : relative;
@@ -284,17 +342,7 @@ section {
             background-color: var(--bgColor);
             width           : calc(4.75 * var(--colWidth));
             margin          : 0 0 0 var(--colWidth);
-
-            &::before {
-                content         : '';
-                display         : block;
-                position        : absolute;
-                left            : 0;
-                right           : 0;
-                top             : -1rem;
-                height          : 16px;
-                background-color: inherit;
-            }
+            box-shadow      : 0 -1rem var(--bgColor);
         }
 
         .gegevens {
