@@ -2,7 +2,6 @@
 *::after,
 *::before {
   --hoofdkleur: #a88331;
-  --tint1: #b4934c;
   --maxWidth: 1200px;
   --mobileWidth: 768px;
   --docWidth: min(100vw, var(--maxWidth));
@@ -80,16 +79,17 @@ body {
   background-color: var(--hoofdkleur);
 }
 body::before {
+  --ornamentMargin: calc(((100vw - var(--docWidth)) / 2) + var(--colWidth));
   content: '';
   position: fixed;
-  left: var(--colWidth);
-  right: var(--colWidth);
+  left: var(--ornamentMargin);
+  right: var(--ornamentMargin);
   top: var(--headerHeight);
-  bottom: 0;
+  bottom: -100vh;
   background-size: contain;
   background-image: url('../images/Ornament-achtergrond.svg');
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top;
 }
 a {
   text-decoration: none;
@@ -127,6 +127,7 @@ header h1 {
   margin-block: 0;
   color: var(--hoofdkleur);
   display: var(--hideMobile);
+  letter-spacing: 0.2px;
 }
 header h1 strong {
   display: block;
@@ -144,6 +145,9 @@ header nav ul {
   justify-content: space-between;
   width: calc(3 * var(--colWidth));
   margin-right: var(--colWidth);
+}
+header nav ul li {
+  flex: 0 0 var(--colWidth);
 }
 header nav ul li a {
   display: inline-block;
