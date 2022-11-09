@@ -156,7 +156,7 @@ header nav ul li a:hover {
   border-bottom: 2px solid var(--hoofdkleur);
 }
 section {
-  min-height: calc(100vh - var(--headerHeight));
+  min-height: calc(100vh - var(--headerHeight) - 1rem);
   scroll-snap-align: start;
 }
 section.diensten {
@@ -283,16 +283,17 @@ section.fotosWerk img {
   border: 1px solid #ffffffbb;
   margin: 0 calc(var(--gutterWidth) / 2);
 }
-section.contact {
-  --bgColor: #ffffffbb;
-}
 section.contact .inzet {
+  opacity: 0.8;
   position: relative;
   display: flex;
-  background-color: var(--bgColor);
+  background-color: white;
   width: calc(4.75 * var(--colWidth));
   margin: 0 0 0 var(--colWidth);
-  box-shadow: 0 -1rem var(--bgColor);
+  box-shadow: 0 -1rem white;
+}
+section.contact .inzet * {
+  opacity: 1;
 }
 section.contact .gegevens {
   padding: 1rem var(--gutterWidth) calc(0.4 * var(--colWidth)) var(--gutterWidth);

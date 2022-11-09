@@ -189,7 +189,7 @@ header {
 }
 
 section {
-    min-height       : calc(100vh - var(--headerHeight));
+    min-height       : calc(100vh - var(--headerHeight) - 1rem);
     scroll-snap-align: start;
 
     &.diensten {
@@ -339,15 +339,19 @@ section {
     }
 
     &.contact {
-        --bgColor: #ffffffbb;
 
         .inzet {
+            opacity         : .8;
             position        : relative;
             display         : flex;
-            background-color: var(--bgColor);
+            background-color: white;
             width           : calc(4.75 * var(--colWidth));
             margin          : 0 0 0 var(--colWidth);
-            box-shadow      : 0 -1rem var(--bgColor);
+            box-shadow      : 0 -1rem white;
+
+            * {
+                opacity: 1;
+            }
         }
 
         .gegevens {
