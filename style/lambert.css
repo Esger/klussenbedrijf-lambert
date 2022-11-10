@@ -8,15 +8,33 @@
   --colWidth: calc(var(--docWidth) / 12);
   --gutterWidth: calc(var(--colWidth) / 4);
   --headerHeight: calc(var(--colWidth) * 2);
-  --displayMobile: block;
+  --headerPosition: relative;
+  --showMobile: block;
   --hideMobile: none;
-  --imageHeight: 275px;
-  --slickMargin: var(--colWidth) 0;
+  --slickMargin: 0 var(--colWidth) 1rem;
+  --slickDirection: column;
+  --imageHeight: auto;
+  --imageWidth: 100%;
+  --imageMargin: 0 0 0.5rem;
+  --fontSize: 19px;
+  --inzetWidth: 100vw;
+  --inzetMargin: 0;
+  --inzetPadding: var(--colWidth);
 }
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   :root {
-    --displayMobile: none;
+    --fontSize: 15px;
+    --headerPosition: absolute;
+    --showMobile: none;
     --hideMobile: block;
+    --slickMargin: var(--colWidth) 0;
+    --slickDirection: row;
+    --imageHeight: 275px;
+    --imageWidth: auto;
+    --imageMargin: 0 calc(var(--gutterWidth) / 2);
+    --inzetWidth: 475px;
+    --inzetMargin: var(--colWidth);
+    --inzetPadding: var(--gutterWidth);
   }
   :root .visible.diensten li {
     position: absolute;
@@ -54,7 +72,7 @@
 }
 @media (min-width: 1200px) {
   :root {
-    --displayMobile: none;
+    --showMobile: none;
     --hideMobile: block;
   }
 }
@@ -76,6 +94,7 @@ body {
   max-width: 1200px;
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
+  font-size: var(--fontSize);
   background-color: var(--hoofdkleur);
 }
 body::before {
@@ -101,6 +120,27 @@ ul {
 h1,
 h2 {
   text-transform: uppercase;
+}
+.payOff {
+  padding-block: 1rem;
+  font-size: 1rem;
+}
+.payOff strong {
+  color: black;
+}
+.payOff strong + strong:before {
+  content: '';
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-inline: 0.4rem;
+  background-color: white;
+}
+.hideMobile {
+  display: var(--hideMobile);
+}
+.showMobile {
+  display: var(--showMobile);
 }
 header {
   position: sticky;
@@ -168,18 +208,8 @@ section.diensten {
   position: relative;
 }
 section.diensten h1 {
-  display: var(--displayMobile);
+  display: var(--showMobile);
   margin: 1rem var(--colWidth);
-  padding-block: 1rem;
-  font-size: 0.9rem;
-}
-section.diensten h1 strong + strong:before {
-  content: '';
-  display: inline-block;
-  width: 0.4rem;
-  height: 0.4rem;
-  margin-inline: 0.4rem;
-  background-color: white;
 }
 section.diensten .werkLink {
   display: var(--hideMobile);
@@ -226,9 +256,10 @@ section.diensten ul li:before {
 }
 section.fotosWerk {
   display: flex;
+  flex-direction: var(--slickDirection);
 }
 section.fotosWerk h2 {
-  position: absolute;
+  position: var(--headerPosition);
   color: white;
   margin: 0 0 0 var(--colWidth);
   font-size: 1rem;
@@ -239,7 +270,7 @@ section.fotosWerk h2 {
 section.fotosWerk .slick {
   position: relative;
   display: flex;
-  justify-content: flex-start;
+  flex-direction: var(--slickDirection);
   align-items: center;
   margin: var(--slickMargin);
   scroll-behavior: smooth;
@@ -250,6 +281,10 @@ section.fotosWerk .slick {
 }
 section.fotosWerk .slick::-webkit-scrollbar {
   display: none;
+}
+section.fotosWerk .slick-list {
+  border: solid white;
+  border-width: 0 1px;
 }
 section.fotosWerk li:not(.control) {
   --maxZoom: 1.5;
@@ -286,26 +321,26 @@ section.fotosWerk.slick-next {
 }
 section.fotosWerk img {
   height: var(--imageHeight);
-  width: auto;
+  width: var(--imageWidth);
   border: 1px solid #ffffffbb;
-  margin: 0 calc(var(--gutterWidth) / 2);
+  margin: var(--imageMargin);
 }
 section.contact .inzet {
   opacity: 0.8;
   position: relative;
   display: flex;
   background-color: white;
-  width: calc(4.75 * var(--colWidth));
-  margin: 0 0 0 var(--colWidth);
+  width: var(--inzetWidth);
+  margin: 0 0 0 var(--inzetMargin);
   box-shadow: 0 -1rem white;
 }
 section.contact .inzet * {
   opacity: 1;
 }
 section.contact .gegevens {
-  padding: 1rem var(--gutterWidth) calc(0.4 * var(--colWidth)) var(--gutterWidth);
+  padding: 1rem var(--gutterWidth) calc(0.4 * var(--colWidth)) var(--inzetPadding);
   line-height: 1.8rem;
-  flex: 0 0 calc(3 * var(--colWidth));
+  flex: 0 0 calc(0.6 * var(--inzetWidth));
 }
 section.contact h2,
 section.contact p,

@@ -1,23 +1,41 @@
 :root,
 *::after,
 *::before {
-    --hoofdkleur   : #a88331;
-    --maxWidth     : 1200px;
-    --mobileWidth  : 768px;
-    --docWidth     : ~"min(100vw, var(--maxWidth))";
-    --colWidth     : calc(var(--docWidth) / 12);
-    --gutterWidth  : calc(var(--colWidth) / 4);
-    --headerHeight : calc(var(--colWidth) * 2);
-    --displayMobile: block;
-    --hideMobile   : none;
-    --imageHeight  : 275px;
-    --slickMargin  : var(--colWidth) 0;
+    --hoofdkleur    : #a88331;
+    --maxWidth      : 1200px;
+    --mobileWidth   : 768px;
+    --docWidth      : ~"min(100vw, var(--maxWidth))";
+    --colWidth      : calc(var(--docWidth) / 12);
+    --gutterWidth   : calc(var(--colWidth) / 4);
+    --headerHeight  : calc(var(--colWidth) * 2);
+    --headerPosition: relative;
+    --showMobile    : block;
+    --hideMobile    : none;
+    --slickMargin   : 0 var(--colWidth) 1rem;
+    --slickDirection: column;
+    --imageHeight   : auto;
+    --imageWidth    : 100%;
+    --imageMargin   : 0 0 .5rem;
+    --fontSize      : 19px;
+    --inzetWidth    : 100vw;
+    --inzetMargin   : 0;
+    --inzetPadding  : var(--colWidth);
 }
 
-@media (min-width:768px) {
+@media (min-width:769px) {
     :root {
-        --displayMobile: none;
-        --hideMobile   : block;
+        --fontSize      : 15px;
+        --headerPosition: absolute;
+        --showMobile    : none;
+        --hideMobile    : block;
+        --slickMargin   : var(--colWidth) 0;
+        --slickDirection: row;
+        --imageHeight   : 275px;
+        --imageWidth    : auto;
+        --imageMargin   : 0 calc(var(--gutterWidth) / 2);
+        --inzetWidth    : 475px;
+        --inzetMargin   : var(--colWidth);
+        --inzetPadding  : var(--gutterWidth);
 
         .visible {
             &.diensten li {
@@ -69,8 +87,8 @@
 
 @media (min-width:1200px) {
     :root {
-        --displayMobile: none;
-        --hideMobile   : block;
+        --showMobile: none;
+        --hideMobile: block;
     }
 }
 
@@ -93,6 +111,7 @@ body {
     max-width       : 1200px;
     font-family     : 'Open Sans', sans-serif;
     font-weight     : 400;
+    font-size       : var(--fontSize);
     background-color: var(--hoofdkleur);
 
     &::before {
@@ -122,6 +141,32 @@ ul {
 h1,
 h2 {
     text-transform: uppercase;
+}
+
+.payOff {
+    padding-block: 1rem;
+    font-size    : 1rem;
+
+    strong {
+        color: black;
+    }
+
+    strong+strong:before {
+        content         : '';
+        display         : inline-block;
+        width           : .4rem;
+        height          : .4rem;
+        margin-inline   : .4rem;
+        background-color: white;
+    }
+}
+
+.hideMobile {
+    display: var(--hideMobile);
+}
+
+.showMobile {
+    display: var(--showMobile);
 }
 
 header {
@@ -199,19 +244,8 @@ section {
         position      : relative;
 
         h1 {
-            display      : var(--displayMobile);
-            margin       : 1rem var(--colWidth);
-            padding-block: 1rem;
-            font-size    : .9rem;
-
-            strong+strong:before {
-                content         : '';
-                display         : inline-block;
-                width           : .4rem;
-                height          : .4rem;
-                margin-inline   : .4rem;
-                background-color: white;
-            }
+            display: var(--showMobile);
+            margin : 1rem var(--colWidth);
         }
 
         .werkLink {
@@ -265,10 +299,11 @@ section {
     }
 
     &.fotosWerk {
-        display: flex;
+        display       : flex;
+        flex-direction: var(--slickDirection);
 
         h2 {
-            position      : absolute;
+            position      : var(--headerPosition);
             color         : white;
             margin        : 0 0 0 var(--colWidth);
             font-size     : 1rem;
@@ -280,7 +315,7 @@ section {
         .slick {
             position           : relative;
             display            : flex;
-            justify-content    : flex-start;
+            flex-direction     : var(--slickDirection);
             align-items        : center;
             margin             : var(--slickMargin);
             scroll-behavior    : smooth;
@@ -291,6 +326,11 @@ section {
             &::-webkit-scrollbar {
                 display: none;
             }
+        }
+
+        .slick-list {
+            border      : solid white;
+            border-width: 0 1px;
         }
 
         li {
@@ -337,9 +377,9 @@ section {
 
         img {
             height: var(--imageHeight);
-            width : auto;
+            width : var(--imageWidth);
             border: 1px solid #ffffffbb;
-            margin: 0 calc(var(--gutterWidth) / 2);
+            margin: var(--imageMargin);
         }
     }
 
@@ -350,8 +390,8 @@ section {
             position        : relative;
             display         : flex;
             background-color: white;
-            width           : calc(4.75 * var(--colWidth));
-            margin          : 0 0 0 var(--colWidth);
+            width           : var(--inzetWidth);
+            margin          : 0 0 0 var(--inzetMargin);
             box-shadow      : 0 -1rem white;
 
             * {
@@ -360,9 +400,9 @@ section {
         }
 
         .gegevens {
-            padding    : 1rem var(--gutterWidth) calc(.4 * var(--colWidth)) var(--gutterWidth);
+            padding    : 1rem var(--gutterWidth) calc(.4 * var(--colWidth)) var(--inzetPadding);
             line-height: 1.8rem;
-            flex       : 0 0 calc(3 * var(--colWidth));
+            flex       : 0 0 calc(.6 * var(--inzetWidth));
         }
 
         h2,
