@@ -42,9 +42,6 @@
     --inzetMargin: var(--colWidth);
     --inzetPadding: var(--gutterWidth);
   }
-  :root .visible.diensten li {
-    position: absolute;
-  }
   :root .visible .dienst1 {
     --offset: 0, 2rem, 0;
   }
@@ -171,6 +168,7 @@ h2 {
   color: white;
   white-space: nowrap;
   transition: opacity 0.2s ease-in-out;
+  will-change: opacity;
 }
 .werkLink p {
   line-height: 1.6rem;
@@ -185,7 +183,7 @@ h2 {
 header {
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 10;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;

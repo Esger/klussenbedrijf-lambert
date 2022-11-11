@@ -63,7 +63,6 @@ $(() => {
         };
 
         const setVisibleSection = element => {
-            // $('section').not(element).removeClass('visible');
             $(element).addClass('visible');
         };
 
@@ -79,15 +78,17 @@ $(() => {
 
         const intersectionCallback = (entries) => {
             entries.forEach(entry => {
+                const visibleSection = $(entry.target).closest('section')[0];
                 if (entry.isIntersecting) {
                     if (entry.intersectionRatio >= 0.7) {
-                        const visibleSection = $(entry.target).closest('section')[0];
                         setVisibleSection(visibleSection);
                         const sectionClassname = visibleSection.classList[0];
                         toggleWerklink(sectionClassname);
                         const menuItem = $('nav .' + sectionClassname)[0];
                         setActiveItem(menuItem);
                     }
+                } else {
+                    // $(visibleSection).removeClass('visible');
                 }
             });
         }
