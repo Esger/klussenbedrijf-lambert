@@ -1,27 +1,28 @@
 :root,
 *::after,
 *::before {
-    --hoofdkleur    : #a88331;
-    --maxWidth      : 1200px;
-    --mobileWidth   : 768px;
-    --docWidth      : ~"min(100vw, var(--maxWidth))";
-    --colWidth      : calc(var(--docWidth) / 12);
-    --gutterWidth   : calc(var(--colWidth) / 4);
-    --headerHeight  : calc(var(--colWidth) * 4.5);
-    --headerPadding : calc(1.25 * var(--colWidth)) 0 calc(.75 * var(--colWidth));
-    --headerPosition: relative;
-    --logoHeight    : calc(3 * var(--colWidth));
-    --showMobile    : initial;
-    --hideMobile    : none;
-    --slickMargin   : 0 var(--colWidth) 1rem;
-    --slickDirection: column;
-    --imageHeight   : auto;
-    --imageWidth    : 100%;
-    --imageMargin   : 0 0 .5rem;
-    --fontSize      : 19px;
-    --inzetWidth    : 100vw;
-    --inzetMargin   : 0;
-    --inzetPadding  : var(--colWidth);
+    --hoofdkleur         : #a88331;
+    --maxWidth           : 1200px;
+    --mobileWidth        : 768px;
+    --docWidth           : ~"min(100vw, var(--maxWidth))";
+    --colWidth           : calc(var(--docWidth) / 12);
+    --gutterWidth        : calc(var(--colWidth) / 4);
+    --headerHeight       : calc(var(--colWidth) * 4.5);
+    --headerPaddingBottom: calc(0.15 * var(--headerHeight));
+    --headerPadding      : calc(1.25 * var(--colWidth)) 0 calc(.75 * var(--colWidth));
+    --headerPosition     : relative;
+    --logoHeight         : calc(3 * var(--colWidth));
+    --showMobile         : initial;
+    --hideMobile         : none;
+    --slickMargin        : 0 var(--colWidth) 1rem;
+    --slickDirection     : column;
+    --imageHeight        : auto;
+    --imageWidth         : 100%;
+    --imageMargin        : 0 0 .5rem;
+    --fontSize           : 19px;
+    --inzetWidth         : 100vw;
+    --inzetMargin        : 0;
+    --inzetPadding       : var(--colWidth);
 }
 
 @media (min-width:769px) {
@@ -148,6 +149,18 @@ h2 {
     text-transform: uppercase;
 }
 
+.hide {
+    display: none;
+}
+
+.hideMobile {
+    display: var(--hideMobile);
+}
+
+.showMobile {
+    display: var(--showMobile);
+}
+
 .payOff {
     padding-block: 1rem;
     font-size    : 1rem;
@@ -166,13 +179,40 @@ h2 {
     }
 }
 
-.hideMobile {
-    display: var(--hideMobile);
+.hamburger {
+    width           : calc(0.33 * var(--logoHeight));
+    aspect-ratio    : 1;
+    margin          : 0 var(--colWidth) 0 0;
+    border          : none;
+    background-color: transparent;
+    background-image: repeating-linear-gradient(0deg, black 0 10%, transparent 0 40%);
 }
 
-.showMobile {
-    display: var(--showMobile);
+.werkLink {
+    display         : var(--hideMobile);
+    position        : absolute;
+    top             : calc(100% + var(--headerPaddingBottom));
+    right           : 0;
+    width           : 8rem;
+    height          : 8rem;
+    background-color: #000b;
+    padding         : var(--gutterWidth);
+    color           : white;
+    white-space     : nowrap;
+
+    p {
+        line-height: 1.6rem;
+        margin     : 0;
+    }
+
+    b {
+        display    : inline-block;
+        color      : var(--hoofdkleur);
+        margin-left: 1.8rem;
+        scale      : 2 1.8;
+    }
 }
+
 
 header {
     position        : sticky;
@@ -195,6 +235,7 @@ header {
     }
 
     h1 {
+        position      : relative;
         font-size     : 1rem;
         line-height   : .8;
         margin-block  : 0;
@@ -209,14 +250,6 @@ header {
         }
     }
 
-    .hamburger {
-        width           : calc(0.33 * var(--logoHeight));
-        aspect-ratio    : 1;
-        margin          : 0 var(--colWidth) 0 0;
-        border          : none;
-        background-color: transparent;
-        background-image: repeating-linear-gradient(0deg, black 0 10%, transparent 0 40%);
-    }
 }
 
 nav {
@@ -261,31 +294,6 @@ section {
         h1 {
             display: var(--showMobile);
             margin : 1rem var(--colWidth);
-        }
-
-        .werkLink {
-            display         : var(--hideMobile);
-            position        : absolute;
-            top             : -1rem;
-            left            : calc(5 * var(--colWidth));
-            width           : 8rem;
-            height          : 8rem;
-            background-color: #000b;
-            padding         : var(--gutterWidth);
-            color           : white;
-            white-space     : nowrap;
-
-            p {
-                line-height: 1.6rem;
-                margin     : 0;
-            }
-
-            b {
-                display    : inline-block;
-                color      : var(--hoofdkleur);
-                margin-left: 1.8rem;
-                scale      : 2 1.8;
-            }
         }
 
         ul {

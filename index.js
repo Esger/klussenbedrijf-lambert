@@ -1,28 +1,5 @@
 $(() => {
     const isMobile = window.innerWidth < 769;
-    const setActiveItem = element => {
-        $('nav a').removeClass('active');
-        $(element).addClass('active');
-    };
-    const setVisibleSection = element => {
-        // $('section').not(element).removeClass('visible');
-        $(element).addClass('visible');
-    };
-
-    const intersectionCallback = (entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                if (entry.intersectionRatio >= 0.7) {
-                    const visibleSection = $(entry.target).closest('section')[0];
-                    setVisibleSection(visibleSection);
-                    const sectionClassName = visibleSection.classList[0];
-                    const menuItem = $('nav .' + sectionClassName)[0];
-                    console.log(menuItem, entry.intersectionRatio);
-                    setActiveItem(menuItem);
-                }
-            }
-        });
-    }
 
     const initSlick = _ => {
 
@@ -80,6 +57,34 @@ $(() => {
 
     const activeSectionWatcher = _ => {
 
+        const setActiveItem = element => {
+            $('nav a').removeClass('active');
+            $(element).addClass('active');
+        };
+
+        const setVisibleSection = element => {
+            // $('section').not(element).removeClass('visible');
+            $(element).addClass('visible');
+        };
+
+        const intersectionCallback = (entries) => {
+            const $werkLink = $('.werkLink');
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.intersectionRatio >= 0.7) {
+                        const visibleSection = $(entry.target).closest('section')[0];
+                        setVisibleSection(visibleSection);
+                        const sectionClassname = visibleSection.classList[0];
+                        const menuItem = $('nav .' + sectionClassname)[0];
+                        setActiveItem(menuItem);
+                        if (sectionClassname == 'fotosWerk')
+                            $werkLink.addClass('hide');
+                    }
+                } else
+                    $werkLink.removeClass('hide');
+            });
+        }
+
         const options = {
             root: null,
             threshold: 1.0
@@ -102,6 +107,7 @@ $(() => {
     activeSectionWatcher();
 
     initSlick();
+
     let resizeTimeout;
     $(window).on('resize', _ => {
         if (resizeTimeout) clearTimeout(resizeTimeout);

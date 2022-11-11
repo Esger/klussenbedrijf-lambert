@@ -8,6 +8,7 @@
   --colWidth: calc(var(--docWidth) / 12);
   --gutterWidth: calc(var(--colWidth) / 4);
   --headerHeight: calc(var(--colWidth) * 4.5);
+  --headerPaddingBottom: calc(0.15 * var(--headerHeight));
   --headerPadding: calc(1.25 * var(--colWidth)) 0 calc(0.75 * var(--colWidth));
   --headerPosition: relative;
   --logoHeight: calc(3 * var(--colWidth));
@@ -126,6 +127,15 @@ h1,
 h2 {
   text-transform: uppercase;
 }
+.hide {
+  display: none;
+}
+.hideMobile {
+  display: var(--hideMobile);
+}
+.showMobile {
+  display: var(--showMobile);
+}
 .payOff {
   padding-block: 1rem;
   font-size: 1rem;
@@ -141,11 +151,35 @@ h2 {
   margin-inline: 0.4rem;
   background-color: white;
 }
-.hideMobile {
-  display: var(--hideMobile);
+.hamburger {
+  width: calc(0.33 * var(--logoHeight));
+  aspect-ratio: 1;
+  margin: 0 var(--colWidth) 0 0;
+  border: none;
+  background-color: transparent;
+  background-image: repeating-linear-gradient(0deg, black 0 10%, transparent 0 40%);
 }
-.showMobile {
-  display: var(--showMobile);
+.werkLink {
+  display: var(--hideMobile);
+  position: absolute;
+  top: calc(100% + var(--headerPaddingBottom));
+  right: 0;
+  width: 8rem;
+  height: 8rem;
+  background-color: #000b;
+  padding: var(--gutterWidth);
+  color: white;
+  white-space: nowrap;
+}
+.werkLink p {
+  line-height: 1.6rem;
+  margin: 0;
+}
+.werkLink b {
+  display: inline-block;
+  color: var(--hoofdkleur);
+  margin-left: 1.8rem;
+  scale: 2 1.8;
 }
 header {
   position: sticky;
@@ -167,6 +201,7 @@ header .logo {
   margin-left: var(--colWidth);
 }
 header h1 {
+  position: relative;
   font-size: 1rem;
   line-height: 0.8;
   margin-block: 0;
@@ -178,14 +213,6 @@ header h1 strong {
   display: block;
   font-weight: 600;
   padding-top: 0.8rem;
-}
-header .hamburger {
-  width: calc(0.33 * var(--logoHeight));
-  aspect-ratio: 1;
-  margin: 0 var(--colWidth) 0 0;
-  border: none;
-  background-color: transparent;
-  background-image: repeating-linear-gradient(0deg, black 0 10%, transparent 0 40%);
 }
 nav {
   margin-bottom: -11px;
@@ -223,28 +250,6 @@ section.diensten {
 section.diensten h1 {
   display: var(--showMobile);
   margin: 1rem var(--colWidth);
-}
-section.diensten .werkLink {
-  display: var(--hideMobile);
-  position: absolute;
-  top: -1rem;
-  left: calc(5 * var(--colWidth));
-  width: 8rem;
-  height: 8rem;
-  background-color: #000b;
-  padding: var(--gutterWidth);
-  color: white;
-  white-space: nowrap;
-}
-section.diensten .werkLink p {
-  line-height: 1.6rem;
-  margin: 0;
-}
-section.diensten .werkLink b {
-  display: inline-block;
-  color: var(--hoofdkleur);
-  margin-left: 1.8rem;
-  scale: 2 1.8;
 }
 section.diensten ul {
   padding: 0;
