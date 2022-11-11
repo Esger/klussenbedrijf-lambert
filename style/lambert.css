@@ -128,7 +128,7 @@ h2 {
   text-transform: uppercase;
 }
 .hide {
-  display: none;
+  opacity: 0;
 }
 .hideMobile {
   display: var(--hideMobile);
@@ -170,6 +170,7 @@ h2 {
   padding: var(--gutterWidth);
   color: white;
   white-space: nowrap;
+  transition: opacity 0.2s ease-in-out;
 }
 .werkLink p {
   line-height: 1.6rem;

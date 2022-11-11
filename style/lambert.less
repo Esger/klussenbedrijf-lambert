@@ -150,7 +150,7 @@ h2 {
 }
 
 .hide {
-    display: none;
+    opacity: 0;
 }
 
 .hideMobile {
@@ -199,6 +199,7 @@ h2 {
     padding         : var(--gutterWidth);
     color           : white;
     white-space     : nowrap;
+    transition      : opacity 0.2s ease-in-out;
 
     p {
         line-height: 1.6rem;
