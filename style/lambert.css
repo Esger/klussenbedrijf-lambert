@@ -7,9 +7,11 @@
   --docWidth: min(100vw, var(--maxWidth));
   --colWidth: calc(var(--docWidth) / 12);
   --gutterWidth: calc(var(--colWidth) / 4);
-  --headerHeight: calc(var(--colWidth) * 2);
+  --headerHeight: calc(var(--colWidth) * 4.5);
+  --headerPadding: calc(1.25 * var(--colWidth)) 0 calc(0.75 * var(--colWidth));
   --headerPosition: relative;
-  --showMobile: block;
+  --logoHeight: calc(3 * var(--colWidth));
+  --showMobile: initial;
   --hideMobile: none;
   --slickMargin: 0 var(--colWidth) 1rem;
   --slickDirection: column;
@@ -23,10 +25,13 @@
 }
 @media (min-width: 769px) {
   :root {
+    --headerHeight: calc(var(--colWidth) * 2);
+    --headerPadding: 0 0 calc(0.15 * var(--headerHeight));
+    --logoHeight: calc(0.65 * var(--headerHeight));
     --fontSize: 15px;
     --headerPosition: absolute;
     --showMobile: none;
-    --hideMobile: block;
+    --hideMobile: initial;
     --slickMargin: var(--colWidth) 0;
     --slickDirection: row;
     --imageHeight: 275px;
@@ -73,7 +78,7 @@
 @media (min-width: 1200px) {
   :root {
     --showMobile: none;
-    --hideMobile: block;
+    --hideMobile: initial;
   }
 }
 * {
@@ -150,7 +155,7 @@ header {
   align-items: flex-end;
   justify-content: space-between;
   height: var(--headerHeight);
-  padding-bottom: calc(0.15 * var(--headerHeight));
+  padding: var(--headerPadding);
   background-color: white;
   box-shadow: 0 -600px 0 600px white;
   text-transform: uppercase;
@@ -158,7 +163,7 @@ header {
 header .logo {
   display: block;
   width: auto;
-  height: calc(0.65 * var(--headerHeight));
+  height: var(--logoHeight);
   margin-left: var(--colWidth);
 }
 header h1 {
@@ -174,10 +179,18 @@ header h1 strong {
   font-weight: 600;
   padding-top: 0.8rem;
 }
-header nav {
+header .hamburger {
+  width: calc(0.33 * var(--logoHeight));
+  aspect-ratio: 1;
+  margin: 0 var(--colWidth) 0 0;
+  border: none;
+  background-color: transparent;
+  background-image: repeating-linear-gradient(0deg, black 0 10%, transparent 0 40%);
+}
+nav {
   margin-bottom: -11px;
 }
-header nav ul {
+nav ul {
   font-size: 1rem;
   margin: 0;
   padding: 0;
@@ -186,17 +199,17 @@ header nav ul {
   width: calc(3 * var(--colWidth));
   margin-right: var(--colWidth);
 }
-header nav ul li {
+nav ul li {
   flex: 0 0 var(--colWidth);
 }
-header nav ul li a {
+nav ul li a {
   display: inline-block;
   color: black;
   padding-bottom: 0.3rem;
   border-bottom: 2px solid transparent;
 }
-header nav ul li a.active,
-header nav ul li a:hover {
+nav ul li a.active,
+nav ul li a:hover {
   border-bottom: 2px solid var(--hoofdkleur);
 }
 section {
@@ -216,8 +229,8 @@ section.diensten .werkLink {
   position: absolute;
   top: -1rem;
   left: calc(5 * var(--colWidth));
-  width: calc(1.25 * var(--colWidth));
-  height: calc(1.25 * var(--colWidth));
+  width: 8rem;
+  height: 8rem;
   background-color: #000b;
   padding: var(--gutterWidth);
   color: white;
