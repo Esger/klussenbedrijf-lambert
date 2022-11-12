@@ -55,31 +55,33 @@
     --offset: 0, 2rem, 0;
   }
   .visible .dienst2 {
-    --offset: calc(7 * var(--colWidth)), 2rem, 0;
+    --offset: calc(6.5 * var(--colWidth)), 0, 0;
   }
   .visible .dienst3 {
-    --offset: calc(0.75 * var(--colWidth)), calc(1.3 * var(--colWidth)), 0;
+    --offset: calc(0.75 * var(--colWidth)), calc(.75 * var(--colWidth)), 0;
   }
   .visible .dienst4 {
     --offset: calc(2 * var(--colWidth)), calc(2 * var(--colWidth)), 0;
   }
   .visible .dienst5 {
-    --offset: calc(0 * var(--colWidth)), calc(4 * var(--colWidth)), 0;
+    --offset: calc(0 * var(--colWidth)), calc(5.5 * var(--colWidth)), 0;
   }
   .visible .dienst6 {
-    --offset: calc(7.5 * var(--colWidth)), calc(1.1 * var(--colWidth)), 0;
+    --offset: calc(7.5 * var(--colWidth)), calc(.5 * var(--colWidth)), 0;
   }
   .visible .dienst7 {
-    --offset: calc(3 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
+    --offset: calc(1.25 * var(--colWidth)),
+                calc(2.25 * var(--colWidth)),
+                0;
   }
   .visible .dienst8 {
-    --offset: calc(7 * var(--colWidth)), calc(2.2 * var(--colWidth)), 0;
+    --offset: calc(7 * var(--colWidth)), calc(1.25 * var(--colWidth)), 0;
   }
   .visible .dienst9 {
-    --offset: calc(3.25 * var(--colWidth)), calc(2.7 * var(--colWidth)), 0;
+    --offset: calc(3.5 * var(--colWidth)), calc(2 * var(--colWidth)), 0;
   }
   .visible .dienst10 {
-    --offset: calc(5.25 * var(--colWidth)), calc(4 * var(--colWidth)), 0;
+    --offset: calc(5.25 * var(--colWidth)), calc(3 * var(--colWidth)), 0;
   }
 }
 @media (min-width: 1200px) {
@@ -169,7 +171,7 @@ h3 {
   display: inline-block;
   width: 0.4rem;
   height: 0.4rem;
-  margin-inline: 0.4rem;
+  margin-inline: 0 0.4rem;
   background-color: white;
 }
 .hamburger {
@@ -292,7 +294,7 @@ nav ul li a:hover {
   display: inline-block;
   width: 0.4rem;
   height: 0.4rem;
-  margin-inline: 0.4rem;
+  margin-inline: 0 0.4rem;
   background-color: var(--accentKleur);
   margin-block: auto 7px;
   border-bottom: none;
@@ -319,21 +321,27 @@ section.diensten ul {
   padding: 0;
   margin-left: var(--colWidth);
   font-size: var(--fontSize);
-  line-height: 2.2rem;
+  line-height: 1.4rem;
   min-height: 50vh;
 }
 section.diensten ul li {
+  padding-block: 0.4rem;
   color: white;
   transition: all 500ms ease-in-out;
   transform: translate3d(var(--offset));
   --ofset: 0, 0, 0;
+}
+.DESKTOP section.diensten ul li.limitWidth {
+  max-width: calc(3.3 * var(--colWidth));
+  text-indent: -1.3rem;
+  margin-left: 1.3rem;
 }
 section.diensten ul li:before {
   content: '';
   display: inline-block;
   width: 0.75rem;
   height: 0.75rem;
-  margin-inline: 0.75rem;
+  margin-inline: 0 0.75rem;
   background-color: black;
   margin-right: 0.5rem;
 }
