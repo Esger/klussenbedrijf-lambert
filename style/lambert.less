@@ -221,12 +221,14 @@ h3 {
 }
 
 .werkLink {
-    display         : var(--hideMobile);
+    display         : flex;
+    flex-direction  : column;
+    justify-content : center;
     position        : absolute;
     top             : calc(100% + var(--headerPaddingBottom));
     right           : 0;
-    width           : 8rem;
-    height          : 8rem;
+    width           : calc(100% + 1 * var(--gutterWidth));
+    aspect-ratio    : 1;
     background-color: #000b;
     padding         : var(--gutterWidth);
     color           : white;
@@ -234,8 +236,12 @@ h3 {
     transition      : opacity 0.2s ease-in-out;
     will-change     : opacity;
 
+    .MOBILE & {
+        display: none;
+    }
+
     p {
-        line-height: 1.6rem;
+        line-height: 1.7rem;
         margin     : 0;
     }
 
@@ -395,7 +401,7 @@ section {
 
                 .DESKTOP & {
                     &.limitWidth {
-                        max-width  : calc(3.3 * var(--colWidth));
+                        max-width  : calc(3.33 * var(--colWidth));
                         text-indent: -1.3rem;
                         margin-left: 1.3rem;
                     }
