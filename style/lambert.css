@@ -136,7 +136,8 @@ ul {
   padding: 0;
 }
 h1,
-h2 {
+h2,
+h3 {
   text-transform: uppercase;
 }
 .hide {
@@ -151,6 +152,10 @@ h2 {
 .payOff {
   padding-block: 1rem;
   font-size: 1rem;
+  display: block;
+}
+.MOBILE .payOff {
+  margin: 0 0 0 var(--colWidth);
 }
 .payOff strong {
   color: black;
@@ -224,6 +229,12 @@ header h1 {
   display: var(--hideMobile);
   letter-spacing: 0.2px;
 }
+.MOBILE header h1 {
+  position: absolute;
+  left: var(--colWidth);
+  top: 100%;
+  width: 100%;
+}
 header h1 strong {
   display: block;
   font-weight: 600;
@@ -294,8 +305,11 @@ section.diensten {
   position: relative;
 }
 section.diensten h1 {
-  display: var(--showMobile);
+  display: none;
   margin: 1rem var(--colWidth);
+}
+.MOBILE section.diensten h1 {
+  display: block;
 }
 section.diensten ul {
   padding: 0;
@@ -390,6 +404,12 @@ section.fotosWerk img {
   border: 1px solid #ffffffbb;
   margin: var(--imageMargin);
 }
+.DESKTOP section.contact h2 {
+  display: none;
+}
+.MOBILE section.contact h2 {
+  display: block;
+}
 section.contact .inzet {
   opacity: 0.8;
   position: relative;
@@ -397,7 +417,6 @@ section.contact .inzet {
   background-color: white;
   width: var(--inzetWidth);
   margin: 0 0 0 var(--inzetMargin);
-  box-shadow: 0 -1rem white;
 }
 section.contact .inzet * {
   opacity: 1;
@@ -407,7 +426,7 @@ section.contact .gegevens {
   line-height: 1.8rem;
   flex: 0 0 calc(0.6 * var(--inzetWidth));
 }
-section.contact h2,
+section.contact h3,
 section.contact p,
 section.contact a {
   color: black;
@@ -415,12 +434,12 @@ section.contact a {
   font-size: 1rem;
   font-weight: 400;
 }
-section.contact h2 + h2,
-section.contact p + h2,
-section.contact a + h2 {
+section.contact h3 + h3,
+section.contact p + h3,
+section.contact a + h3 {
   margin-top: 1rem;
 }
-section.contact h2:last-child {
+section.contact h3:last-child {
   text-transform: none;
 }
 section.contact p span {

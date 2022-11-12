@@ -157,7 +157,8 @@ ul {
 }
 
 h1,
-h2 {
+h2,
+h3 {
     text-transform: uppercase;
 }
 
@@ -185,6 +186,11 @@ h2 {
 .payOff {
     padding-block: 1rem;
     font-size    : 1rem;
+    display      : block;
+
+    .MOBILE & {
+        margin: 0 0 0 var(--colWidth);
+    }
 
     strong {
         color: black;
@@ -261,6 +267,15 @@ header {
         color         : var(--hoofdKleur);
         display       : var(--hideMobile);
         letter-spacing: .2px;
+
+        .MOBILE & {
+            position: absolute;
+            left    : var(--colWidth);
+            top     : 100%;
+            width   : 100%;
+        }
+
+        .DESKTOP & {}
 
         strong {
             display    : block;
@@ -344,8 +359,12 @@ section {
         position      : relative;
 
         h1 {
-            display: var(--showMobile);
+            display: none;
             margin : 1rem var(--colWidth);
+
+            .MOBILE & {
+                display: block;
+            }
         }
 
         ul {
@@ -457,6 +476,16 @@ section {
 
     &.contact {
 
+        h2 {
+            .DESKTOP & {
+                display: none;
+            }
+
+            .MOBILE & {
+                display: block;
+            }
+        }
+
         .inzet {
             opacity         : .8;
             position        : relative;
@@ -464,7 +493,6 @@ section {
             background-color: white;
             width           : var(--inzetWidth);
             margin          : 0 0 0 var(--inzetMargin);
-            box-shadow      : 0 -1rem white;
 
             * {
                 opacity: 1;
@@ -477,7 +505,7 @@ section {
             flex       : 0 0 calc(.6 * var(--inzetWidth));
         }
 
-        h2,
+        h3,
         p,
         a {
             color      : black;
@@ -485,12 +513,12 @@ section {
             font-size  : 1rem;
             font-weight: 400;
 
-            &+h2 {
+            &+h3 {
                 margin-top: 1rem;
             }
         }
 
-        h2:last-child {
+        h3:last-child {
             text-transform: none;
         }
 
