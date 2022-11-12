@@ -59,46 +59,50 @@
     }
 
     .visible {
-        .dienst1 {
-            --offset: 0, 2rem, 0;
-        }
+        @media (prefers-reduced-motion: no-preference) {
 
-        .dienst2 {
-            --offset: calc(6.5 * var(--colWidth)), 0, 0;
-        }
+            .dienst1 {
+                --offset: 0, 2rem, 0;
+            }
 
-        .dienst3 {
-            --offset: calc(.75 * var(--colWidth)), calc(.75 * var(--colWidth)), 0;
-        }
+            .dienst2 {
+                --offset: calc(6.5 * var(--colWidth)), 0, 0;
+            }
 
-        .dienst4 {
-            --offset: calc(2 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
-        }
+            .dienst3 {
+                --offset: calc(.75 * var(--colWidth)), calc(.75 * var(--colWidth)), 0;
+            }
 
-        .dienst5 {
-            --offset: calc(0 * var(--colWidth)), calc(3.5 * var(--colWidth)), 0;
-        }
+            .dienst4 {
+                --offset: calc(2 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
+            }
 
-        .dienst6 {
-            --offset: calc(7.5 * var(--colWidth)), calc(0 * var(--colWidth)), 0;
-        }
+            .dienst5 {
+                --offset: calc(0 * var(--colWidth)), calc(3.5 * var(--colWidth)), 0;
+            }
 
-        .dienst7 {
-            --offset: calc(1.25 * var(--colWidth)),
-                calc(1.25 * var(--colWidth)),
-                0;
-        }
+            .dienst6 {
+                --offset: calc(7.5 * var(--colWidth)), calc(0 * var(--colWidth)), 0;
+            }
 
-        .dienst8 {
-            --offset: calc(7 * var(--colWidth)), calc(.25 * var(--colWidth)), 0;
-        }
+            .dienst7 {
+                --offset: calc(1.25 * var(--colWidth)),
+                    calc(1.25 * var(--colWidth)),
+                    0;
+            }
 
-        .dienst9 {
-            --offset: calc(3.5 * var(--colWidth)), calc(1 * var(--colWidth)), 0;
-        }
+            .dienst8 {
+                --offset: calc(7 * var(--colWidth)), calc(.25 * var(--colWidth)), 0;
+            }
 
-        .dienst10 {
-            --offset: calc(5.25 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
+            .dienst9 {
+                --offset: calc(3.5 * var(--colWidth)), calc(1 * var(--colWidth)), 0;
+            }
+
+            .dienst10 {
+                --offset: calc(5.25 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
+            }
+
         }
     }
 }
@@ -287,6 +291,7 @@ header {
         color         : var(--hoofdKleur);
         display       : var(--hideMobile);
         letter-spacing: .2px;
+        text-shadow   : 0.3px 0.3px black;
 
         .MOBILE & {
             position: absolute;
@@ -392,6 +397,7 @@ section {
             font-size  : var(--fontSize); //* .8
             line-height: 1.4rem;
             min-height : 50vh;
+            text-shadow: 0.5px 0.5px black;
 
             li {
                 padding-block: .4rem;

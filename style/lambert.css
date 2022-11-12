@@ -51,6 +51,8 @@
     --inzetMargin: var(--colWidth);
     --inzetPadding: var(--gutterWidth);
   }
+}
+@media (min-width: 769px) and (prefers-reduced-motion: no-preference) {
   .visible .dienst1 {
     --offset: 0, 2rem, 0;
   }
@@ -71,8 +73,8 @@
   }
   .visible .dienst7 {
     --offset: calc(1.25 * var(--colWidth)),
-                calc(1.25 * var(--colWidth)),
-                0;
+                    calc(1.25 * var(--colWidth)),
+                    0;
   }
   .visible .dienst8 {
     --offset: calc(7 * var(--colWidth)), calc(.25 * var(--colWidth)), 0;
@@ -243,6 +245,7 @@ header h1 {
   color: var(--hoofdKleur);
   display: var(--hideMobile);
   letter-spacing: 0.2px;
+  text-shadow: 0.3px 0.3px black;
 }
 .MOBILE header h1 {
   position: absolute;
@@ -333,6 +336,7 @@ section.diensten ul {
   font-size: var(--fontSize);
   line-height: 1.4rem;
   min-height: 50vh;
+  text-shadow: 0.5px 0.5px black;
 }
 section.diensten ul li {
   padding-block: 0.4rem;
