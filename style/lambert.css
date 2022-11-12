@@ -1,30 +1,34 @@
-:root,
-*::after,
-*::before {
-  --hoofdKleur: #a88331;
-  --maxWidth: 1200px;
-  --mobileWidth: 768px;
-  --docWidth: min(100vw, var(--maxWidth));
-  --colWidth: calc(var(--docWidth) / 12);
-  --gutterWidth: calc(var(--colWidth) / 4);
-  --headerHeight: calc(var(--colWidth) * 4.5);
-  --headerPaddingBottom: calc(0.15 * var(--headerHeight));
-  --headerPadding: calc(1.25 * var(--colWidth)) 0 calc(0.75 * var(--colWidth));
-  --headerPosition: relative;
-  --logoHeight: calc(3 * var(--colWidth));
-  --navItemWidth: auto;
-  --navItemFlex: 1;
-  --showMobile: initial;
-  --hideMobile: none;
-  --slickMargin: 0 var(--colWidth) 1rem;
-  --mobileDirection: column;
-  --imageHeight: auto;
-  --imageWidth: 100%;
-  --imageMargin: 0 0 0.5rem;
-  --fontSize: 19px;
-  --inzetWidth: 100vw;
-  --inzetMargin: 0;
-  --inzetPadding: var(--colWidth);
+@media (min-width: 310px) {
+  :root,
+  *::after,
+  *::before {
+    --hoofdKleur: #a88331;
+    --maxWidth: 1200px;
+    --mobileWidth: 768px;
+    --docWidth: min(100vw, var(--maxWidth));
+    --colWidth: calc(var(--docWidth) / 12);
+    --gutterWidth: calc(var(--colWidth) / 4);
+    --headerHeight: calc(var(--colWidth) * 4.5);
+    --headerPaddingBottom: calc(0.15 * var(--headerHeight));
+    --headerPadding: calc(1.25 * var(--colWidth)) 0 calc(0.75 * var(--colWidth));
+    --headerPosition: relative;
+    --logoHeight: calc(3 * var(--colWidth));
+    --navItemWidth: auto;
+    --navItemFlex: 1;
+    --showMobile: initial;
+    --hideMobile: none;
+    --slickMargin: 0 var(--colWidth) 1rem;
+    --mobileDirection: column;
+    --imageHeight: auto;
+    --imageWidth: 100%;
+    --imageMargin: 0 0 0.5rem;
+    --fontSize: calc(0.9375rem + ((1vw - 3.1px) * 0.4494));
+    --inzetWidth: 100vw;
+    --inzetMargin: 0;
+    --inzetPadding: var(--colWidth);
+    /* Safari resize fix */
+    min-height: 0vw;
+  }
 }
 @media (min-width: 769px) {
   :root,
@@ -33,7 +37,6 @@
     --headerHeight: calc(var(--colWidth) * 2);
     --headerPadding: 0 0 calc(0.15 * var(--headerHeight));
     --logoHeight: calc(0.65 * var(--headerHeight));
-    --fontSize: 15px;
     --headerPosition: absolute;
     --navItemWidth: calc(3 * var(--colWidth));
     --navItemFlex: 0 0 var(--colWidth);
@@ -83,6 +86,7 @@
   :root {
     --showMobile: none;
     --hideMobile: initial;
+    --fontSize: 19px;
   }
 }
 * {
@@ -151,7 +155,7 @@ h3 {
 }
 .payOff {
   padding-block: 1rem;
-  font-size: 1rem;
+  font-size: var(--fontSize);
   display: block;
 }
 .MOBILE .payOff {
@@ -222,7 +226,7 @@ header .logo {
 }
 header h1 {
   position: relative;
-  font-size: 1rem;
+  font-size: var(--fontSize);
   line-height: 0.8;
   margin-block: 0;
   color: var(--hoofdKleur);
@@ -244,7 +248,7 @@ nav {
   margin-bottom: -11px;
 }
 nav ul {
-  font-size: 1rem;
+  font-size: var(--fontSize);
   margin: 0 -1rem -1rem 0;
   padding: 0;
   display: flex;
@@ -314,7 +318,7 @@ section.diensten h1 {
 section.diensten ul {
   padding: 0;
   margin-left: var(--colWidth);
-  font-size: 0.8rem;
+  font-size: var(--fontSize);
   line-height: 2.2rem;
   min-height: 50vh;
 }
@@ -341,7 +345,7 @@ section.fotosWerk h2 {
   position: var(--headerPosition);
   color: white;
   margin: 0 0 0 var(--colWidth);
-  font-size: 1rem;
+  font-size: var(--fontSize);
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.2px;
@@ -434,7 +438,7 @@ section.contact p,
 section.contact a {
   color: black;
   margin: 0;
-  font-size: 1rem;
+  font-size: var(--fontSize);
   font-weight: 400;
 }
 section.contact h3 + h3,
