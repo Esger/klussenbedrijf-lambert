@@ -1,5 +1,16 @@
 $(() => {
-    const isMobile = window.innerWidth < 769;
+    let isMobile;
+
+    const initMobile = () => {
+        isMobile = window.innerWidth < 769;
+        if (isMobile) {
+            $('body').removeClass('DESKTOP');
+            $('body').addClass('MOBILE');
+        } else {
+            $('body').removeClass('MOBILE');
+            $('body').addClass('DESKTOP');
+        }
+    }
 
     const initSlick = _ => {
 
@@ -111,6 +122,34 @@ $(() => {
         });
     }
 
+    const initHamburger = _ => {
+        const $nav = $('header nav');
+        const $hamburger = $('.hamburger');
+        const $navItem = $('nav a');
+        const setMobile = _ => {
+            $nav.hide('slow');
+            $hamburger.show('slow');
+        }
+        const setDesktop = _ => {
+            $nav.show('slow');
+            $hamburger.hide('slow');
+        }
+        isMobile ? setMobile() : setDesktop();
+
+        $hamburger.off('click').on('click', _ => {
+            setDesktop();
+        });
+        $navItem.off('click').on('click', _ => {
+            if (isMobile) {
+                setMobile();
+            }
+
+        });
+    }
+
+    initMobile();
+
+    initHamburger();
 
     activeSectionWatcher();
 
@@ -120,7 +159,9 @@ $(() => {
     $(window).on('resize', _ => {
         if (resizeTimeout) clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(_ => {
+            initMobile();
             initSlick();
+            initHamburger();
         }, 50);
     });
 

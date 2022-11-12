@@ -12,10 +12,12 @@
   --headerPadding: calc(1.25 * var(--colWidth)) 0 calc(0.75 * var(--colWidth));
   --headerPosition: relative;
   --logoHeight: calc(3 * var(--colWidth));
+  --navItemWidth: auto;
+  --navItemFlex: 1;
   --showMobile: initial;
   --hideMobile: none;
   --slickMargin: 0 var(--colWidth) 1rem;
-  --slickDirection: column;
+  --mobileDirection: column;
   --imageHeight: auto;
   --imageWidth: 100%;
   --imageMargin: 0 0 0.5rem;
@@ -25,16 +27,20 @@
   --inzetPadding: var(--colWidth);
 }
 @media (min-width: 769px) {
-  :root {
+  :root,
+  *::after,
+  *::before {
     --headerHeight: calc(var(--colWidth) * 2);
     --headerPadding: 0 0 calc(0.15 * var(--headerHeight));
     --logoHeight: calc(0.65 * var(--headerHeight));
     --fontSize: 15px;
     --headerPosition: absolute;
+    --navItemWidth: calc(3 * var(--colWidth));
+    --navItemFlex: 0 0 var(--colWidth);
     --showMobile: none;
     --hideMobile: initial;
     --slickMargin: var(--colWidth) 0;
-    --slickDirection: row;
+    --mobileDirection: row;
     --imageHeight: 275px;
     --imageWidth: auto;
     --imageMargin: 0 calc(var(--gutterWidth) / 2);
@@ -42,34 +48,54 @@
     --inzetMargin: var(--colWidth);
     --inzetPadding: var(--gutterWidth);
   }
-  :root .visible .dienst1 {
+  :root .visible .dienst1,
+  *::after .visible .dienst1,
+  *::before .visible .dienst1 {
     --offset: 0, 2rem, 0;
   }
-  :root .visible .dienst2 {
+  :root .visible .dienst2,
+  *::after .visible .dienst2,
+  *::before .visible .dienst2 {
     --offset: calc(7 * var(--colWidth)), 2rem, 0;
   }
-  :root .visible .dienst3 {
+  :root .visible .dienst3,
+  *::after .visible .dienst3,
+  *::before .visible .dienst3 {
     --offset: calc(0.75 * var(--colWidth)), calc(1.3 * var(--colWidth)), 0;
   }
-  :root .visible .dienst4 {
+  :root .visible .dienst4,
+  *::after .visible .dienst4,
+  *::before .visible .dienst4 {
     --offset: calc(2 * var(--colWidth)), calc(2 * var(--colWidth)), 0;
   }
-  :root .visible .dienst5 {
+  :root .visible .dienst5,
+  *::after .visible .dienst5,
+  *::before .visible .dienst5 {
     --offset: calc(0 * var(--colWidth)), calc(4 * var(--colWidth)), 0;
   }
-  :root .visible .dienst6 {
+  :root .visible .dienst6,
+  *::after .visible .dienst6,
+  *::before .visible .dienst6 {
     --offset: calc(7.5 * var(--colWidth)), calc(1.1 * var(--colWidth)), 0;
   }
-  :root .visible .dienst7 {
+  :root .visible .dienst7,
+  *::after .visible .dienst7,
+  *::before .visible .dienst7 {
     --offset: calc(3 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
   }
-  :root .visible .dienst8 {
+  :root .visible .dienst8,
+  *::after .visible .dienst8,
+  *::before .visible .dienst8 {
     --offset: calc(7 * var(--colWidth)), calc(2.2 * var(--colWidth)), 0;
   }
-  :root .visible .dienst9 {
+  :root .visible .dienst9,
+  *::after .visible .dienst9,
+  *::before .visible .dienst9 {
     --offset: calc(3.25 * var(--colWidth)), calc(2.7 * var(--colWidth)), 0;
   }
-  :root .visible .dienst10 {
+  :root .visible .dienst10,
+  *::after .visible .dienst10,
+  *::before .visible .dienst10 {
     --offset: calc(5.25 * var(--colWidth)), calc(4 * var(--colWidth)), 0;
   }
 }
@@ -105,13 +131,22 @@ body::before {
   content: '';
   position: fixed;
   left: var(--ornamentMargin);
-  right: var(--ornamentMargin);
+  right: 0;
   top: var(--headerHeight);
-  bottom: -100vh;
-  background-size: contain;
-  background-image: url('../images/Ornament-achtergrond.svg');
+  bottom: 0;
+  background-size: 150%;
+  background-image: url(../images/Ornament-achtergrond.svg);
   background-repeat: no-repeat;
-  background-position: top;
+  background-position: -92% 30%;
+}
+@media (min-width: 768px) {
+  body::before {
+    right: var(--ornamentMargin);
+    top: var(--headerHeight);
+    bottom: -100vh;
+    background-size: contain;
+    background-position: top;
+  }
 }
 a {
   text-decoration: none;
@@ -155,6 +190,7 @@ h2 {
   border: none;
   background-color: transparent;
   background-image: repeating-linear-gradient(0deg, black 0 10%, transparent 0 40%);
+  cursor: pointer;
 }
 .werkLink {
   display: var(--hideMobile);
@@ -218,25 +254,53 @@ nav {
 }
 nav ul {
   font-size: 1rem;
-  margin: 0;
+  margin: 0 -1rem -1rem 0;
   padding: 0;
   display: flex;
-  justify-content: space-between;
-  width: calc(3 * var(--colWidth));
+  flex-direction: var(--mobileDirection);
+  width: var(--navItemWidth);
   margin-right: var(--colWidth);
 }
+.MOBILE nav ul {
+  border: 1px solid #ccc;
+  padding: 1.2rem 1.5rem 1rem 1rem;
+  line-height: 1.6rem;
+  margin: 0 calc(var(--colWidth) - 1.5rem) 0 0;
+}
+.DESKTOP nav ul {
+  margin: 0 var(--colWidth) 0 0;
+  justify-content: space-between;
+}
 nav ul li {
-  flex: 0 0 var(--colWidth);
+  flex: var(--navItemFlex);
 }
 nav ul li a {
-  display: inline-block;
+  display: inline-flex;
+  align-items: flex-end;
   color: black;
   padding-bottom: 0.3rem;
   border-bottom: 2px solid transparent;
+  border-bottom: none;
+}
+.MOBILE nav ul li a {
+  --blokKleur: transparent;
+}
+.MOBILE nav ul li a::before {
+  content: '';
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-inline: 0.4rem;
+  background-color: var(--blokKleur);
+  margin-block: auto 7px;
+}
+.MOBILE nav ul li a.active::before {
+  --blokKleur: var(--hoofdkleur);
 }
 nav ul li a.active,
 nav ul li a:hover {
   border-bottom: 2px solid var(--hoofdkleur);
+  border-bottom: none;
 }
 section {
   min-height: calc(100vh - var(--headerHeight) - 1rem);
@@ -268,12 +332,13 @@ section.diensten ul li:before {
   display: inline-block;
   width: 0.75rem;
   height: 0.75rem;
-  margin-right: 0.5rem;
+  margin-inline: 0.75rem;
   background-color: black;
+  margin-right: 0.5rem;
 }
 section.fotosWerk {
   display: flex;
-  flex-direction: var(--slickDirection);
+  flex-direction: var(--mobileDirection);
 }
 section.fotosWerk h2 {
   position: var(--headerPosition);
@@ -287,7 +352,7 @@ section.fotosWerk h2 {
 section.fotosWerk .slick {
   position: relative;
   display: flex;
-  flex-direction: var(--slickDirection);
+  flex-direction: var(--mobileDirection);
   align-items: center;
   margin: var(--slickMargin);
   scroll-behavior: smooth;

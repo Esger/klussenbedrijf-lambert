@@ -12,10 +12,12 @@
     --headerPadding      : calc(1.25 * var(--colWidth)) 0 calc(.75 * var(--colWidth));
     --headerPosition     : relative;
     --logoHeight         : calc(3 * var(--colWidth));
+    --navItemWidth       : auto;
+    --navItemFlex        : 1;
     --showMobile         : initial;
     --hideMobile         : none;
     --slickMargin        : 0 var(--colWidth) 1rem;
-    --slickDirection     : column;
+    --mobileDirection    : column;
     --imageHeight        : auto;
     --imageWidth         : 100%;
     --imageMargin        : 0 0 .5rem;
@@ -26,22 +28,27 @@
 }
 
 @media (min-width:769px) {
-    :root {
-        --headerHeight  : calc(var(--colWidth) * 2);
-        --headerPadding : 0 0 calc(0.15 * var(--headerHeight));
-        --logoHeight    : calc(.65 * var(--headerHeight));
-        --fontSize      : 15px;
-        --headerPosition: absolute;
-        --showMobile    : none;
-        --hideMobile    : initial;
-        --slickMargin   : var(--colWidth) 0;
-        --slickDirection: row;
-        --imageHeight   : 275px;
-        --imageWidth    : auto;
-        --imageMargin   : 0 calc(var(--gutterWidth) / 2);
-        --inzetWidth    : 475px;
-        --inzetMargin   : var(--colWidth);
-        --inzetPadding  : var(--gutterWidth);
+
+    :root,
+    *::after,
+    *::before {
+        --headerHeight   : calc(var(--colWidth) * 2);
+        --headerPadding  : 0 0 calc(0.15 * var(--headerHeight));
+        --logoHeight     : calc(.65 * var(--headerHeight));
+        --fontSize       : 15px;
+        --headerPosition : absolute;
+        --navItemWidth   : calc(3 * var(--colWidth));
+        --navItemFlex    : 0 0 var(--colWidth);
+        --showMobile     : none;
+        --hideMobile     : initial;
+        --slickMargin    : var(--colWidth) 0;
+        --mobileDirection: row;
+        --imageHeight    : 275px;
+        --imageWidth     : auto;
+        --imageMargin    : 0 calc(var(--gutterWidth) / 2);
+        --inzetWidth     : 475px;
+        --inzetMargin    : var(--colWidth);
+        --inzetPadding   : var(--gutterWidth);
 
         .visible {
             .dienst1 {
@@ -121,13 +128,21 @@ body {
         content            : '';
         position           : fixed;
         left               : var(--ornamentMargin);
-        right              : var(--ornamentMargin);
+        right              : 0;
         top                : var(--headerHeight);
-        bottom             : -100vh;
-        background-size    : contain;
-        background-image   : url('../images/Ornament-achtergrond.svg');
+        bottom             : 0;
+        background-size    : 150%;
+        background-image   : url(../images/Ornament-achtergrond.svg);
         background-repeat  : no-repeat;
-        background-position: top;
+        background-position: -92% 30%;
+
+        @media (min-width: 768px) {
+            right              : var(--ornamentMargin);
+            top                : var(--headerHeight);
+            bottom             : -100vh;
+            background-size    : contain;
+            background-position: top;
+        }
     }
 }
 
@@ -157,6 +172,15 @@ h2 {
     display: var(--showMobile);
 }
 
+.squareBefore(@color, @size) {
+    content         : '';
+    display         : inline-block;
+    width           : @size;
+    height          : @size;
+    margin-inline   : @size;
+    background-color: @color;
+}
+
 .payOff {
     padding-block: 1rem;
     font-size    : 1rem;
@@ -166,12 +190,7 @@ h2 {
     }
 
     strong+strong:before {
-        content         : '';
-        display         : inline-block;
-        width           : .4rem;
-        height          : .4rem;
-        margin-inline   : .4rem;
-        background-color: white;
+        .squareBefore(white, .4rem);
     }
 }
 
@@ -182,6 +201,7 @@ h2 {
     border          : none;
     background-color: transparent;
     background-image: repeating-linear-gradient(0deg, black 0 10%, transparent 0 40%);
+    cursor          : pointer;
 }
 
 .werkLink {
@@ -254,26 +274,54 @@ nav {
     margin-bottom: -11px;
 
     ul {
-        font-size      : 1rem;
-        margin         : 0;
-        padding        : 0;
-        display        : flex;
-        justify-content: space-between;
-        width          : calc(3 * var(--colWidth));
-        margin-right   : var(--colWidth);
+        font-size     : 1rem;
+        margin        : 0 -1rem -1rem 0;
+        padding       : 0;
+        display       : flex;
+        flex-direction: var(--mobileDirection);
+        width         : var(--navItemWidth);
+        margin-right  : var(--colWidth);
+
+        .MOBILE & {
+            border     : 1px solid #ccc;
+            padding    : 1.2rem 1.5rem 1rem 1rem;
+            line-height: 1.6rem;
+            margin     : 0 calc(var(--colWidth) - 1.5rem) 0 0;
+        }
+
+        .DESKTOP & {
+            margin         : 0 var(--colWidth) 0 0;
+            justify-content: space-between;
+        }
 
         li {
-            flex: 0 0 var(--colWidth);
+            flex: var(--navItemFlex);
 
             a {
-                display       : inline-block;
+                display       : inline-flex;
+                align-items   : flex-end;
                 color         : black;
                 padding-bottom: .3rem;
                 border-bottom : 2px solid transparent;
+                border-bottom : none;
+
+                .MOBILE & {
+                    --blokKleur: transparent;
+
+                    &::before {
+                        .squareBefore(var(--blokKleur), .4rem);
+                        margin-block: auto 7px;
+                    }
+
+                    &.active::before {
+                        --blokKleur: var(--hoofdkleur);
+                    }
+                }
 
                 &.active,
                 &:hover {
                     border-bottom: 2px solid var(--hoofdkleur);
+                    border-bottom: none;
                 }
             }
         }
@@ -302,18 +350,15 @@ section {
             min-height : 50vh;
 
             li {
+
                 color     : white;
                 transition: all 500ms ease-in-out;
                 transform : translate3d(var(--offset));
                 --ofset   : 0, 0, 0;
 
                 &:before {
-                    content         : '';
-                    display         : inline-block;
-                    width           : .75rem;
-                    height          : .75rem;
-                    margin-right    : .5rem;
-                    background-color: black;
+                    .squareBefore(black, .75rem);
+                    margin-right: .5rem;
                 }
             }
         }
@@ -321,7 +366,7 @@ section {
 
     &.fotosWerk {
         display       : flex;
-        flex-direction: var(--slickDirection);
+        flex-direction: var(--mobileDirection);
 
         h2 {
             position      : var(--headerPosition);
@@ -336,7 +381,7 @@ section {
         .slick {
             position           : relative;
             display            : flex;
-            flex-direction     : var(--slickDirection);
+            flex-direction     : var(--mobileDirection);
             align-items        : center;
             margin             : var(--slickMargin);
             scroll-behavior    : smooth;
