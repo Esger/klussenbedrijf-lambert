@@ -47,6 +47,20 @@ $(() => {
 
     }
 
+    const onScrollStop = callback => {
+        let isScrolling;
+        window.addEventListener(
+            'scroll',
+            e => {
+                clearTimeout(isScrolling);
+                isScrolling = setTimeout(() => {
+                    callback();
+                }, 150);
+            },
+            false
+        );
+    };
+
     const activeSectionWatcher = _ => {
 
         const setActiveItem = element => {
@@ -98,8 +112,16 @@ $(() => {
             sectionObserver.observe(this);
         })
 
+        const setScrollSnap = _ => {
+            $('html').addClass('scrollSnap');
+        }
+        onScrollStop(setScrollSnap);
+
         $('nav a').first().addClass('active');
-        $('nav a').on('click', event => {
+        $('nav').on('click', 'a', function (event) {
+            $('html').removeClass('scrollSnap');
+            target = $('#' + this.classList[0])[0];
+            target.scrollIntoView({ behavior: "smooth" });
             setActiveItem(event.target);
         });
     }

@@ -97,7 +97,9 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--headerHeight) + 16px);
-  scroll-snap-type: y mandatory;
+}
+html.scrollSnap {
+  scroll-snap-type: y proximity;
 }
 @media screen and (prefers-reduced-motion: reduce) {
   html {
@@ -159,6 +161,7 @@ h3 {
   padding-block: 1rem;
   font-size: var(--fontSize);
   display: block;
+  position: relative;
 }
 .MOBILE .payOff {
   margin: 0 0 0 var(--colWidth);
@@ -454,7 +457,7 @@ section.contact .inzet * {
 section.contact .gegevens {
   padding: 1rem var(--gutterWidth) calc(0.4 * var(--colWidth)) var(--inzetPadding);
   line-height: 1.8rem;
-  flex: 0 0 calc(0.6 * var(--inzetWidth));
+  flex: 0 0 calc(0.7 * var(--inzetWidth));
 }
 section.contact h3,
 section.contact p,

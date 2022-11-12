@@ -118,7 +118,10 @@
 html {
     scroll-behavior   : smooth;
     scroll-padding-top: calc(var(--headerHeight) + 16px);
-    scroll-snap-type  : y mandatory;
+
+    &.scrollSnap {
+        scroll-snap-type: y proximity;
+    }
 
     @media screen and (prefers-reduced-motion: reduce) {
         scroll-behavior: auto;
@@ -196,6 +199,7 @@ h3 {
     padding-block: 1rem;
     font-size    : var(--fontSize);
     display      : block;
+    position     : relative;
 
     .MOBILE & {
         margin: 0 0 0 var(--colWidth);
@@ -479,7 +483,7 @@ section {
             height          : calc(var(--imageHeight) + 1rem);
             flex            : 0 0 var(--colWidth);
             background-color: var(--hoofdKleur);
-            font-size       : 2rem; //calc(2 * var(--fontSize));
+            font-size       : 2rem;
             color           : white;
             cursor          : pointer;
             font-family     : inherit;
@@ -546,7 +550,7 @@ section {
         .gegevens {
             padding    : 1rem var(--gutterWidth) calc(.4 * var(--colWidth)) var(--inzetPadding);
             line-height: 1.8rem;
-            flex       : 0 0 calc(.6 * var(--inzetWidth));
+            flex       : 0 0 calc(.7 * var(--inzetWidth));
         }
 
         h3,
