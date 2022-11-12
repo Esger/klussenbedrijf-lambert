@@ -404,6 +404,9 @@ section.fotosWerk img {
   border: 1px solid #ffffffbb;
   margin: var(--imageMargin);
 }
+section.fotosWerk .payOff {
+  display: none;
+}
 .DESKTOP section.contact h2 {
   display: none;
 }
