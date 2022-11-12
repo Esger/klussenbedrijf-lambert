@@ -38,30 +38,10 @@ $(() => {
                         slidesToScroll: 2,
                     }
                 },
-
                 {
                     breakpoint: 768,
                     settings: 'unslick'
-                },
-                // {
-                //     breakpoint: 768,
-                //     settings: {
-                //         arrows: false,
-                //         slidesToShow: 2,
-                //         slidesToScroll: 1
-                //     }
-                // },
-                // {
-                //     breakpoint: 480,
-                //     settings: {
-                //         arrows: false,
-                //         slidesToShow: 1,
-                //         slidesToScroll: 1
-                //     }
-                // }
-                // You can unslick at a given breakpoint now by adding:
-                // settings: "unslick"
-                // instead of a settings object
+                }
             ]
         });
 
@@ -72,10 +52,6 @@ $(() => {
         const setActiveItem = element => {
             $('nav a').removeClass('active');
             $(element).addClass('active');
-        };
-
-        const setVisibleSection = element => {
-            $(element).addClass('visible');
         };
 
         const $werkLink = $('.werkLink');
@@ -92,15 +68,20 @@ $(() => {
             entries.forEach(entry => {
                 const visibleSection = $(entry.target).closest('section')[0];
                 if (entry.isIntersecting) {
-                    if (entry.intersectionRatio >= 0.7) {
-                        setVisibleSection(visibleSection);
+                    if (entry.intersectionRatio > 0.5) {
+                        setTimeout(() => {
+                            $(visibleSection).addClass('visible');
+                        }, 500);
                         const sectionClassname = visibleSection.classList[0];
                         toggleWerklink(sectionClassname);
                         const menuItem = $('nav .' + sectionClassname)[0];
                         setActiveItem(menuItem);
                     }
+                    if (entry.intersectionRatio <= 0.5) {
+                        $(visibleSection).removeClass('visible');
+                    }
                 } else {
-                    // $(visibleSection).removeClass('visible');
+                    $(visibleSection).removeClass('visible');
                 }
             });
         }

@@ -44,7 +44,7 @@
     --hideMobile: initial;
     --slickMargin: var(--colWidth) 0;
     --mobileDirection: row;
-    --imageHeight: 275px;
+    --imageHeight: max(275px, 45vh);
     --imageWidth: auto;
     --imageMargin: 0 calc(var(--gutterWidth) / 2);
     --inzetWidth: 475px;
@@ -165,6 +165,7 @@ h3 {
 }
 .payOff strong {
   color: black;
+  margin-right: 0.4rem;
 }
 .payOff strong + strong:before {
   content: '';
@@ -308,7 +309,8 @@ nav ul li a:hover {
   --accentKleur: var(--hoofdKleur);
 }
 section {
-  min-height: calc(100vh - var(--headerHeight) - 1rem);
+  height: calc(100vh - var(--headerHeight));
+  overflow-y: auto;
   scroll-snap-align: start;
 }
 section.diensten {
@@ -370,7 +372,7 @@ section.fotosWerk .slick {
   align-items: center;
   margin: var(--slickMargin);
   scroll-behavior: smooth;
-  overscroll-behavior: none;
+  overscroll-behavior: auto;
   overflow-x: scroll;
   height: -webkit-min-content;
   height: min-content;
@@ -394,7 +396,6 @@ section.fotosWerk li:not(.control):hover {
 }
 section.fotosWerk .slick-arrow {
   border: none;
-  scroll-snap-align: unset;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -424,11 +425,17 @@ section.fotosWerk img {
 section.fotosWerk .payOff {
   display: none;
 }
+section.contact {
+  overflow: visible;
+}
 .DESKTOP section.contact h2 {
   display: none;
 }
 .MOBILE section.contact h2 {
   display: block;
+}
+section.contact .payOff {
+  margin-block: 0 1rem;
 }
 section.contact .inzet {
   opacity: 0.8;
@@ -440,6 +447,9 @@ section.contact .inzet {
 }
 section.contact .inzet * {
   opacity: 1;
+}
+.DESKTOP section.contact.visible .inzet {
+  box-shadow: 0 -2rem white;
 }
 section.contact .gegevens {
   padding: 1rem var(--gutterWidth) calc(0.4 * var(--colWidth)) var(--inzetPadding);
