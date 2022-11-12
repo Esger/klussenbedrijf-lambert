@@ -13,8 +13,9 @@ $(() => {
     }
 
     const initSlick = _ => {
+        const $slickSlider = $('.slick');
 
-        $('.slick').slick({
+        $slickSlider.slick({
             // dots: true,
             accessibility: true,
             lazyLoad: 'ondemand',
