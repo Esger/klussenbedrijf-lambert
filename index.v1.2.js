@@ -118,7 +118,7 @@ $(() => {
         onScrollStop(setScrollSnap);
 
         $('nav a').first().addClass('active');
-        $('nav').on('click', 'a', function (event) {
+        $('header').on('click', 'a', function (event) {
             $('html').removeClass('scrollSnap');
             target = $('#' + this.classList[0])[0];
             target.scrollIntoView({ behavior: "smooth" });
