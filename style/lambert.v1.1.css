@@ -387,6 +387,25 @@ section.fotosWerk .slick {
 section.fotosWerk .slick::-webkit-scrollbar {
   display: none;
 }
+.MOBILE section.fotosWerk .slick {
+  height: calc(100vh - var(--headerHeight) - 2rem);
+}
+.MOBILE section.fotosWerk .slick::before,
+.MOBILE section.fotosWerk .slick::after {
+  content: '';
+  display: block;
+  background-color: white;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 1px;
+  min-height: 1px;
+  z-index: 1;
+}
+.MOBILE section.fotosWerk .slick::after {
+  top: auto;
+  bottom: 0;
+}
 section.fotosWerk .slick-list {
   border: solid white;
   border-width: 0 1px;
@@ -428,6 +447,12 @@ section.fotosWerk img {
   width: var(--imageWidth);
   border: 1px solid #ffffffbb;
   margin: var(--imageMargin);
+}
+.MOBILE section.fotosWerk img:first-child {
+  margin-top: -1px;
+}
+.MOBILE section.fotosWerk img:last-child {
+  margin-bottom: -1px;
 }
 section.fotosWerk .payOff {
   display: none;

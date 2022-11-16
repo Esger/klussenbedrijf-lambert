@@ -456,6 +456,28 @@ section {
             &::-webkit-scrollbar {
                 display: none;
             }
+
+            .MOBILE & {
+                height: calc(100vh - var(--headerHeight) - 2rem);
+
+                &::before,
+                &::after {
+                    content         : '';
+                    display         : block;
+                    background-color: white;
+                    position        : sticky;
+                    top             : 0;
+                    width           : 100%;
+                    height          : 1px;
+                    min-height      : 1px;
+                    z-index         : 1;
+                }
+
+                &::after {
+                    top   : auto;
+                    bottom: 0;
+                }
+            }
         }
 
         .slick-list {
@@ -475,8 +497,6 @@ section {
                     transform: scale3d(var(--maxZoom), var(--maxZoom), var(--maxZoom));
                 }
             }
-
-
         }
 
         .slick-arrow {
@@ -509,6 +529,16 @@ section {
             width : var(--imageWidth);
             border: 1px solid #ffffffbb;
             margin: var(--imageMargin);
+
+            .MOBILE & {
+                &:first-child {
+                    margin-top: -1px;
+                }
+
+                &:last-child {
+                    margin-bottom: -1px;
+                }
+            }
         }
 
         .payOff {
