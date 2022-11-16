@@ -97,6 +97,7 @@
   box-sizing: border-box;
 }
 html {
+  overflow: hidden auto;
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--headerHeight) + 16px);
 }
@@ -372,6 +373,12 @@ section.fotosWerk h2 {
   line-height: 1;
   letter-spacing: 0.2px;
 }
+section.fotosWerk .payOff {
+  display: none;
+}
+.MOBILE section.fotosWerk .payOff {
+  display: block;
+}
 section.fotosWerk .slick {
   position: relative;
   display: flex;
@@ -388,7 +395,8 @@ section.fotosWerk .slick::-webkit-scrollbar {
   display: none;
 }
 .MOBILE section.fotosWerk .slick {
-  height: calc(100vh - var(--headerHeight) - 2rem);
+  flex: 0 0 calc(100vh - var(--headerHeight) - 5rem);
+  overflow: hidden;
 }
 .MOBILE section.fotosWerk .slick::before,
 .MOBILE section.fotosWerk .slick::after {
@@ -405,6 +413,9 @@ section.fotosWerk .slick::-webkit-scrollbar {
 .MOBILE section.fotosWerk .slick::after {
   top: auto;
   bottom: 0;
+}
+.MOBILE section.fotosWerk.visible .slick {
+  overflow-y: auto;
 }
 section.fotosWerk .slick-list {
   border: solid white;
@@ -453,9 +464,6 @@ section.fotosWerk img {
 }
 .MOBILE section.fotosWerk img:last-child {
   margin-bottom: -1px;
-}
-section.fotosWerk .payOff {
-  display: none;
 }
 section.contact {
   overflow: visible;

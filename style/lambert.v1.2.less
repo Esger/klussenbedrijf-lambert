@@ -120,6 +120,7 @@
 }
 
 html {
+    overflow          : hidden auto;
     scroll-behavior   : smooth;
     scroll-padding-top: calc(var(--headerHeight) + 16px);
 
@@ -442,6 +443,14 @@ section {
             letter-spacing: .2px;
         }
 
+        .payOff {
+            display: none;
+
+            .MOBILE & {
+                display: block;
+            }
+        }
+
         .slick {
             position           : relative;
             display            : flex;
@@ -458,7 +467,8 @@ section {
             }
 
             .MOBILE & {
-                height: calc(100vh - var(--headerHeight) - 2rem);
+                flex    : 0 0 calc(100vh - var(--headerHeight) - 5rem);
+                overflow: hidden;
 
                 &::before,
                 &::after {
@@ -477,6 +487,12 @@ section {
                     top   : auto;
                     bottom: 0;
                 }
+            }
+        }
+
+        &.visible .slick {
+            .MOBILE & {
+                overflow-y: auto;
             }
         }
 
@@ -539,10 +555,6 @@ section {
                     margin-bottom: -1px;
                 }
             }
-        }
-
-        .payOff {
-            display: none;
         }
     }
 
