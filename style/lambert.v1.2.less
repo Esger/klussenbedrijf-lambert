@@ -394,17 +394,22 @@ section {
 
         ul {
             padding    : 0;
-            margin-left: var(--colWidth);
+            margin-left: calc(var(--colWidth));
             font-size  : var(--fontSize); //* .8
             line-height: 1.4rem;
             min-height : 50vh;
             text-shadow: 0.5px 0.5px black;
+
+            .MOBILE & {
+                margin-left: calc(var(--colWidth) + 1.25rem);
+            }
 
             li {
                 padding-block: .4rem;
                 color        : white;
                 transition   : all 500ms ease-in-out;
                 transform    : translate3d(var(--offset));
+                text-indent  : -1.25rem;
                 --ofset      : 0, 0, 0;
 
 
