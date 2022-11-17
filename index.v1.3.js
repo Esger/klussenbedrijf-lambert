@@ -57,7 +57,7 @@ $(() => {
                     callback();
                 }, 150);
             },
-            false
+            { passive: true }
         );
     };
 
@@ -151,22 +151,26 @@ $(() => {
         });
     }
 
+    const resizeHandler = _ => {
+        let resizeTimeout;
+        $(window).on('resize', _ => {
+            if (resizeTimeout) clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(_ => {
+                initMobile();
+                initSlick();
+                initHamburger();
+            }, 50);
+        });
+    }
+
     initMobile();
 
     initHamburger();
 
     activeSectionWatcher();
 
-    initSlick();
+    resizeHandler();
 
-    let resizeTimeout;
-    $(window).on('resize', _ => {
-        if (resizeTimeout) clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(_ => {
-            initMobile();
-            initSlick();
-            initHamburger();
-        }, 50);
-    });
+    initSlick();
 
 })
