@@ -515,6 +515,10 @@ section.contact p + h3,
 section.contact a + h3 {
   margin-top: 1rem;
 }
+section.contact a {
+  -webkit-text-decoration: underline var(--hoofdKleur);
+          text-decoration: underline var(--hoofdKleur);
+}
 section.contact h3:last-child {
   text-transform: none;
 }
