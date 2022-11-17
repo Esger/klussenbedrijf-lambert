@@ -409,14 +409,17 @@ section {
                 color        : white;
                 transition   : all 500ms ease-in-out;
                 transform    : translate3d(var(--offset));
-                text-indent  : -1.25rem;
                 --ofset      : 0, 0, 0;
+
+                .MOBILE & {
+                    text-indent: -1.25rem;
+                }
 
                 .DESKTOP & {
                     &.limitWidth {
                         max-width  : calc(3.33 * var(--colWidth));
-                        text-indent: -1.3rem;
-                        margin-left: 1.3rem;
+                        text-indent: -1.25rem;
+                        margin-left: 1.25rem;
                     }
                 }
 
