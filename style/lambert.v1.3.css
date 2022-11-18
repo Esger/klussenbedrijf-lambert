@@ -209,7 +209,8 @@ h3 {
 .MOBILE .werkLink {
   display: none;
 }
-.werkLink p {
+.werkLink span {
+  display: block;
   line-height: 1.7rem;
   margin: 0;
 }
@@ -238,21 +239,23 @@ header .logo {
   height: var(--logoHeight);
   margin-left: var(--colWidth);
 }
-header h1 {
+header div {
   position: relative;
-  font-size: var(--fontSize);
-  line-height: 0.8;
-  margin-block: 0;
-  color: var(--hoofdKleur);
   display: var(--hideMobile);
-  letter-spacing: 0.2px;
-  text-shadow: 0.3px 0.3px black;
 }
-.MOBILE header h1 {
+.MOBILE header div {
   position: absolute;
   left: var(--colWidth);
   top: 100%;
   width: 100%;
+}
+header h1 {
+  font-size: var(--fontSize);
+  line-height: 0.8;
+  margin-block: 0;
+  color: var(--hoofdKleur);
+  letter-spacing: 0.2px;
+  text-shadow: 0.3px 0.3px black;
 }
 header h1 strong {
   display: block;
