@@ -320,7 +320,7 @@ nav ul li a:hover {
 }
 section {
   height: calc(100vh - var(--headerHeight));
-  overflow-y: auto;
+  overflow: hidden auto;
   scroll-snap-align: start;
 }
 section.diensten {
@@ -346,14 +346,18 @@ section.diensten ul {
   margin-left: calc(var(--colWidth) + 1.25rem);
 }
 section.diensten ul li {
+  --ofset: 0, 0, 0;
   padding-block: 0.4rem;
   color: white;
-  transition: all 500ms ease-in-out;
+  transition: transform 500ms ease-in-out, opacity 500ms ease-in-out;
   transform: translate3d(var(--offset));
-  --ofset: 0, 0, 0;
 }
 .MOBILE section.diensten ul li {
   text-indent: -1.25rem;
+}
+.DESKTOP section.diensten ul li {
+  opacity: 0;
+  scale: 0.1;
 }
 .DESKTOP section.diensten ul li.limitWidth {
   max-width: calc(3.33 * var(--colWidth));
@@ -368,6 +372,10 @@ section.diensten ul li:before {
   margin-inline: 0 0.75rem;
   background-color: black;
   margin-right: 0.5rem;
+}
+.DESKTOP section.diensten.visible li[class*=dienst] {
+  opacity: 1;
+  scale: 1;
 }
 section.fotosWerk {
   display: flex;

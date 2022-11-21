@@ -59,6 +59,7 @@
     }
 
     .visible {
+
         @media (prefers-reduced-motion: no-preference) {
 
             .dienst1 {
@@ -380,7 +381,7 @@ nav {
 
 section {
     height           : calc(100vh - var(--headerHeight));
-    overflow-y       : auto;
+    overflow         : hidden auto;
     scroll-snap-align: start;
 
     &.diensten {
@@ -409,17 +410,20 @@ section {
             }
 
             li {
+                --ofset      : 0, 0, 0;
                 padding-block: .4rem;
                 color        : white;
-                transition   : all 500ms ease-in-out;
+                transition   : transform 500ms ease-in-out, opacity 500ms ease-in-out;
                 transform    : translate3d(var(--offset));
-                --ofset      : 0, 0, 0;
 
                 .MOBILE & {
                     text-indent: -1.25rem;
                 }
 
                 .DESKTOP & {
+                    opacity: 0;
+                    scale  : .1;
+
                     &.limitWidth {
                         max-width  : calc(3.33 * var(--colWidth));
                         text-indent: -1.25rem;
@@ -431,6 +435,13 @@ section {
                     .squareBefore(black, .75rem);
                     margin-right: .5rem;
                 }
+            }
+        }
+
+        &.visible li[class*=dienst] {
+            .DESKTOP & {
+                opacity: 1;
+                scale  : 1;
             }
         }
     }
