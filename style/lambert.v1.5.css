@@ -47,7 +47,7 @@
     --imageHeight: max(275px, 45vh);
     --imageWidth: auto;
     --imageMargin: 0 calc(var(--gutterWidth) / 2);
-    --inzetWidth: 475px;
+    --inzetWidth: 520px;
     --inzetMargin: var(--colWidth);
     --inzetPadding: var(--gutterWidth);
   }
@@ -161,7 +161,7 @@ h3 {
   display: var(--showMobile);
 }
 .payOff {
-  padding-block: 1rem;
+  padding-block: 1.5rem 0.5rem;
   font-size: var(--fontSize);
   display: block;
   position: relative;
@@ -171,14 +171,14 @@ h3 {
 }
 .payOff strong {
   color: black;
-  margin-right: 0.4rem;
+  margin-right: 0.37rem;
 }
 .payOff strong + strong:before {
   content: '';
   display: inline-block;
-  width: 0.4rem;
-  height: 0.4rem;
-  margin-inline: 0 0.4rem;
+  width: 0.37rem;
+  height: 0.37rem;
+  margin-inline: 0 0.37rem;
   background-color: white;
 }
 .hamburger {
@@ -347,7 +347,7 @@ section.diensten ul {
 }
 section.diensten ul li {
   --ofset: 0, 0, 0;
-  padding-block: 0.4rem;
+  padding-block: 0.5rem;
   color: white;
   transition: transform 500ms ease-in-out, opacity 500ms ease-in-out;
   transform: translate3d(var(--offset));
@@ -367,9 +367,9 @@ section.diensten ul li {
 section.diensten ul li:before {
   content: '';
   display: inline-block;
-  width: 0.75rem;
-  height: 0.75rem;
-  margin-inline: 0 0.75rem;
+  width: 0.66rem;
+  height: 0.66rem;
+  margin-inline: 0 0.66rem;
   background-color: black;
   margin-right: 0.5rem;
 }
@@ -389,12 +389,14 @@ section.fotosWerk h2 {
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.2px;
+  padding-top: 1rem;
 }
 section.fotosWerk .payOff {
   display: none;
 }
 .MOBILE section.fotosWerk .payOff {
   display: block;
+  padding-block: 0.5rem 1.5rem;
 }
 section.fotosWerk .slick {
   position: relative;
@@ -499,8 +501,13 @@ section.contact .inzet {
   position: relative;
   display: flex;
   background-color: white;
+  min-height: 400px;
   width: var(--inzetWidth);
   margin: 0 0 0 var(--inzetMargin);
+  overflow: hidden;
+}
+.MOBILE section.contact .inzet {
+  min-height: calc(400px + 1rem);
 }
 section.contact .inzet * {
   opacity: 1;
@@ -511,7 +518,8 @@ section.contact .inzet * {
 section.contact .gegevens {
   padding: 1rem var(--gutterWidth) calc(0.4 * var(--colWidth)) var(--inzetPadding);
   line-height: 1.8rem;
-  flex: 0 0 calc(0.7 * var(--inzetWidth));
+  flex: 0 0 calc(0.65 * var(--inzetWidth));
+  z-index: 1;
 }
 section.contact h3,
 section.contact p,
@@ -520,11 +528,16 @@ section.contact a {
   margin: 0;
   font-size: var(--fontSize);
   font-weight: 400;
+  text-shadow: 1px 1px 1px white;
 }
 section.contact h3 + h3,
 section.contact p + h3,
 section.contact a + h3 {
   margin-top: 1rem;
+}
+section.contact p,
+section.contact a {
+  font-size: calc(0.9 * var(--fontSize));
 }
 section.contact a {
   -webkit-text-decoration: underline var(--hoofdKleur);
@@ -536,4 +549,18 @@ section.contact h3:last-child {
 section.contact p span {
   display: inline-block;
   width: 1rem;
+}
+section.contact .foto {
+  position: absolute;
+  bottom: 0;
+  right: -20px;
+  /* -20px @ 490px increasing to -100px @ 310px */
+  right: calc(-1 * clamp(20px, calc(1.25rem + ((1vw - 4.9px) * -44.4444)), 100px));
+  min-height: 0vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+section.contact .foto img {
+  display: block;
 }
