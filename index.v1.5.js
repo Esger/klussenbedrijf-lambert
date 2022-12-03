@@ -4,11 +4,11 @@ $(() => {
     const initMobile = () => {
         isMobile = window.innerWidth < 769;
         if (isMobile) {
-            $('body').removeClass('DESKTOP');
-            $('body').addClass('MOBILE');
+            $('html').removeClass('DESKTOP');
+            $('html').addClass('MOBILE');
         } else {
-            $('body').removeClass('MOBILE');
-            $('body').addClass('DESKTOP');
+            $('html').removeClass('MOBILE');
+            $('html').addClass('DESKTOP');
         }
     }
 

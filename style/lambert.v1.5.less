@@ -320,7 +320,7 @@ header {
 }
 
 nav {
-    margin-bottom: -11px;
+    margin-bottom: -2rem;
 
     ul {
         font-size     : var(--fontSize);
@@ -332,10 +332,11 @@ nav {
         margin-right  : var(--colWidth);
 
         .MOBILE & {
-            border     : 1px solid #ccc;
-            padding    : 1.2rem 1.5rem 1rem 1rem;
-            line-height: 1.6rem;
-            margin     : 0 calc(var(--colWidth) - 1.5rem) 0 0;
+            border          : 1px solid #ccc;
+            background-color: white;
+            padding         : 1.2rem 1.5rem 1rem 1rem;
+            line-height     : 1.6rem;
+            margin          : 0 calc(var(--colWidth) - 1.5rem) 0 0;
         }
 
         .DESKTOP & {
@@ -675,6 +676,32 @@ section {
 
             img {
                 display: block;
+            }
+        }
+    }
+}
+
+@media (orientation: landscape) {
+    .MOBILE {
+        &html {
+            scroll-padding-top: 0;
+        }
+
+        header {
+            top: calc(-1 * var(--headerHeight));
+        }
+
+        nav {
+            position: sticky;
+            top     : 0;
+        }
+
+        section.fotosWerk {
+            height: 100vh;
+
+            .slick {
+                flex    : 1;
+                overflow: auto;
             }
         }
     }
