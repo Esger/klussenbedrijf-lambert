@@ -9,11 +9,11 @@
         --docWidth           : ~"min(100vw, var(--maxWidth))";
         --colWidth           : calc(var(--docWidth) / 12);
         --gutterWidth        : calc(var(--colWidth) / 4);
-        --headerHeight       : calc(var(--colWidth) * 4.5);
-        --headerPaddingBottom: calc(0.15 * var(--headerHeight));
-        --headerPadding      : calc(1.25 * var(--colWidth)) 0 calc(.75 * var(--colWidth));
+        --headerHeight       : ~"max(100px, calc(var(--colWidth) * 2))";
+        --headerPaddingBottom: calc(0.15 * var(--headerHeight)); // ??
+        --headerPadding      : calc(.118 * var(--headerHeight)) 0 calc(.1875 * var(--headerHeight));
         --headerPosition     : relative;
-        --logoHeight         : calc(3 * var(--colWidth));
+        --logoHeight         : calc(.694 * var(--headerHeight));
         --navItemWidth       : auto;
         --navItemFlex        : 1;
         --showMobile         : initial;
