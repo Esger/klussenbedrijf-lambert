@@ -529,6 +529,17 @@ section {
             border-width: 0 1px;
         }
 
+        .slick-slide {
+            position  : relative;
+            transition: transform .5s ease;
+            transform : scale(1);
+
+            &:hover {
+                transform: scale(1.5);
+                z-index  : 99;
+            }
+        }
+
         li {
             &:not(.control) {
                 --maxZoom  : 1.5;

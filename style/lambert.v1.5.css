@@ -447,6 +447,15 @@ section.fotosWerk .slick-list {
   border: solid white;
   border-width: 0 1px;
 }
+section.fotosWerk .slick-slide {
+  position: relative;
+  transition: transform 0.5s ease;
+  transform: scale(1);
+}
+section.fotosWerk .slick-slide:hover {
+  transform: scale(1.5);
+  z-index: 99;
+}
 section.fotosWerk li:not(.control) {
   --maxZoom: 1.5;
   transition: all 300ms ease-in-out;
