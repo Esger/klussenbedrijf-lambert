@@ -236,13 +236,11 @@ h3 {
 }
 
 .werkLink {
-    display         : flex;
+    display         : inline-flex;
     flex-direction  : column;
     justify-content : center;
-    position        : absolute;
     top             : calc(100% + var(--headerPaddingBottom));
     right           : 0;
-    width           : calc(100% + 1 * var(--gutterWidth));
     aspect-ratio    : 1;
     background-color: #000b;
     padding         : var(--gutterWidth);
@@ -251,13 +249,9 @@ h3 {
     transition      : opacity 0.2s ease-in-out;
     will-change     : opacity;
 
-    .MOBILE & {
-        display: none;
-    }
-
     span {
         display    : block;
-        line-height: 1.7rem;
+        line-height: 2rem;
         margin     : 0;
     }
 
@@ -280,7 +274,7 @@ header {
     height          : var(--headerHeight);
     padding         : var(--headerPadding);
     background-color: white;
-    box-shadow      : 0 -600px 0 600px white;
+    box-shadow      : 0 calc(-1 * var(--docWidth)) 0 var(--docWidth) white;
     text-transform  : uppercase;
 
     .logo {
@@ -317,6 +311,10 @@ header {
         }
     }
 
+    .werkLink {
+        position: absolute;
+        width   : calc(100% + 1 * var(--gutterWidth));
+    }
 }
 
 nav {
@@ -389,7 +387,12 @@ nav {
 
 
 section {
-    height           : calc(100vh - var(--headerHeight));
+    height: calc(100vh - var(--headerHeight));
+
+    @supports(height:100dvh) {
+        height: calc(100dvh - var(--headerHeight));
+    }
+
     overflow         : hidden auto;
     scroll-snap-align: start;
 
@@ -451,6 +454,21 @@ section {
             .DESKTOP & {
                 opacity: 1;
                 scale  : 1;
+            }
+        }
+
+        .werkLink {
+            .MOBILE & {
+                margin-left   : var(--colWidth);
+                padding-inline: 1rem;
+
+                span {
+                    line-height: 1.7rem;
+                }
+            }
+
+            .DESKTOP & {
+                display: none;
             }
         }
     }

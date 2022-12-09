@@ -193,13 +193,11 @@ h3 {
   cursor: pointer;
 }
 .werkLink {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   justify-content: center;
-  position: absolute;
   top: calc(100% + var(--headerPaddingBottom));
   right: 0;
-  width: calc(100% + 1 * var(--gutterWidth));
   aspect-ratio: 1;
   background-color: #000b;
   padding: var(--gutterWidth);
@@ -208,12 +206,9 @@ h3 {
   transition: opacity 0.2s ease-in-out;
   will-change: opacity;
 }
-.MOBILE .werkLink {
-  display: none;
-}
 .werkLink span {
   display: block;
-  line-height: 1.7rem;
+  line-height: 2rem;
   margin: 0;
 }
 .werkLink b {
@@ -232,7 +227,7 @@ header {
   height: var(--headerHeight);
   padding: var(--headerPadding);
   background-color: white;
-  box-shadow: 0 -600px 0 600px white;
+  box-shadow: 0 calc(-1 * var(--docWidth)) 0 var(--docWidth) white;
   text-transform: uppercase;
 }
 header .logo {
@@ -263,6 +258,10 @@ header h1 strong {
   display: block;
   font-weight: 600;
   padding-top: 0.8rem;
+}
+header .werkLink {
+  position: absolute;
+  width: calc(100% + 1 * var(--gutterWidth));
 }
 nav {
   margin-bottom: -11px;
@@ -329,6 +328,11 @@ section {
   overflow: hidden auto;
   scroll-snap-align: start;
 }
+@supports (height:100dvh) {
+  section {
+    height: calc(100dvh - var(--headerHeight));
+  }
+}
 section.diensten {
   text-transform: uppercase;
   position: relative;
@@ -382,6 +386,16 @@ section.diensten ul li:before {
 .DESKTOP section.diensten.visible li[class*=dienst] {
   opacity: 1;
   scale: 1;
+}
+.MOBILE section.diensten .werkLink {
+  margin-left: var(--colWidth);
+  padding-inline: 1rem;
+}
+.MOBILE section.diensten .werkLink span {
+  line-height: 1.7rem;
+}
+.DESKTOP section.diensten .werkLink {
+  display: none;
 }
 section.fotosWerk {
   display: flex;
