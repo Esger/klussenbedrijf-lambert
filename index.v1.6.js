@@ -49,7 +49,7 @@ $(() => {
         $slides.on('mouseenter.zoom', event => $(event.target).closest('.slick-slide').addClass('slick-slide--onTop'))
             .on('mouseleave.zoom', event => {
                 const $slide = $(event.target).closest('.slick-slide');
-                $slide.one('transitionend', _ => {
+                $slide.one('transitionend.zoom', _ => {
                     $slide.removeClass('slick-slide--onTop');
                 });
             });
