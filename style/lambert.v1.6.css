@@ -98,7 +98,6 @@
 }
 html {
   overflow: hidden auto;
-  scroll-behavior: smooth;
   scroll-padding-top: calc(var(--headerHeight) + 16px);
 }
 html.scrollSnap {
