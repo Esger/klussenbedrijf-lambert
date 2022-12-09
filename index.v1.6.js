@@ -45,6 +45,14 @@ $(() => {
             ]
         });
 
+        const $slides = $('.slick-slide');
+        $slides.on('mouseenter.zoom', event => $(event.target).closest('.slick-slide').addClass('slick-slide--onTop'))
+            .on('mouseleave.zoom', event => {
+                const $slide = $(event.target).closest('.slick-slide');
+                $slide.one('transitionend', _ => {
+                    $slide.removeClass('slick-slide--onTop');
+                });
+            });
     }
 
     const onScrollStop = callback => {
