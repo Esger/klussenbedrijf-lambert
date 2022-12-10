@@ -397,6 +397,7 @@ section.diensten ul li:before {
 .MOBILE section.diensten .werkLink {
   margin-left: var(--colWidth);
   padding-inline: 1rem;
+  aspect-ratio: 1.3;
 }
 .MOBILE section.diensten .werkLink span {
   line-height: 1.7rem;
@@ -429,7 +430,7 @@ section.fotosWerk .slick {
   position: relative;
   display: flex;
   flex-direction: var(--mobileDirection);
-  align-items: center;
+  align-items: stretch;
   margin: var(--slickMargin);
   scroll-behavior: smooth;
   overscroll-behavior: auto;

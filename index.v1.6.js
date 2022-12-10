@@ -129,7 +129,7 @@ $(() => {
         $('body').on('click', 'a', function (event) {
             $('html').removeClass('scrollSnap');
             target = $('#' + this.classList[0])[0];
-            target.scrollIntoView({ behavior: "smooth" });
+            target.scrollIntoView();
             setActiveItem(event.target);
         });
     }
