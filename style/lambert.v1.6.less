@@ -255,11 +255,18 @@ h3 {
         margin     : 0;
     }
 
+    .triangle {
+        display: flex;
+    }
+
     b {
-        display    : inline-block;
-        color      : var(--hoofdKleur);
-        margin-left: 1.8rem;
-        scale      : 2 1.8;
+        display         : inline-block;
+        width           : 2rem;
+        aspect-ratio    : 1;
+        background-color: var(--hoofdKleur);
+        margin-left     : 1.8rem;
+        margin-block    : -3px;
+        clip-path       : polygon(0%10%, 100%50%, 0%90%);
     }
 }
 

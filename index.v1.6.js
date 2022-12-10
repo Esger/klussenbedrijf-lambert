@@ -63,7 +63,7 @@ $(() => {
                 clearTimeout(isScrolling);
                 isScrolling = setTimeout(() => {
                     callback();
-                }, 150);
+                }, 100);
             },
             { passive: true }
         );
@@ -126,7 +126,7 @@ $(() => {
         onScrollStop(setScrollSnap);
 
         $('nav a').first().addClass('active');
-        $('header').on('click', 'a', function (event) {
+        $('body').on('click', 'a', function (event) {
             $('html').removeClass('scrollSnap');
             target = $('#' + this.classList[0])[0];
             target.scrollIntoView({ behavior: "smooth" });

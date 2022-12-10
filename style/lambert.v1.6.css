@@ -211,11 +211,18 @@ h3 {
   line-height: 2rem;
   margin: 0;
 }
+.werkLink .triangle {
+  display: flex;
+}
 .werkLink b {
   display: inline-block;
-  color: var(--hoofdKleur);
+  width: 2rem;
+  aspect-ratio: 1;
+  background-color: var(--hoofdKleur);
   margin-left: 1.8rem;
-  scale: 2 1.8;
+  margin-block: -3px;
+  -webkit-clip-path: polygon(0% 10%, 100% 50%, 0% 90%);
+          clip-path: polygon(0% 10%, 100% 50%, 0% 90%);
 }
 header {
   position: sticky;
