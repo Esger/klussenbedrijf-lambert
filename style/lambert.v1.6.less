@@ -1,0 +1,746 @@
+@media (min-width: 100px) {
+
+    :root,
+    *::after,
+    *::before {
+        --hoofdKleur         : #a88331;
+        --maxWidth           : 1200px;
+        --mobileWidth        : 768px;
+        --docWidth           : ~"min(100vw, var(--maxWidth))";
+        --colWidth           : calc(var(--docWidth) / 12);
+        --gutterWidth        : calc(var(--colWidth) / 4);
+        --headerHeight       : ~"max(100px, calc(var(--colWidth) * 2))";
+        --headerPaddingBottom: calc(0.15 * var(--headerHeight)); // ??
+        --headerPadding      : calc(.118 * var(--headerHeight)) 0 calc(.1875 * var(--headerHeight));
+        --headerPosition     : relative;
+        --logoHeight         : calc(.694 * var(--headerHeight));
+        --navItemWidth       : auto;
+        --navItemFlex        : 1;
+        --showMobile         : initial;
+        --hideMobile         : none;
+        --slickMargin        : 0 var(--colWidth) 1rem;
+        --mobileDirection    : column;
+        --imageHeight        : auto;
+        --imageWidth         : 100%;
+        --imageMargin        : 0 0 .5rem;
+        // https: //websemantics.uk/tools/responsive-font-calculator/
+        // 15px @ 310px increasing to 19px @ 1200px
+        --fontSize           : calc(0.9375rem + ((1vw - 3.1px) * 0.4494));
+        --inzetWidth         : 100vw;
+        --inzetMargin        : 0;
+        --inzetPadding       : var(--colWidth);
+        /* Safari resize fix */
+        min-height           : 0vw;
+    }
+}
+
+@media (min-width:769px) {
+
+    :root,
+    *::after,
+    *::before {
+        --headerHeight   : calc(var(--colWidth) * 2);
+        --headerPadding  : 0 0 calc(0.15 * var(--headerHeight));
+        --logoHeight     : calc(.65 * var(--headerHeight));
+        --headerPosition : absolute;
+        --navItemWidth   : calc(3 * var(--colWidth));
+        --navItemFlex    : 0 0 var(--colWidth);
+        --showMobile     : none;
+        --hideMobile     : initial;
+        --slickMargin    : var(--colWidth) 0;
+        --mobileDirection: row;
+        --imageHeight    : max(275px, 45vh);
+        --imageWidth     : auto;
+        --imageMargin    : 0 calc(var(--gutterWidth) / 2);
+        --inzetWidth     : 520px;
+        --inzetMargin    : var(--colWidth);
+        --inzetPadding   : var(--gutterWidth);
+    }
+
+    .visible {
+
+        @media (prefers-reduced-motion: no-preference) {
+
+            .dienst1 {
+                --offset: 0, 2rem, 0;
+            }
+
+
+            .dienst2 {
+                --offset: calc(6.5 * var(--colWidth)), 0, 0;
+            }
+
+            .dienst3 {
+                --offset: calc(.75 * var(--colWidth)), calc(.75 * var(--colWidth)), 0;
+            }
+
+            .dienst4 {
+                --offset: calc(2 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
+            }
+
+            .dienst5 {
+                --offset: calc(0 * var(--colWidth)), calc(3.5 * var(--colWidth)), 0;
+            }
+
+            .dienst6 {
+                --offset: calc(7.5 * var(--colWidth)), calc(0 * var(--colWidth)), 0;
+            }
+
+            .dienst7 {
+                --offset: calc(1.25 * var(--colWidth)),
+                    calc(1.25 * var(--colWidth)),
+                    0;
+            }
+
+            .dienst8 {
+                --offset: calc(7 * var(--colWidth)), calc(.25 * var(--colWidth)), 0;
+            }
+
+            .dienst9 {
+                --offset: calc(3.5 * var(--colWidth)), calc(1 * var(--colWidth)), 0;
+            }
+
+            .dienst10 {
+                --offset: calc(5.25 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
+            }
+
+        }
+    }
+}
+
+@media (min-width:1200px) {
+    :root {
+        --showMobile: none;
+        --hideMobile: initial;
+        --fontSize  : 19px;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    overflow             : hidden auto;
+    // scroll-behavior   : smooth;
+    scroll-padding-top   : calc(var(--headerHeight) + 16px);
+
+    &.scrollSnap {
+        scroll-snap-type: y proximity;
+    }
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        scroll-behavior: auto;
+    }
+}
+
+body {
+    margin          : 0 auto;
+    max-width       : 1200px;
+    font-family     : 'Open Sans', sans-serif;
+    font-weight     : 400;
+    font-size       : var(--fontSize);
+    background-color: var(--hoofdKleur);
+
+    &::before {
+        --ornamentMargin   : calc(((100vw - var(--docWidth)) / 2) + var(--colWidth));
+        content            : '';
+        position           : fixed;
+        left               : var(--ornamentMargin);
+        right              : 0;
+        top                : var(--headerHeight);
+        bottom             : 0;
+        background-size    : 150%;
+        background-image   : url(../images/Ornament-achtergrond.svg);
+        background-repeat  : no-repeat;
+        background-position: -92% 30%;
+
+        @media (min-width: 768px) {
+            right              : var(--ornamentMargin);
+            top                : var(--headerHeight);
+            bottom             : -100vh;
+            background-size    : contain;
+            background-position: top;
+        }
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+    padding        : 0;
+}
+
+h1,
+h2,
+h3 {
+    text-transform: uppercase;
+}
+
+.noWrap {
+    white-space: nowrap;
+}
+
+.hide {
+    opacity: 0;
+}
+
+.hideMobile {
+    display: var(--hideMobile);
+}
+
+.showMobile {
+    display: var(--showMobile);
+}
+
+.squareBefore(@color, @size) {
+    content         : '';
+    display         : inline-block;
+    width           : @size;
+    height          : @size;
+    margin-inline   : 0 @size;
+    background-color: @color;
+}
+
+.payOff {
+    padding-block: 1.5rem .5rem;
+    font-size    : var(--fontSize);
+    display      : block;
+    position     : relative;
+
+    .MOBILE & {
+        margin: 0 0 0 var(--colWidth);
+    }
+
+    strong {
+        color       : black;
+        margin-right: .37rem;
+    }
+
+    strong+strong:before {
+        .squareBefore(white, .37rem);
+    }
+}
+
+.hamburger {
+    width           : calc(0.33 * var(--logoHeight));
+    aspect-ratio    : 1;
+    margin          : 0 var(--colWidth) 0 0;
+    border          : none;
+    background-color: transparent;
+    background-image: repeating-linear-gradient(0deg, black 0 10%, transparent 0 40%);
+    cursor          : pointer;
+}
+
+.werkLink {
+    display         : inline-flex;
+    flex-direction  : column;
+    justify-content : center;
+    top             : calc(100% + var(--headerPaddingBottom));
+    right           : 0;
+    aspect-ratio    : 1;
+    background-color: #000b;
+    padding         : var(--gutterWidth);
+    color           : white;
+    white-space     : nowrap;
+    transition      : opacity 0.2s ease-in-out;
+    will-change     : opacity;
+
+    span {
+        display    : block;
+        line-height: 2rem;
+        margin     : 0;
+    }
+
+    .triangle {
+        display: flex;
+    }
+
+    b {
+        display         : inline-block;
+        width           : 2rem;
+        aspect-ratio    : 1;
+        background-color: var(--hoofdKleur);
+        margin-left     : 1.8rem;
+        margin-block    : -3px;
+        clip-path       : polygon(0%10%, 100%50%, 0%90%);
+    }
+}
+
+
+header {
+    position        : sticky;
+    top             : 0;
+    z-index         : 10;
+    display         : flex;
+    align-items     : flex-end;
+    justify-content : space-between;
+    height          : var(--headerHeight);
+    padding         : var(--headerPadding);
+    background-color: white;
+    box-shadow      : 0 calc(-1 * var(--docWidth)) 0 var(--docWidth) white;
+    text-transform  : uppercase;
+
+    .logo {
+        display    : block;
+        width      : auto;
+        height     : var(--logoHeight);
+        margin-left: var(--colWidth);
+    }
+
+    div {
+        position: relative;
+        display : var(--hideMobile);
+
+        .MOBILE & {
+            position: absolute;
+            left    : var(--colWidth);
+            top     : 100%;
+            width   : 100%;
+        }
+    }
+
+    h1 {
+        font-size     : var(--fontSize);
+        line-height   : .8;
+        margin-block  : 0;
+        color         : var(--hoofdKleur);
+        letter-spacing: .2px;
+        text-shadow   : 0.3px 0.3px black;
+
+        strong {
+            display    : block;
+            font-weight: 600;
+            padding-top: .8rem;
+        }
+    }
+
+    .werkLink {
+        position: absolute;
+        width   : calc(100% + 1 * var(--gutterWidth));
+    }
+}
+
+nav {
+    margin-bottom: -11px;
+
+    .MOBILE & {
+        margin-bottom: -2rem;
+    }
+
+    ul {
+        font-size     : var(--fontSize);
+        margin        : 0 -1rem -1rem 0;
+        padding       : 0;
+        display       : flex;
+        flex-direction: var(--mobileDirection);
+        width         : var(--navItemWidth);
+        margin-right  : var(--colWidth);
+
+        .MOBILE & {
+            border          : 1px solid #ccc;
+            background-color: white;
+            padding         : 1.2rem 1.5rem 1rem 1rem;
+            line-height     : 1.6rem;
+            margin          : 0 calc(var(--colWidth) - 1.5rem) 0 0;
+        }
+
+        .DESKTOP & {
+            margin         : 0 var(--colWidth) 0 0;
+            justify-content: space-between;
+        }
+
+        li {
+            flex: var(--navItemFlex);
+
+            a {
+                --accentKleur : transparent;
+                display       : inline-flex;
+                align-items   : flex-end;
+                color         : black;
+                padding-bottom: .3rem;
+
+                &.active,
+                &:hover {
+                    border-bottom: 2px solid var(--hoofdKleur);
+                }
+
+                .DESKTOP & {
+                    --accentKleur: var(--hoofdKleur);
+                    border-bottom: 2px solid --accentKleur;
+                }
+
+                .MOBILE & {
+                    border: none;
+
+                    &::before {
+                        .squareBefore(var(--accentKleur), .4rem);
+                        margin-block : auto 7px;
+                        border-bottom: none;
+                    }
+
+                    &.active::before {
+                        --accentKleur: var(--hoofdKleur);
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+
+section {
+    height: calc(100vh - var(--headerHeight));
+
+    @supports(height:100dvh) {
+        height: calc(100dvh - var(--headerHeight));
+    }
+
+    overflow         : hidden auto;
+    scroll-snap-align: start;
+
+    &.diensten {
+        text-transform: uppercase;
+        position      : relative;
+
+        h1 {
+            display: none;
+            margin : 1rem var(--colWidth);
+
+            .MOBILE & {
+                display: block;
+            }
+        }
+
+        ul {
+            padding    : 0;
+            margin-left: calc(var(--colWidth));
+            font-size  : var(--fontSize); //* .8
+            line-height: 1.4rem;
+            min-height : 50vh;
+            text-shadow: 0.5px 0.5px black;
+
+            .MOBILE & {
+                margin-left: calc(var(--colWidth) + 1.25rem);
+            }
+
+            li {
+                --ofset      : 0, 0, 0;
+                padding-block: .5rem;
+                color        : white;
+                transition   : transform 500ms ease-in-out, opacity 500ms ease-in-out;
+                transform    : translate3d(var(--offset));
+
+                .MOBILE & {
+                    text-indent: -1.25rem;
+                }
+
+                .DESKTOP & {
+                    opacity: 0;
+                    scale  : .1;
+
+                    &.limitWidth {
+                        max-width  : calc(3.33 * var(--colWidth));
+                        text-indent: -1.25rem;
+                        margin-left: 1.25rem;
+                    }
+                }
+
+                &:before {
+                    .squareBefore(black, .66rem);
+                    margin-right: .5rem;
+                }
+            }
+        }
+
+        &.visible li[class*=dienst] {
+            .DESKTOP & {
+                opacity: 1;
+                scale  : 1;
+            }
+        }
+
+        .werkLink {
+            .MOBILE & {
+                margin-left   : var(--colWidth);
+                padding-inline: 1rem;
+                aspect-ratio  : 1.3;
+
+                span {
+                    line-height: 1.7rem;
+                }
+            }
+
+            .DESKTOP & {
+                display: none;
+            }
+        }
+    }
+
+    &.fotosWerk {
+        display       : flex;
+        flex-direction: var(--mobileDirection);
+
+        h2 {
+            position      : var(--headerPosition);
+            color         : white;
+            margin        : 0 0 0 var(--colWidth);
+            font-size     : var(--fontSize);
+            font-weight   : 400;
+            line-height   : 1;
+            letter-spacing: .2px;
+            padding-top   : 1rem;
+        }
+
+        .payOff {
+            display: none;
+
+            .MOBILE & {
+                display      : block;
+                padding-block: 0.5rem 1.5rem;
+            }
+        }
+
+        .slick {
+            position           : relative;
+            display            : flex;
+            flex-direction     : var(--mobileDirection);
+            align-items        : stretch;
+            margin             : var(--slickMargin);
+            scroll-behavior    : smooth;
+            overscroll-behavior: auto;
+            overflow-x         : scroll;
+            height             : min-content;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            .MOBILE & {
+                flex    : 0 0 calc(100vh - var(--headerHeight) - 5rem);
+                overflow: hidden;
+
+                &::before,
+                &::after {
+                    content         : '';
+                    display         : block;
+                    background-color: white;
+                    position        : sticky;
+                    top             : 0;
+                    width           : 100%;
+                    height          : 1px;
+                    min-height      : 1px;
+                    z-index         : 1;
+                }
+
+                &::after {
+                    top   : auto;
+                    bottom: 0;
+                }
+            }
+        }
+
+        &.visible .slick {
+            .MOBILE & {
+                overflow-y: auto;
+            }
+        }
+
+        .slick-list {
+            border      : solid white;
+            border-width: 0 1px;
+        }
+
+        .slick-slide {
+            --maxZoom  : 1.5;
+            position   : relative;
+            transition : transform 400ms ease-in-out;
+            will-change: scale;
+            transform  : scale(1);
+            transform  : scale3d(1, 1, 1);
+
+            &:hover {
+                transform: scale(1.5);
+                transform: scale3d(var(--maxZoom), var(--maxZoom), var(--maxZoom));
+            }
+        }
+
+        .slick-slide--onTop {
+            z-index: 99;
+        }
+
+        .slick-arrow {
+            border          : none;
+            display         : flex;
+            align-items     : center;
+            justify-content : center;
+            position        : sticky;
+            z-index         : 1;
+            height          : calc(var(--imageHeight) + 1rem);
+            flex            : 0 0 var(--colWidth);
+            background-color: var(--hoofdKleur);
+            font-size       : 2rem;
+            color           : white;
+            cursor          : pointer;
+            font-family     : inherit;
+            font-weight     : 400;
+        }
+
+        .slick-prev {
+            left: 0;
+        }
+
+        &.slick-next {
+            right: 0;
+        }
+
+        img {
+            display: block;
+            height : var(--imageHeight);
+            width  : var(--imageWidth);
+            border : 1px solid #ffffffbb;
+            margin : var(--imageMargin);
+        }
+
+        .MOBILE & {
+            picture:first-child img {
+                margin-top: -1px;
+            }
+
+            picture:last-child img {
+                margin-bottom: -1px;
+            }
+        }
+    }
+
+    &.contact {
+        overflow: visible;
+
+        h2 {
+            .DESKTOP & {
+                display: none;
+            }
+
+            .MOBILE & {
+                display: block;
+            }
+        }
+
+        .payOff {
+            padding-block: 0.5rem 1.5rem;
+        }
+
+        .inzet {
+            opacity         : .8;
+            position        : relative;
+            display         : flex;
+            background-color: white;
+            min-height      : 400px;
+            width           : var(--inzetWidth);
+            margin          : 0 0 0 var(--inzetMargin);
+            overflow        : hidden;
+            transition      : box-shadow .3s ease;
+            box-shadow      : 0 0 transparent;
+
+            .MOBILE & {
+                min-height: calc(400px + 1rem);
+            }
+
+            * {
+                opacity: 1;
+            }
+        }
+
+        .DESKTOP & {
+            &.visible .inzet {
+                box-shadow: 0 -2rem white;
+            }
+        }
+
+        .gegevens {
+            padding    : 1rem var(--gutterWidth) calc(.4 * var(--colWidth)) var(--inzetPadding);
+            line-height: 1.8rem;
+            flex       : 0 0 calc(.65 * var(--inzetWidth));
+            z-index    : 1;
+        }
+
+        h3,
+        p,
+        a {
+            color      : black;
+            margin     : 0;
+            font-size  : var(--fontSize);
+            font-weight: 400;
+            text-shadow: 1px 1px 1px white;
+
+            &+h3 {
+                margin-top: 1rem;
+            }
+        }
+
+        p,
+        a {
+            font-size: calc(.9 * var(--fontSize));
+        }
+
+        a {
+            text-decoration      : underline;
+            text-decoration-color: var(--hoofdKleur);
+        }
+
+        h3:last-child {
+            text-transform: none;
+        }
+
+        p span {
+            display: inline-block;
+            width  : 1rem;
+        }
+
+        .foto {
+            position       : absolute;
+            bottom         : 0;
+            right          : -20px;
+            /* -20px @ 490px increasing to -100px @ 310px */
+            right          : calc(-1 * clamp(20px, calc(1.25rem + ((1vw - 4.9px) * -44.4444)), 100px));
+            min-height     : 0vw;
+            display        : flex;
+            flex-direction : column;
+            justify-content: flex-end;
+
+            img {
+                display: block;
+            }
+        }
+    }
+}
+
+@media (orientation: landscape) {
+    .MOBILE {
+        &html {
+            scroll-padding-top: 0;
+        }
+
+        header {
+            top: calc(-1 * var(--headerHeight));
+        }
+
+        nav {
+            position: sticky;
+            top     : 0;
+        }
+
+        section.fotosWerk {
+            height: 100vh;
+
+            .slick {
+                flex    : 1;
+                overflow: auto;
+            }
+        }
+    }
+}
