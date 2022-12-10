@@ -576,8 +576,9 @@ section.contact a {
   font-size: calc(0.9 * var(--fontSize));
 }
 section.contact a {
-  -webkit-text-decoration: underline var(--hoofdKleur);
-          text-decoration: underline var(--hoofdKleur);
+  text-decoration: underline;
+  -webkit-text-decoration-color: var(--hoofdKleur);
+          text-decoration-color: var(--hoofdKleur);
 }
 section.contact h3:last-child {
   text-transform: none;
