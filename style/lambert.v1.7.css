@@ -8,7 +8,8 @@
     --docWidth: min(100vw, var(--maxWidth));
     --colWidth: calc(var(--docWidth) / 12);
     --gutterWidth: calc(var(--colWidth) / 4);
-    --headerHeight: max(100px, calc(var(--colWidth) * 2));
+    --headerHeight: clamp(100px, calc(var(--colWidth) * 2), 25vh);
+    --sectionHeight: calc(100vh - var(--headerHeight));
     --headerPaddingBottom: calc(0.15 * var(--headerHeight));
     --headerPadding: calc(0.118 * var(--headerHeight)) 0 calc(0.1875 * var(--headerHeight));
     --headerPosition: relative;
@@ -34,7 +35,6 @@
   :root,
   *::after,
   *::before {
-    --headerHeight: calc(var(--colWidth) * 2);
     --headerPadding: 0 0 calc(0.15 * var(--headerHeight));
     --logoHeight: calc(0.65 * var(--headerHeight));
     --headerPosition: absolute;
@@ -44,7 +44,7 @@
     --hideMobile: initial;
     --slickMargin: var(--colWidth) 0;
     --mobileDirection: row;
-    --imageHeight: max(275px, 45vh);
+    --imageHeight: clamp(var(--sectionHeight) * .6, 275px, 45vh);
     --imageWidth: auto;
     --imageMargin: 0 calc(var(--gutterWidth) / 2);
     --inzetWidth: 520px;
@@ -306,13 +306,13 @@ nav ul li a {
   color: black;
   padding-bottom: 0.3rem;
 }
-nav ul li a.active,
-nav ul li a:hover {
-  border-bottom: 2px solid var(--hoofdKleur);
-}
 .DESKTOP nav ul li a {
   --accentKleur: var(--hoofdKleur);
-  border-bottom: 2px solid --accentKleur;
+  border-bottom: 2px solid transparent;
+}
+nav ul li a.active,
+nav ul li a:hover {
+  border-bottom: 2px solid var(--accentKleur);
 }
 .MOBILE nav ul li a {
   border: none;
@@ -331,7 +331,7 @@ nav ul li a:hover {
   --accentKleur: var(--hoofdKleur);
 }
 section {
-  height: calc(100vh - var(--headerHeight));
+  height: var(--sectionHeight);
   overflow: hidden auto;
   scroll-snap-align: start;
 }
@@ -490,7 +490,7 @@ section.fotosWerk .slick-arrow {
   justify-content: center;
   position: sticky;
   z-index: 1;
-  height: calc(var(--imageHeight) + 1rem);
+  height: var(--imageHeight);
   flex: 0 0 var(--colWidth);
   background-color: var(--hoofdKleur);
   font-size: 2rem;

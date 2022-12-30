@@ -9,7 +9,8 @@
         --docWidth           : ~"min(100vw, var(--maxWidth))";
         --colWidth           : calc(var(--docWidth) / 12);
         --gutterWidth        : calc(var(--colWidth) / 4);
-        --headerHeight       : ~"max(100px, calc(var(--colWidth) * 2))";
+        --headerHeight       : ~"clamp(100px, calc(var(--colWidth) * 2), 25vh)";
+        --sectionHeight      : calc(100vh - var(--headerHeight));
         --headerPaddingBottom: calc(0.15 * var(--headerHeight)); // ??
         --headerPadding      : calc(.118 * var(--headerHeight)) 0 calc(.1875 * var(--headerHeight));
         --headerPosition     : relative;
@@ -39,7 +40,6 @@
     :root,
     *::after,
     *::before {
-        --headerHeight   : calc(var(--colWidth) * 2);
         --headerPadding  : 0 0 calc(0.15 * var(--headerHeight));
         --logoHeight     : calc(.65 * var(--headerHeight));
         --headerPosition : absolute;
@@ -49,7 +49,7 @@
         --hideMobile     : initial;
         --slickMargin    : var(--colWidth) 0;
         --mobileDirection: row;
-        --imageHeight    : max(275px, 45vh);
+        --imageHeight    : ~'clamp(var(--sectionHeight) * .6, 275px, 45vh)';
         --imageWidth     : auto;
         --imageMargin    : 0 calc(var(--gutterWidth) / 2);
         --inzetWidth     : 520px;
@@ -363,15 +363,16 @@ nav {
                 color         : black;
                 padding-bottom: .3rem;
 
-                &.active,
-                &:hover {
-                    border-bottom: 2px solid var(--hoofdKleur);
-                }
-
                 .DESKTOP & {
                     --accentKleur: var(--hoofdKleur);
-                    border-bottom: 2px solid --accentKleur;
+                    border-bottom: 2px solid transparent;
                 }
+
+                &.active,
+                &:hover {
+                    border-bottom: 2px solid var(--accentKleur);
+                }
+
 
                 .MOBILE & {
                     border: none;
@@ -394,7 +395,7 @@ nav {
 
 
 section {
-    height: calc(100vh - var(--headerHeight));
+    height: var(--sectionHeight);
 
     @supports(height:100dvh) {
         height: calc(100dvh - var(--headerHeight));
@@ -580,7 +581,7 @@ section {
             justify-content : center;
             position        : sticky;
             z-index         : 1;
-            height          : calc(var(--imageHeight) + 1rem);
+            height          : var(--imageHeight);
             flex            : 0 0 var(--colWidth);
             background-color: var(--hoofdKleur);
             font-size       : 2rem;

@@ -88,34 +88,30 @@ $(() => {
 
         const intersectionCallback = (entries) => {
             entries.forEach(entry => {
-                const visibleSection = $(entry.target).closest('section')[0];
+                console.log(entry.target);
                 if (entry.isIntersecting) {
-                    if (entry.intersectionRatio > 0.5) {
-                        setTimeout(() => {
-                            $(visibleSection).addClass('visible');
-                        }, 500);
+                    const visibleSection = entry.target;
+                    if (entry.intersectionRatio > 0.6) {
+                        $('section').not(visibleSection).removeClass('visible');
+                        $(visibleSection).addClass('visible');
                         const sectionClassname = visibleSection.classList[0];
                         toggleWerklink(sectionClassname);
                         const menuItem = $('nav .' + sectionClassname)[0];
                         setActiveItem(menuItem);
                     }
-                    if (entry.intersectionRatio <= 0.5) {
-                        $(visibleSection).removeClass('visible');
-                    }
-                } else {
-                    $(visibleSection).removeClass('visible');
                 }
             });
         }
 
         const options = {
             root: null,
-            threshold: 1.0
+            threshold: 0.8,
+            rootMargin: '0px',
         }
 
         const sectionObserver = new IntersectionObserver(intersectionCallback, options);
 
-        const $sections = $('.activeMenuIndicator');
+        const $sections = $('section');
         $sections.each(function () {
             sectionObserver.observe(this);
         })
