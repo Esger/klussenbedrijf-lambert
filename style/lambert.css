@@ -277,9 +277,16 @@ nav {
 .MOBILE nav {
   position: absolute;
   position-anchor: --hamburger;
-  position-area: bottom;
+  position-area: left;
   border: none;
   background-color: transparent;
+  transition: all 0.3s ease-in-out;
+  transition-behavior: allow-discrete;
+}
+.MOBILE nav:not(:popover-open) {
+  translate: 100px 0;
+  scale: 0.25;
+  opacity: 0;
 }
 nav ul {
   font-size: var(--fontSize);
@@ -334,6 +341,13 @@ nav ul li a:hover {
 }
 .MOBILE nav ul li a.active::before {
   --accentKleur: var(--hoofdKleur);
+}
+@starting-style {
+  .MOBILE nav {
+    scale: 0.25;
+    translate: 100px 0;
+    opacity: 0;
+  }
 }
 section {
   height: var(--sectionHeight);

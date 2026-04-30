@@ -331,11 +331,19 @@ nav {
     }
 
     .MOBILE & {
-        position        : absolute;
-        position-anchor : --hamburger;
-        position-area   : bottom;
-        border          : none;
-        background-color: transparent;
+        position           : absolute;
+        position-anchor    : --hamburger;
+        position-area      : left;
+        border             : none;
+        background-color   : transparent;
+        transition         : all .3s ease-in-out;
+        transition-behavior: allow-discrete;
+
+        &:not(:popover-open) {
+            translate: 100px 0;
+            scale    : .25;
+            opacity  : 0;
+        }
     }
 
     ul {
@@ -400,6 +408,13 @@ nav {
     }
 }
 
+@starting-style {
+    .MOBILE nav {
+        scale    : .25;
+        translate: 100px 0;
+        opacity  : 0;
+    }
+}
 
 section {
     height: var(--sectionHeight);
