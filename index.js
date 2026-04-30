@@ -130,31 +130,6 @@ $(() => {
         });
     }
 
-    const initHamburger = _ => {
-        const $nav = $('header nav');
-        const $hamburger = $('.hamburger');
-        const $navItem = $('nav a');
-        const setMobile = _ => {
-            $nav.hide('slow');
-            $hamburger.show('slow');
-        }
-        const setDesktop = _ => {
-            $nav.show('slow');
-            $hamburger.hide('slow');
-        }
-        isMobile ? setMobile() : setDesktop();
-
-        $hamburger.off('click').on('click', _ => {
-            setDesktop();
-        });
-        $navItem.off('click').on('click', _ => {
-            if (isMobile) {
-                setMobile();
-            }
-
-        });
-    }
-
     const resizeHandler = _ => {
         let resizeTimeout;
         $(window).on('resize', _ => {
@@ -162,14 +137,11 @@ $(() => {
             resizeTimeout = setTimeout(_ => {
                 initMobile();
                 initSlick();
-                initHamburger();
             }, 50);
         });
     }
 
     initMobile();
-
-    initHamburger();
 
     activeSectionWatcher();
 

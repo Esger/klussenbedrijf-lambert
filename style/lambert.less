@@ -226,6 +226,7 @@ h3 {
 }
 
 .hamburger {
+    anchor-name     : --hamburger;
     width           : calc(0.33 * var(--logoHeight));
     aspect-ratio    : 1;
     margin          : 0 var(--colWidth) 0 0;
@@ -327,8 +328,16 @@ header {
 nav {
     margin-bottom: -11px;
 
+    .DESKTOP & {
+        display: contents;
+    }
+
     .MOBILE & {
-        margin-bottom: -2rem;
+        position        : absolute;
+        position-anchor : --hamburger;
+        position-area   : bottom;
+        border          : none;
+        background-color: transparent;
     }
 
     ul {
