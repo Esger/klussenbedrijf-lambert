@@ -628,6 +628,7 @@ section.contact .logo {
   margin-left: calc(-2 * var(--gutterWidth));
 }
 .MOBILE section.contact .logo {
+  width: 180px;
   margin-left: calc(-6 * var(--gutterWidth));
 }
 @media (orientation: landscape) {
