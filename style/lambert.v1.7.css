@@ -60,7 +60,7 @@
     --offset: calc(6.5 * var(--colWidth)), 0, 0;
   }
   .visible .dienst3 {
-    --offset: calc(0.75 * var(--colWidth)), calc(.75 * var(--colWidth)), 0;
+    --offset: calc(0.75 * var(--colWidth)), calc(0.75 * var(--colWidth)), 0;
   }
   .visible .dienst4 {
     --offset: calc(2 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
@@ -72,12 +72,10 @@
     --offset: calc(7.5 * var(--colWidth)), calc(0 * var(--colWidth)), 0;
   }
   .visible .dienst7 {
-    --offset: calc(1.25 * var(--colWidth)),
-                    calc(1.25 * var(--colWidth)),
-                    0;
+    --offset: calc(1.25 * var(--colWidth)), calc(1.25 * var(--colWidth)), 0;
   }
   .visible .dienst8 {
-    --offset: calc(7 * var(--colWidth)), calc(.25 * var(--colWidth)), 0;
+    --offset: calc(7 * var(--colWidth)), calc(0.25 * var(--colWidth)), 0;
   }
   .visible .dienst9 {
     --offset: calc(3.5 * var(--colWidth)), calc(1 * var(--colWidth)), 0;
@@ -184,6 +182,7 @@ h3 {
   background-color: white;
 }
 .hamburger {
+  anchor-name: --hamburger;
   width: calc(0.33 * var(--logoHeight));
   aspect-ratio: 1;
   margin: 0 var(--colWidth) 0 0;
@@ -221,8 +220,7 @@ h3 {
   background-color: var(--hoofdKleur);
   margin-left: 1.8rem;
   margin-block: -3px;
-  -webkit-clip-path: polygon(0% 10%, 100% 50%, 0% 90%);
-          clip-path: polygon(0% 10%, 100% 50%, 0% 90%);
+  clip-path: polygon(0% 10%, 100% 50%, 0% 90%);
 }
 header {
   position: sticky;
@@ -273,8 +271,15 @@ header .werkLink {
 nav {
   margin-bottom: -11px;
 }
+.DESKTOP nav {
+  display: contents;
+}
 .MOBILE nav {
-  margin-bottom: -2rem;
+  position: absolute;
+  position-anchor: --hamburger;
+  position-area: bottom;
+  border: none;
+  background-color: transparent;
 }
 nav ul {
   font-size: var(--fontSize);
@@ -435,7 +440,6 @@ section.fotosWerk .slick {
   scroll-behavior: smooth;
   overscroll-behavior: auto;
   overflow-x: scroll;
-  height: -webkit-min-content;
   height: min-content;
 }
 section.fotosWerk .slick::-webkit-scrollbar {
