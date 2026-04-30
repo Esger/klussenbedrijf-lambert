@@ -663,7 +663,7 @@ section {
         }
 
         .gegevens {
-            padding    : 1rem var(--gutterWidth) calc(.4 * var(--colWidth)) var(--inzetPadding);
+            padding    : 1rem var(--gutterWidth) 0 var(--inzetPadding);
             line-height: 1.8rem;
             flex       : 0 0 calc(.65 * var(--inzetWidth));
             z-index    : 1;
@@ -715,6 +715,16 @@ section {
 
             img {
                 display: block;
+            }
+        }
+
+        .logo {
+            display    : block;
+            width      : 220px;
+            margin-left: calc(-2 * var(--gutterWidth));
+
+            .MOBILE & {
+                margin-left: calc(-6 * var(--gutterWidth));
             }
         }
     }
