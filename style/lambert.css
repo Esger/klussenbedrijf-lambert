@@ -96,10 +96,10 @@
 }
 html {
   overflow: hidden auto;
+  scroll-behavior: smooth;
   scroll-padding-top: calc(var(--headerHeight) + 16px);
-}
-html.scrollSnap {
   scroll-snap-type: y proximity;
+  scroll-snap-align: top;
 }
 @media screen and (prefers-reduced-motion: reduce) {
   html {

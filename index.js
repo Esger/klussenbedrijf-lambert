@@ -49,20 +49,6 @@ $(() => {
             });
     }
 
-    const onScrollStop = callback => {
-        let isScrolling;
-        window.addEventListener(
-            'scroll',
-            e => {
-                clearTimeout(isScrolling);
-                isScrolling = setTimeout(() => {
-                    callback();
-                }, 100);
-            },
-            { passive: true }
-        );
-    };
-
     const activeSectionWatcher = _ => {
 
         const setActiveItem = element => {
@@ -108,12 +94,7 @@ $(() => {
         const $sections = $('section');
         $sections.each(function () {
             sectionObserver.observe(this);
-        })
-
-        const setScrollSnap = _ => {
-            $('html').addClass('scrollSnap');
-        }
-        onScrollStop(setScrollSnap);
+        });
 
         $('nav a').first().addClass('active');
         $('body').on('click', 'a', function (event) {
