@@ -3,13 +3,7 @@ $(() => {
 
     const initMobile = () => {
         isMobile = window.innerWidth < 769;
-        if (isMobile) {
-            $('html').removeClass('DESKTOP');
-            $('html').addClass('MOBILE');
-        } else {
-            $('html').removeClass('MOBILE');
-            $('html').addClass('DESKTOP');
-        }
+        $('html').toggleClass('MOBILE', isMobile).toggleClass('DESKTOP', !isMobile);
     }
 
     const initSlick = _ => {
