@@ -305,8 +305,21 @@ nav ul {
   margin: 0 calc(var(--colWidth) - 1.5rem) 0 0;
 }
 .DESKTOP nav ul {
+  position: relative;
   margin: 0 var(--colWidth) 0 0;
   justify-content: space-between;
+}
+.DESKTOP nav ul::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 5ch;
+  border-bottom: 2px solid var(--hoofdKleur);
+  transform-origin: left;
+  animation: scrollPosition linear;
+  animation-timeline: scroll();
 }
 nav ul li {
   flex: var(--navItemFlex);
@@ -322,7 +335,6 @@ nav ul li a {
   --accentKleur: var(--hoofdKleur);
   border-bottom: 2px solid transparent;
 }
-nav ul li a.active,
 nav ul li a:hover {
   border-bottom: 2px solid var(--accentKleur);
 }
@@ -341,6 +353,20 @@ nav ul li a:hover {
 }
 .MOBILE nav ul li a.active::before {
   --accentKleur: var(--hoofdKleur);
+}
+@keyframes scrollPosition {
+  0% {
+    translate: 0 0;
+    scale: 1 1;
+  }
+  50% {
+    translate: var(--colWidth) 0;
+    scale: 1 1;
+  }
+  100% {
+    translate: calc(2 * var(--colWidth)) 0;
+    scale: 1.6 1;
+  }
 }
 @starting-style {
   .MOBILE nav {

@@ -364,8 +364,22 @@ nav {
         }
 
         .DESKTOP & {
+            position       : relative;
             margin         : 0 var(--colWidth) 0 0;
             justify-content: space-between;
+
+            &::after {
+                content           : '';
+                display           : block;
+                position          : absolute;
+                left              : 0;
+                bottom            : 0;
+                width             : 5ch;
+                border-bottom     : 2px solid var(--hoofdKleur);
+                transform-origin  : left;
+                animation         : scrollPosition linear;
+                animation-timeline: scroll();
+            }
         }
 
         li {
@@ -383,11 +397,9 @@ nav {
                     border-bottom: 2px solid transparent;
                 }
 
-                &.active,
                 &:hover {
                     border-bottom: 2px solid var(--accentKleur);
                 }
-
 
                 .MOBILE & {
                     border: none;
@@ -405,6 +417,23 @@ nav {
 
             }
         }
+    }
+}
+
+@keyframes scrollPosition {
+    0% {
+        translate: 0 0;
+        scale    : 1 1;
+    }
+
+    50% {
+        translate: var(--colWidth) 0;
+        scale    : 1 1;
+    }
+
+    100% {
+        translate: calc(2 * var(--colWidth)) 0;
+        scale    : 1.6 1;
     }
 }
 
