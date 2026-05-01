@@ -52,62 +52,6 @@ $(() => {
             });
     }
 
-    const activeSectionWatcher = _ => {
-
-        const setActiveItem = element => {
-            $('nav a').removeClass('active');
-            $(element).addClass('active');
-        };
-
-        const $werkLink = $('.werkLink');
-
-        const toggleWerklink = sectionClassname => {
-            const hideClasses = 'fotosWerk contact';
-            if (hideClasses.includes(sectionClassname))
-                $werkLink.addClass('hide');
-            else
-                $werkLink.removeClass('hide');
-        }
-
-        const intersectionCallback = (entries) => {
-            entries.forEach(entry => {
-                // console.log(entry.target);
-                if (entry.isIntersecting) {
-                    const visibleSection = entry.target;
-                    if (entry.intersectionRatio > 0.6) {
-                        $('section').not(visibleSection).removeClass('visible');
-                        $(visibleSection).addClass('visible');
-                        const sectionClassname = visibleSection.classList[0];
-                        toggleWerklink(sectionClassname);
-                        const menuItem = $('nav .' + sectionClassname)[0];
-                        setActiveItem(menuItem);
-                    }
-                }
-            });
-        }
-
-        const options = {
-            root: null,
-            threshold: 0.8,
-            rootMargin: '0px',
-        }
-
-        const sectionObserver = new IntersectionObserver(intersectionCallback, options);
-
-        const $sections = $('section');
-        $sections.each(function () {
-            sectionObserver.observe(this);
-        });
-
-        $('nav a').first().addClass('active');
-        $('body').on('click', 'a', function (event) {
-            $('html').removeClass('scrollSnap');
-            target = $('#' + this.classList[0])[0];
-            target.scrollIntoView();
-            setActiveItem(event.target);
-        });
-    }
-
     const resizeHandler = _ => {
         let resizeTimeout;
         $(window).on('resize', _ => {
@@ -121,7 +65,7 @@ $(() => {
 
     initMobile();
 
-    activeSectionWatcher();
+
 
     resizeHandler();
 

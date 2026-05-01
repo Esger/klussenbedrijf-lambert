@@ -57,56 +57,53 @@
         --inzetPadding   : var(--gutterWidth);
     }
 
-    .visible {
+    @media (prefers-reduced-motion: no-preference) {
 
-        @media (prefers-reduced-motion: no-preference) {
-
-            .dienst1 {
-                --offset: 0, 2rem, 0;
-            }
-
-
-            .dienst2 {
-                --offset: calc(6.5 * var(--colWidth)), 0, 0;
-            }
-
-            .dienst3 {
-                --offset: calc(.75 * var(--colWidth)), calc(.75 * var(--colWidth)), 0;
-            }
-
-            .dienst4 {
-                --offset: calc(2 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
-            }
-
-            .dienst5 {
-                --offset: calc(0 * var(--colWidth)), calc(3.5 * var(--colWidth)), 0;
-            }
-
-            .dienst6 {
-                --offset: calc(7.5 * var(--colWidth)), calc(0 * var(--colWidth)), 0;
-            }
-
-            .dienst7 {
-                --offset: calc(1.25 * var(--colWidth)),
-                    calc(1.25 * var(--colWidth)),
-                    0;
-            }
-
-            .dienst8 {
-                --offset: calc(7 * var(--colWidth)), calc(.25 * var(--colWidth)), 0;
-            }
-
-            .dienst9 {
-                --offset: calc(3.5 * var(--colWidth)), calc(1 * var(--colWidth)), 0;
-            }
-
-            .dienst10 {
-                --offset: calc(5.25 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
-            }
-
+        .dienst1 {
+            --offset: 0, 2rem, 0;
         }
+
+        .dienst2 {
+            --offset: calc(6.5 * var(--colWidth)), 0, 0;
+        }
+
+        .dienst3 {
+            --offset: calc(.75 * var(--colWidth)), calc(.75 * var(--colWidth)), 0;
+        }
+
+        .dienst4 {
+            --offset: calc(2 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
+        }
+
+        .dienst5 {
+            --offset: calc(0 * var(--colWidth)), calc(3.5 * var(--colWidth)), 0;
+        }
+
+        .dienst6 {
+            --offset: calc(7.5 * var(--colWidth)), calc(0 * var(--colWidth)), 0;
+        }
+
+        .dienst7 {
+            --offset: calc(1.25 * var(--colWidth)),
+                calc(1.25 * var(--colWidth)),
+                0;
+        }
+
+        .dienst8 {
+            --offset: calc(7 * var(--colWidth)), calc(.25 * var(--colWidth)), 0;
+        }
+
+        .dienst9 {
+            --offset: calc(3.5 * var(--colWidth)), calc(1 * var(--colWidth)), 0;
+        }
+
+        .dienst10 {
+            --offset: calc(5.25 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
+        }
+
     }
 }
+
 
 @media (min-width:1200px) {
     :root {
@@ -318,8 +315,10 @@ header {
     }
 
     .werkLink {
-        position: absolute;
-        width   : calc(100% + 1 * var(--gutterWidth));
+        position          : absolute;
+        width             : calc(100% + 1 * var(--gutterWidth));
+        animation         : hideWerkLink both;
+        animation-timeline: scroll(root);
     }
 }
 
@@ -378,7 +377,7 @@ nav {
                 border-bottom     : 2px solid var(--hoofdKleur);
                 transform-origin  : left;
                 animation         : scrollPosition linear;
-                animation-timeline: scroll();
+                animation-timeline: scroll(root);
             }
         }
 
@@ -405,13 +404,25 @@ nav {
                     border: none;
 
                     &::before {
-                        .squareBefore(var(--accentKleur), .4rem);
-                        margin-block : auto 7px;
-                        border-bottom: none;
+                        .squareBefore(transparent, .4rem);
+                        margin-block      : auto 7px;
+                        border-bottom     : none;
+                        animation-timeline: scroll(root);
                     }
 
-                    &.active::before {
-                        --accentKleur: var(--hoofdKleur);
+                    &.diensten::before {
+                        animation         : mobileActiveHome linear both;
+                        animation-timeline: scroll(root);
+                    }
+
+                    &.fotosWerk::before {
+                        animation         : mobileActiveWerk linear both;
+                        animation-timeline: scroll(root);
+                    }
+
+                    &.contact::before {
+                        animation         : mobileActiveContact linear both;
+                        animation-timeline: scroll(root);
                     }
                 }
 
@@ -437,6 +448,116 @@ nav {
     }
 }
 
+@keyframes mobileActiveHome {
+
+    0%,
+    20% {
+        background-color: var(--hoofdKleur);
+    }
+
+    30%,
+    100% {
+        background-color: transparent;
+    }
+}
+
+@keyframes mobileActiveWerk {
+
+    0%,
+    20% {
+        background-color: transparent;
+    }
+
+    30%,
+    70% {
+        background-color: var(--hoofdKleur);
+    }
+
+    80%,
+    100% {
+        background-color: transparent;
+    }
+}
+
+@keyframes mobileActiveContact {
+
+    0%,
+    70% {
+        background-color: transparent;
+    }
+
+    80%,
+    100% {
+        background-color: var(--hoofdKleur);
+    }
+}
+
+@keyframes hideWerkLink {
+
+    0%,
+    20% {
+        opacity   : 1;
+        visibility: visible;
+    }
+
+    35%,
+    100% {
+        opacity   : 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes onloadScatter {
+    0% {
+        transform: translate3d(0, 0, 0);
+        opacity: 0;
+        scale: 0.1;
+    }
+    100% {
+        transform: translate3d(var(--offset, 0, 0, 0));
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes exitDienst {
+    100% {
+        transform: translate3d(0, 0, 0);
+        opacity: 0;
+        scale: 0.1;
+    }
+}
+
+@keyframes enableSlickScroll {
+    0%,
+    30% {
+        overflow-y: hidden;
+    }
+
+    31%,
+    69% {
+        overflow-y: auto;
+    }
+
+    70%,
+    100% {
+        overflow-y: hidden;
+    }
+}
+
+@keyframes revealInzet {
+
+    0%,
+    75% {
+        box-shadow: 0 0 transparent;
+    }
+
+    90%,
+    100% {
+        box-shadow: 0 -2rem white;
+    }
+}
+
 @starting-style {
     .MOBILE nav {
         scale    : .25;
@@ -456,8 +577,9 @@ section {
     scroll-snap-align: start;
 
     &.diensten {
-        text-transform: uppercase;
-        position      : relative;
+        text-transform    : uppercase;
+        position          : relative;
+        view-timeline-name: --section1;
 
         h1 {
             display: none;
@@ -481,19 +603,15 @@ section {
             }
 
             li {
-                --ofset      : 0, 0, 0;
                 padding-block: .5rem;
                 color        : white;
-                transition   : transform 500ms ease-in-out, opacity 500ms ease-in-out;
-                transform    : translate3d(var(--offset));
+                transform    : translate3d(var(--offset, 0, 0, 0));
 
                 .MOBILE & {
                     text-indent: -1.25rem;
                 }
 
                 .DESKTOP & {
-                    opacity: 0;
-                    scale  : .1;
 
                     &.limitWidth {
                         max-width  : calc(3.33 * var(--colWidth));
@@ -509,10 +627,11 @@ section {
             }
         }
 
-        &.visible li[class*=dienst] {
+        li[class*=dienst] {
             .DESKTOP & {
-                opacity: 1;
-                scale  : 1;
+                animation         : onloadScatter 1s ease-out both, exitDienst both;
+                animation-timeline: auto, --section1;
+                animation-range   : normal, exit;
             }
         }
 
@@ -534,8 +653,9 @@ section {
     }
 
     &.fotosWerk {
-        display       : flex;
-        flex-direction: var(--mobileDirection);
+        display           : flex;
+        flex-direction    : var(--mobileDirection);
+        view-timeline-name: --section2;
 
         h2 {
             position      : var(--headerPosition);
@@ -596,9 +716,14 @@ section {
             }
         }
 
-        &.visible .slick {
+        .slick {
             .MOBILE & {
                 overflow-y: auto;
+
+                @supports (animation-timeline: view()) {
+                    animation         : enableSlickScroll both;
+                    animation-timeline: --section2;
+                }
             }
         }
 
@@ -712,8 +837,9 @@ section {
         }
 
         .DESKTOP & {
-            &.visible .inzet {
-                box-shadow: 0 -2rem white;
+            .inzet {
+                animation         : revealInzet both;
+                animation-timeline: scroll(root);
             }
         }
 
