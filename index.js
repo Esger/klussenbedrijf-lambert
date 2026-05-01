@@ -4,6 +4,9 @@ $(() => {
     const initMobile = () => {
         isMobile = window.innerWidth < 769;
         $('html').toggleClass('MOBILE', isMobile).toggleClass('DESKTOP', !isMobile);
+        $(window).on('scroll', _ => {
+            document.getElementById('nav').hidePopover();
+        });
     }
 
     const initSlick = _ => {
@@ -68,7 +71,7 @@ $(() => {
 
         const intersectionCallback = (entries) => {
             entries.forEach(entry => {
-                console.log(entry.target);
+                // console.log(entry.target);
                 if (entry.isIntersecting) {
                     const visibleSection = entry.target;
                     if (entry.intersectionRatio > 0.6) {
