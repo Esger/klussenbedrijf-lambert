@@ -9,7 +9,7 @@
     --colWidth: calc(var(--docWidth) / 12);
     --gutterWidth: calc(var(--colWidth) / 4);
     --headerHeight: clamp(100px, calc(var(--colWidth) * 2), 25vh);
-    --sectionHeight: calc(100vh - var(--headerHeight));
+    --sectionHeight: calc(100dvh - var(--headerHeight));
     --headerPaddingBottom: calc(0.15 * var(--headerHeight));
     --headerPadding: calc(0.118 * var(--headerHeight)) 0 calc(0.1875 * var(--headerHeight));
     --headerPosition: relative;
@@ -96,10 +96,10 @@
 }
 html {
   overflow: hidden auto;
+  scroll-behavior: smooth;
   scroll-padding-top: calc(var(--headerHeight) + 16px);
-}
-html.scrollSnap {
   scroll-snap-type: y proximity;
+  scroll-snap-align: top;
 }
 @media screen and (prefers-reduced-motion: reduce) {
   html {
@@ -277,9 +277,16 @@ nav {
 .MOBILE nav {
   position: absolute;
   position-anchor: --hamburger;
-  position-area: bottom;
+  position-area: left;
   border: none;
   background-color: transparent;
+  transition: all 0.3s ease-in-out;
+  transition-behavior: allow-discrete;
+}
+.MOBILE nav:not(:popover-open) {
+  translate: 100px 0;
+  scale: 0.25;
+  opacity: 0;
 }
 nav ul {
   font-size: var(--fontSize);
@@ -334,6 +341,13 @@ nav ul li a:hover {
 }
 .MOBILE nav ul li a.active::before {
   --accentKleur: var(--hoofdKleur);
+}
+@starting-style {
+  .MOBILE nav {
+    scale: 0.25;
+    translate: 100px 0;
+    opacity: 0;
+  }
 }
 section {
   height: var(--sectionHeight);
@@ -628,6 +642,7 @@ section.contact .logo {
   margin-left: calc(-2 * var(--gutterWidth));
 }
 .MOBILE section.contact .logo {
+  width: 180px;
   margin-left: calc(-6 * var(--gutterWidth));
 }
 @media (orientation: landscape) {

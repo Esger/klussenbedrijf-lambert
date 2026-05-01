@@ -10,7 +10,7 @@
         --colWidth           : calc(var(--docWidth) / 12);
         --gutterWidth        : calc(var(--colWidth) / 4);
         --headerHeight       : ~"clamp(100px, calc(var(--colWidth) * 2), 25vh)";
-        --sectionHeight      : calc(100vh - var(--headerHeight));
+        --sectionHeight      : calc(100dvh - var(--headerHeight));
         --headerPaddingBottom: calc(0.15 * var(--headerHeight)); // ??
         --headerPadding      : calc(.118 * var(--headerHeight)) 0 calc(.1875 * var(--headerHeight));
         --headerPosition     : relative;
@@ -121,13 +121,11 @@
 }
 
 html {
-    overflow             : hidden auto;
-    // scroll-behavior   : smooth;
-    scroll-padding-top   : calc(var(--headerHeight) + 16px);
-
-    &.scrollSnap {
-        scroll-snap-type: y proximity;
-    }
+    overflow          : hidden auto;
+    scroll-behavior   : smooth;
+    scroll-padding-top: calc(var(--headerHeight) + 16px);
+    scroll-snap-type  : y proximity;
+    scroll-snap-align : top;
 
     @media screen and (prefers-reduced-motion: reduce) {
         scroll-behavior: auto;
@@ -333,11 +331,19 @@ nav {
     }
 
     .MOBILE & {
-        position        : absolute;
-        position-anchor : --hamburger;
-        position-area   : bottom;
-        border          : none;
-        background-color: transparent;
+        position           : absolute;
+        position-anchor    : --hamburger;
+        position-area      : left;
+        border             : none;
+        background-color   : transparent;
+        transition         : all .3s ease-in-out;
+        transition-behavior: allow-discrete;
+
+        &:not(:popover-open) {
+            translate: 100px 0;
+            scale    : .25;
+            opacity  : 0;
+        }
     }
 
     ul {
@@ -402,6 +408,13 @@ nav {
     }
 }
 
+@starting-style {
+    .MOBILE nav {
+        scale    : .25;
+        translate: 100px 0;
+        opacity  : 0;
+    }
+}
 
 section {
     height: var(--sectionHeight);
@@ -755,6 +768,7 @@ section {
             margin-left: calc(-2 * var(--gutterWidth));
 
             .MOBILE & {
+                width      : 180px;
                 margin-left: calc(-6 * var(--gutterWidth));
             }
         }

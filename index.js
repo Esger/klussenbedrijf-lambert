@@ -3,13 +3,10 @@ $(() => {
 
     const initMobile = () => {
         isMobile = window.innerWidth < 769;
-        if (isMobile) {
-            $('html').removeClass('DESKTOP');
-            $('html').addClass('MOBILE');
-        } else {
-            $('html').removeClass('MOBILE');
-            $('html').addClass('DESKTOP');
-        }
+        $('html').toggleClass('MOBILE', isMobile).toggleClass('DESKTOP', !isMobile);
+        $(window).on('scroll', _ => {
+            document.getElementById('nav').hidePopover();
+        });
     }
 
     const initSlick = _ => {
@@ -55,20 +52,6 @@ $(() => {
             });
     }
 
-    const onScrollStop = callback => {
-        let isScrolling;
-        window.addEventListener(
-            'scroll',
-            e => {
-                clearTimeout(isScrolling);
-                isScrolling = setTimeout(() => {
-                    callback();
-                }, 100);
-            },
-            { passive: true }
-        );
-    };
-
     const activeSectionWatcher = _ => {
 
         const setActiveItem = element => {
@@ -88,7 +71,7 @@ $(() => {
 
         const intersectionCallback = (entries) => {
             entries.forEach(entry => {
-                console.log(entry.target);
+                // console.log(entry.target);
                 if (entry.isIntersecting) {
                     const visibleSection = entry.target;
                     if (entry.intersectionRatio > 0.6) {
@@ -114,12 +97,7 @@ $(() => {
         const $sections = $('section');
         $sections.each(function () {
             sectionObserver.observe(this);
-        })
-
-        const setScrollSnap = _ => {
-            $('html').addClass('scrollSnap');
-        }
-        onScrollStop(setScrollSnap);
+        });
 
         $('nav a').first().addClass('active');
         $('body').on('click', 'a', function (event) {
