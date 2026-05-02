@@ -278,7 +278,7 @@ nav {
   display: contents;
 }
 .MOBILE nav {
-  position: absolute;
+  position: fixed;
   position-anchor: --hamburger;
   position-area: left;
   border: none;
@@ -733,7 +733,8 @@ section.contact a {
 }
 section.contact a {
   text-decoration: underline;
-  text-decoration-color: var(--hoofdKleur);
+  -webkit-text-decoration-color: var(--hoofdKleur);
+          text-decoration-color: var(--hoofdKleur);
 }
 section.contact h3:last-child {
   text-transform: none;
