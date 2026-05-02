@@ -807,6 +807,10 @@ section {
 
         p {
             max-width: 27ch;
+            &.text {
+                line-height: 1.4;
+                max-width: none;
+            }
         }
 
         .payOff {
@@ -844,22 +848,8 @@ section {
         .gegevens {
             padding    : 1rem var(--gutterWidth) 0 var(--inzetPadding);
             line-height: 1.8rem;
-            flex       : 0 0 calc(.65 * var(--inzetWidth));
+            flex       : 0 0 calc(.75 * var(--inzetWidth));
             z-index    : 1;
-        }
-
-        .swapColRow {
-            display       : flex;
-            flex-direction: column;
-            gap           : 1rem;
-
-            div {
-                flex: 0 0 50%;
-            }
-
-            .MOBILE & {
-                flex-direction: row;
-            }
         }
 
         h3,
