@@ -31,6 +31,16 @@
     min-height: 0vw;
   }
 }
+@property --current-translate {
+  syntax: "<length-percentage>";
+  inherits: true;
+  initial-value: 0px;
+}
+@property --current-scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
 @media (min-width: 769px) {
   :root,
   *::after,
@@ -311,7 +321,10 @@ nav ul {
   position: relative;
   margin: 0 var(--colWidth) 0 0;
   justify-content: space-between;
+  animation: scrollPosition linear;
+  animation-timeline: scroll(root);
 }
+.DESKTOP nav ul::before,
 .DESKTOP nav ul::after {
   content: '';
   display: block;
@@ -321,8 +334,29 @@ nav ul {
   width: 5ch;
   border-bottom: 2px solid var(--hoofdKleur);
   transform-origin: left;
-  animation: scrollPosition linear;
-  animation-timeline: scroll(root);
+}
+.DESKTOP nav ul::before {
+  translate: var(--current-translate) 0;
+  scale: var(--current-scale) 1;
+}
+.DESKTOP nav ul::after {
+  opacity: 0.5;
+  filter: blur(1px);
+  translate: var(--hover-translate, var(--current-translate)) 0;
+  scale: var(--hover-scale, var(--current-scale)) 1;
+  transition: translate 0.3s ease, scale 0.3s ease;
+}
+.DESKTOP nav ul:has(li:nth-child(1):hover) {
+  --hover-translate: 0px;
+  --hover-scale: 1;
+}
+.DESKTOP nav ul:has(li:nth-child(2):hover) {
+  --hover-translate: var(--colWidth);
+  --hover-scale: 1;
+}
+.DESKTOP nav ul:has(li:nth-child(3):hover) {
+  --hover-translate: calc(2 * var(--colWidth));
+  --hover-scale: 1.6;
 }
 nav ul li {
   flex: var(--navItemFlex);
@@ -336,10 +370,6 @@ nav ul li a {
 }
 .DESKTOP nav ul li a {
   --accentKleur: var(--hoofdKleur);
-  border-bottom: 2px solid transparent;
-}
-nav ul li a:hover {
-  border-bottom: 2px solid var(--accentKleur);
 }
 .MOBILE nav ul li a {
   border: none;
@@ -369,16 +399,16 @@ nav ul li a:hover {
 }
 @keyframes scrollPosition {
   0% {
-    translate: 0 0;
-    scale: 1 1;
+    --current-translate: 0px;
+    --current-scale: 1;
   }
   50% {
-    translate: var(--colWidth) 0;
-    scale: 1 1;
+    --current-translate: var(--colWidth);
+    --current-scale: 1;
   }
   100% {
-    translate: calc(2 * var(--colWidth)) 0;
-    scale: 1.6 1;
+    --current-translate: calc(2 * var(--colWidth));
+    --current-scale: 1.6;
   }
 }
 @keyframes mobileActiveHome {
