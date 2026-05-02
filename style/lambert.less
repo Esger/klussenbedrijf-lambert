@@ -380,8 +380,33 @@ nav {
             position          : relative;
             margin            : 0 var(--colWidth) 0 0;
             justify-content   : space-between;
-            animation         : scrollPosition linear;
-            animation-timeline: scroll(root);
+
+            @supports (animation-timeline: scroll(root)) {
+                animation         : scrollPosition linear;
+                animation-timeline: scroll(root);
+            }
+
+            @supports not (animation-timeline: scroll(root)) {
+                &:has(a[href="#diensten"].activeFallback) {
+                    --current-translate: 0px;
+                    --current-scale    : 1;
+                }
+
+                &:has(a[href="#fotosWerk"].activeFallback) {
+                    --current-translate: var(--colWidth);
+                    --current-scale    : 1;
+                }
+
+                &:has(a[href="#contact"].activeFallback) {
+                    --current-translate: calc(2 * var(--colWidth));
+                    --current-scale    : 1.6;
+                }
+
+                &::before,
+                &::after {
+                    transition: translate 0.3s ease, scale 0.3s ease;
+                }
+            }
 
             &::before,
             &::after {
@@ -443,24 +468,32 @@ nav {
 
                     &::before {
                         .squareBefore(transparent, .4rem);
-                        margin-block      : auto 7px;
-                        border-bottom     : none;
-                        animation-timeline: scroll(root);
+                        margin-block : auto 7px;
+                        border-bottom: none;
                     }
 
-                    &.diensten::before {
-                        animation         : mobileActiveHome linear both;
-                        animation-timeline: scroll(root);
+                    @supports (animation-timeline: scroll(root)) {
+                        &::before {
+                            animation-timeline: scroll(root);
+                        }
+
+                        &.diensten::before {
+                            animation: mobileActiveHome linear both;
+                        }
+
+                        &.fotosWerk::before {
+                            animation: mobileActiveWerk linear both;
+                        }
+
+                        &.contact::before {
+                            animation: mobileActiveContact linear both;
+                        }
                     }
 
-                    &.fotosWerk::before {
-                        animation         : mobileActiveWerk linear both;
-                        animation-timeline: scroll(root);
-                    }
-
-                    &.contact::before {
-                        animation         : mobileActiveContact linear both;
-                        animation-timeline: scroll(root);
+                    @supports not (animation-timeline: scroll(root)) {
+                        &.activeFallback::before {
+                            border-bottom: 2px solid var(--hoofdKleur);
+                        }
                     }
                 }
 
@@ -665,9 +698,13 @@ section {
 
         li[class*=dienst] {
             .DESKTOP & {
-                animation         : onloadScatter 1s ease-in both, exitDienst both;
-                animation-timeline: auto, --section1;
-                animation-range   : normal, exit;
+                animation: onloadScatter 1s ease-in both;
+
+                @supports (animation-timeline: view()) {
+                    animation         : onloadScatter 1s ease-in both, exitDienst both;
+                    animation-timeline: auto, --section1;
+                    animation-range   : normal, exit;
+                }
             }
         }
 

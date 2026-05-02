@@ -321,8 +321,30 @@ nav ul {
   position: relative;
   margin: 0 var(--colWidth) 0 0;
   justify-content: space-between;
-  animation: scrollPosition linear;
-  animation-timeline: scroll(root);
+}
+@supports (animation-timeline: scroll(root)) {
+  .DESKTOP nav ul {
+    animation: scrollPosition linear;
+    animation-timeline: scroll(root);
+  }
+}
+@supports not (animation-timeline: scroll(root)) {
+  .DESKTOP nav ul:has(a[href="#diensten"].activeFallback) {
+    --current-translate: 0px;
+    --current-scale: 1;
+  }
+  .DESKTOP nav ul:has(a[href="#fotosWerk"].activeFallback) {
+    --current-translate: var(--colWidth);
+    --current-scale: 1;
+  }
+  .DESKTOP nav ul:has(a[href="#contact"].activeFallback) {
+    --current-translate: calc(2 * var(--colWidth));
+    --current-scale: 1.6;
+  }
+  .DESKTOP nav ul::before,
+  .DESKTOP nav ul::after {
+    transition: translate 0.3s ease, scale 0.3s ease;
+  }
 }
 .DESKTOP nav ul::before,
 .DESKTOP nav ul::after {
@@ -383,19 +405,25 @@ nav ul li a {
   background-color: transparent;
   margin-block: auto 7px;
   border-bottom: none;
-  animation-timeline: scroll(root);
 }
-.MOBILE nav ul li a.diensten::before {
-  animation: mobileActiveHome linear both;
-  animation-timeline: scroll(root);
+@supports (animation-timeline: scroll(root)) {
+  .MOBILE nav ul li a::before {
+    animation-timeline: scroll(root);
+  }
+  .MOBILE nav ul li a.diensten::before {
+    animation: mobileActiveHome linear both;
+  }
+  .MOBILE nav ul li a.fotosWerk::before {
+    animation: mobileActiveWerk linear both;
+  }
+  .MOBILE nav ul li a.contact::before {
+    animation: mobileActiveContact linear both;
+  }
 }
-.MOBILE nav ul li a.fotosWerk::before {
-  animation: mobileActiveWerk linear both;
-  animation-timeline: scroll(root);
-}
-.MOBILE nav ul li a.contact::before {
-  animation: mobileActiveContact linear both;
-  animation-timeline: scroll(root);
+@supports not (animation-timeline: scroll(root)) {
+  .MOBILE nav ul li a.activeFallback::before {
+    border-bottom: 2px solid var(--hoofdKleur);
+  }
 }
 @keyframes scrollPosition {
   0% {
@@ -559,9 +587,14 @@ section.diensten ul li:before {
   margin-right: 0.5rem;
 }
 .DESKTOP section.diensten li[class*=dienst] {
-  animation: onloadScatter 1s ease-in both, exitDienst both;
-  animation-timeline: auto, --section1;
-  animation-range: normal, exit;
+  animation: onloadScatter 1s ease-in both;
+}
+@supports (animation-timeline: view()) {
+  .DESKTOP section.diensten li[class*=dienst] {
+    animation: onloadScatter 1s ease-in both, exitDienst both;
+    animation-timeline: auto, --section1;
+    animation-range: normal, exit;
+  }
 }
 .MOBILE section.diensten .werkLink {
   margin-left: var(--colWidth);
@@ -763,8 +796,7 @@ section.contact a {
 }
 section.contact a {
   text-decoration: underline;
-  -webkit-text-decoration-color: var(--hoofdKleur);
-          text-decoration-color: var(--hoofdKleur);
+  text-decoration-color: var(--hoofdKleur);
 }
 section.contact h3:last-child {
   text-transform: none;
