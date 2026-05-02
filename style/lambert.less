@@ -120,7 +120,7 @@
 html {
     overflow          : hidden auto;
     scroll-behavior   : smooth;
-    scroll-padding-top: calc(var(--headerHeight) + 16px);
+    scroll-padding-top: var(--headerHeight);
     scroll-snap-type  : y proximity;
     scroll-snap-align : top;
 
@@ -510,25 +510,27 @@ nav {
 @keyframes onloadScatter {
     0% {
         transform: translate3d(0, 0, 0);
-        opacity: 0;
-        scale: 0.1;
+        opacity  : 0;
+        scale    : 0.1;
     }
+
     100% {
         transform: translate3d(var(--offset, 0, 0, 0));
-        opacity: 1;
-        scale: 1;
+        opacity  : 1;
+        scale    : 1;
     }
 }
 
 @keyframes exitDienst {
     100% {
         transform: translate3d(0, 0, 0);
-        opacity: 0;
-        scale: 0.1;
+        opacity  : 0;
+        scale    : 0.1;
     }
 }
 
 @keyframes enableSlickScroll {
+
     0%,
     30% {
         overflow-y: hidden;
@@ -567,14 +569,10 @@ nav {
 }
 
 section {
-    height: var(--sectionHeight);
-
-    @supports(height:100dvh) {
-        height: calc(100dvh - var(--headerHeight));
-    }
-
+    height           : calc(100dvh - var(--headerHeight));
     overflow         : hidden auto;
     scroll-snap-align: start;
+    padding-top      : 16px;
 
     &.diensten {
         text-transform    : uppercase;

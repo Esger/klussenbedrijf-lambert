@@ -97,7 +97,7 @@
 html {
   overflow: hidden auto;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--headerHeight) + 16px);
+  scroll-padding-top: var(--headerHeight);
   scroll-snap-type: y proximity;
   scroll-snap-align: top;
 }
@@ -477,14 +477,10 @@ nav ul li a:hover {
   }
 }
 section {
-  height: var(--sectionHeight);
+  height: calc(100dvh - var(--headerHeight));
   overflow: hidden auto;
   scroll-snap-align: start;
-}
-@supports (height:100dvh) {
-  section {
-    height: calc(100dvh - var(--headerHeight));
-  }
+  padding-top: 16px;
 }
 section.diensten {
   text-transform: uppercase;
@@ -743,7 +739,8 @@ section.contact a {
 }
 section.contact a {
   text-decoration: underline;
-  text-decoration-color: var(--hoofdKleur);
+  -webkit-text-decoration-color: var(--hoofdKleur);
+          text-decoration-color: var(--hoofdKleur);
 }
 section.contact h3:last-child {
   text-transform: none;
