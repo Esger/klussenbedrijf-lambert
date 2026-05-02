@@ -65,7 +65,25 @@ $(() => {
 
     initMobile();
 
+    // Smooth scroll handler to fix Safari scroll-snap bouncing bug
+    $('nav a, .werkLink').on('click', function (event) {
+        event.preventDefault();
 
+        const targetId = $(this).attr('href');
+        const target = $(targetId)[0];
+
+        if (target) {
+            // Temporarily disable scroll snap to prevent jumping
+            $('html').removeClass('scrollSnap');
+
+            target.scrollIntoView({ behavior: 'smooth' });
+
+            // Re-enable scroll snap after scrolling is finished
+            setTimeout(() => {
+                $('html').addClass('scrollSnap');
+            }, 800);
+        }
+    });
 
     resizeHandler();
 

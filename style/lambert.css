@@ -98,8 +98,9 @@ html {
   overflow: hidden auto;
   scroll-behavior: smooth;
   scroll-padding-top: var(--headerHeight);
+}
+html.scrollSnap {
   scroll-snap-type: y proximity;
-  scroll-snap-align: top;
 }
 @media screen and (prefers-reduced-motion: reduce) {
   html {
@@ -732,8 +733,7 @@ section.contact a {
 }
 section.contact a {
   text-decoration: underline;
-  -webkit-text-decoration-color: var(--hoofdKleur);
-          text-decoration-color: var(--hoofdKleur);
+  text-decoration-color: var(--hoofdKleur);
 }
 section.contact h3:last-child {
   text-transform: none;
