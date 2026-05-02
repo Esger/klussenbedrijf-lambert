@@ -121,8 +121,9 @@ html {
     overflow          : hidden auto;
     scroll-behavior   : smooth;
     scroll-padding-top: var(--headerHeight);
+
     &.scrollSnap {
-        scroll-snap-type  : y proximity;
+        scroll-snap-type: y proximity;
     }
 
     @media screen and (prefers-reduced-motion: reduce) {
@@ -628,7 +629,7 @@ section {
 
         li[class*=dienst] {
             .DESKTOP & {
-                animation         : onloadScatter 1s ease-out both, exitDienst both;
+                animation         : onloadScatter 1s ease-in both, exitDienst both;
                 animation-timeline: auto, --section1;
                 animation-range   : normal, exit;
             }

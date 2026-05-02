@@ -529,7 +529,7 @@ section.diensten ul li:before {
   margin-right: 0.5rem;
 }
 .DESKTOP section.diensten li[class*=dienst] {
-  animation: onloadScatter 1s ease-out both, exitDienst both;
+  animation: onloadScatter 1s ease-in both, exitDienst both;
   animation-timeline: auto, --section1;
   animation-range: normal, exit;
 }
