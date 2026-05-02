@@ -478,7 +478,7 @@ nav ul li a:hover {
 }
 section {
   height: calc(100dvh - var(--headerHeight));
-  overflow: hidden auto;
+  overflow: hidden;
   scroll-snap-align: start;
   padding-top: 16px;
 }
@@ -708,17 +708,6 @@ section.contact .gegevens {
   line-height: 1.8rem;
   flex: 0 0 calc(0.75 * var(--inzetWidth));
   z-index: 1;
-}
-section.contact .swapColRow {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-section.contact .swapColRow div {
-  flex: 0 0 50%;
-}
-.MOBILE section.contact .swapColRow {
-  flex-direction: row;
 }
 section.contact h3,
 section.contact p,
