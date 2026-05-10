@@ -405,25 +405,10 @@ nav ul li a {
   background-color: transparent;
   margin-block: auto 7px;
   border-bottom: none;
+  transition: background-color 0.3s ease;
 }
-@supports (animation-timeline: scroll(root)) {
-  .MOBILE nav ul li a::before {
-    animation-timeline: scroll(root);
-  }
-  .MOBILE nav ul li a.diensten::before {
-    animation: mobileActiveHome linear both;
-  }
-  .MOBILE nav ul li a.fotosWerk::before {
-    animation: mobileActiveWerk linear both;
-  }
-  .MOBILE nav ul li a.contact::before {
-    animation: mobileActiveContact linear both;
-  }
-}
-@supports not (animation-timeline: scroll(root)) {
-  .MOBILE nav ul li a.activeFallback::before {
-    border-bottom: 2px solid var(--hoofdKleur);
-  }
+.MOBILE nav ul li a.activeFallback::before {
+  background-color: var(--hoofdKleur);
 }
 @keyframes scrollPosition {
   0% {
@@ -437,40 +422,6 @@ nav ul li a {
   100% {
     --current-translate: calc(2 * var(--colWidth));
     --current-scale: 1.6;
-  }
-}
-@keyframes mobileActiveHome {
-  0%,
-  20% {
-    background-color: var(--hoofdKleur);
-  }
-  30%,
-  100% {
-    background-color: transparent;
-  }
-}
-@keyframes mobileActiveWerk {
-  0%,
-  20% {
-    background-color: transparent;
-  }
-  30%,
-  70% {
-    background-color: var(--hoofdKleur);
-  }
-  80%,
-  100% {
-    background-color: transparent;
-  }
-}
-@keyframes mobileActiveContact {
-  0%,
-  70% {
-    background-color: transparent;
-  }
-  80%,
-  100% {
-    background-color: var(--hoofdKleur);
   }
 }
 @keyframes hideWerkLink {
@@ -796,7 +747,8 @@ section.contact a {
 }
 section.contact a {
   text-decoration: underline;
-  text-decoration-color: var(--hoofdKleur);
+  -webkit-text-decoration-color: var(--hoofdKleur);
+          text-decoration-color: var(--hoofdKleur);
 }
 section.contact h3:last-child {
   text-transform: none;
@@ -826,7 +778,7 @@ section.contact .logo {
 }
 .MOBILE section.contact .logo {
   width: 180px;
-  margin-left: calc(-6 * var(--gutterWidth));
+  margin-left: calc(-5 * var(--gutterWidth));
 }
 @media (orientation: landscape) {
   .MOBILEhtml {

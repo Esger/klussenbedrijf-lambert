@@ -65,19 +65,18 @@ $(() => {
 
     initMobile();
 
-    // Fallback for browsers without animation-timeline support (Firefox, Safari)
-    if (!CSS.supports('animation-timeline: scroll()')) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    $('nav a').removeClass('activeFallback');
-                    $(`nav a[href="#${entry.target.id}"]`).addClass('activeFallback');
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        $('section').each((_, el) => observer.observe(el));
-    }
+    // Always run IntersectionObserver for mobile active state tracking,
+    // because Chrome has a bug where scroll(root) fails inside top-layer popovers!
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                $('nav a').removeClass('activeFallback');
+                $(`nav a[href="#${entry.target.id}"]`).addClass('activeFallback');
+            }
+        });
+    }, { threshold: 0.5 });
+
+    $('section').each((_, el) => observer.observe(el));
 
     // Smooth scroll handler to fix Safari scroll-snap bouncing bug
     $('nav a, .werkLink').on('click', function (event) {
