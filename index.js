@@ -52,62 +52,6 @@ $(() => {
             });
     }
 
-    const activeSectionWatcher = _ => {
-
-        const setActiveItem = element => {
-            $('nav a').removeClass('active');
-            $(element).addClass('active');
-        };
-
-        const $werkLink = $('.werkLink');
-
-        const toggleWerklink = sectionClassname => {
-            const hideClasses = 'fotosWerk contact';
-            if (hideClasses.includes(sectionClassname))
-                $werkLink.addClass('hide');
-            else
-                $werkLink.removeClass('hide');
-        }
-
-        const intersectionCallback = (entries) => {
-            entries.forEach(entry => {
-                // console.log(entry.target);
-                if (entry.isIntersecting) {
-                    const visibleSection = entry.target;
-                    if (entry.intersectionRatio > 0.6) {
-                        $('section').not(visibleSection).removeClass('visible');
-                        $(visibleSection).addClass('visible');
-                        const sectionClassname = visibleSection.classList[0];
-                        toggleWerklink(sectionClassname);
-                        const menuItem = $('nav .' + sectionClassname)[0];
-                        setActiveItem(menuItem);
-                    }
-                }
-            });
-        }
-
-        const options = {
-            root: null,
-            threshold: 0.8,
-            rootMargin: '0px',
-        }
-
-        const sectionObserver = new IntersectionObserver(intersectionCallback, options);
-
-        const $sections = $('section');
-        $sections.each(function () {
-            sectionObserver.observe(this);
-        });
-
-        $('nav a').first().addClass('active');
-        $('body').on('click', 'a', function (event) {
-            $('html').removeClass('scrollSnap');
-            target = $('#' + this.classList[0])[0];
-            target.scrollIntoView();
-            setActiveItem(event.target);
-        });
-    }
-
     const resizeHandler = _ => {
         let resizeTimeout;
         $(window).on('resize', _ => {
@@ -121,7 +65,38 @@ $(() => {
 
     initMobile();
 
-    activeSectionWatcher();
+    // Always run IntersectionObserver for mobile active state tracking,
+    // because Chrome has a bug where scroll(root) fails inside top-layer popovers!
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                $('nav a').removeClass('activeFallback');
+                $(`nav a[href="#${entry.target.id}"]`).addClass('activeFallback');
+            }
+        });
+    }, { threshold: 0.5 });
+
+    $('section').each((_, el) => observer.observe(el));
+
+    // Smooth scroll handler to fix Safari scroll-snap bouncing bug
+    $('nav a, .werkLink').on('click', function (event) {
+        event.preventDefault();
+
+        const targetId = $(this).attr('href');
+        const target = $(targetId)[0];
+
+        if (target) {
+            // Temporarily disable scroll snap to prevent jumping
+            $('html').removeClass('scrollSnap');
+
+            target.scrollIntoView({ behavior: 'smooth' });
+
+            // Re-enable scroll snap after scrolling is finished
+            setTimeout(() => {
+                $('html').addClass('scrollSnap');
+            }, 800);
+        }
+    });
 
     resizeHandler();
 

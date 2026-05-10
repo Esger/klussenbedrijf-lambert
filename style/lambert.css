@@ -31,6 +31,16 @@
     min-height: 0vw;
   }
 }
+@property --current-translate {
+  syntax: "<length-percentage>";
+  inherits: true;
+  initial-value: 0px;
+}
+@property --current-scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
 @media (min-width: 769px) {
   :root,
   *::after,
@@ -53,34 +63,34 @@
   }
 }
 @media (min-width: 769px) and (prefers-reduced-motion: no-preference) {
-  .visible .dienst1 {
+  .dienst1 {
     --offset: 0, 2rem, 0;
   }
-  .visible .dienst2 {
+  .dienst2 {
     --offset: calc(6.5 * var(--colWidth)), 0, 0;
   }
-  .visible .dienst3 {
+  .dienst3 {
     --offset: calc(0.75 * var(--colWidth)), calc(0.75 * var(--colWidth)), 0;
   }
-  .visible .dienst4 {
+  .dienst4 {
     --offset: calc(2 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
   }
-  .visible .dienst5 {
+  .dienst5 {
     --offset: calc(0 * var(--colWidth)), calc(3.5 * var(--colWidth)), 0;
   }
-  .visible .dienst6 {
+  .dienst6 {
     --offset: calc(7.5 * var(--colWidth)), calc(0 * var(--colWidth)), 0;
   }
-  .visible .dienst7 {
+  .dienst7 {
     --offset: calc(1.25 * var(--colWidth)), calc(1.25 * var(--colWidth)), 0;
   }
-  .visible .dienst8 {
+  .dienst8 {
     --offset: calc(7 * var(--colWidth)), calc(0.25 * var(--colWidth)), 0;
   }
-  .visible .dienst9 {
+  .dienst9 {
     --offset: calc(3.5 * var(--colWidth)), calc(1 * var(--colWidth)), 0;
   }
-  .visible .dienst10 {
+  .dienst10 {
     --offset: calc(5.25 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
   }
 }
@@ -97,9 +107,10 @@
 html {
   overflow: hidden auto;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--headerHeight) + 16px);
+  scroll-padding-top: var(--headerHeight);
+}
+html.scrollSnap {
   scroll-snap-type: y proximity;
-  scroll-snap-align: top;
 }
 @media screen and (prefers-reduced-motion: reduce) {
   html {
@@ -267,6 +278,8 @@ header h1 strong {
 header .werkLink {
   position: absolute;
   width: calc(100% + 1 * var(--gutterWidth));
+  animation: hideWerkLink both;
+  animation-timeline: scroll(root);
 }
 nav {
   margin-bottom: -11px;
@@ -275,7 +288,7 @@ nav {
   display: contents;
 }
 .MOBILE nav {
-  position: absolute;
+  position: fixed;
   position-anchor: --hamburger;
   position-area: left;
   border: none;
@@ -305,8 +318,67 @@ nav ul {
   margin: 0 calc(var(--colWidth) - 1.5rem) 0 0;
 }
 .DESKTOP nav ul {
+  position: relative;
   margin: 0 var(--colWidth) 0 0;
   justify-content: space-between;
+}
+@supports (animation-timeline: scroll(root)) {
+  .DESKTOP nav ul {
+    animation: scrollPosition linear;
+    animation-timeline: scroll(root);
+  }
+}
+@supports not (animation-timeline: scroll(root)) {
+  .DESKTOP nav ul:has(a[href="#diensten"].activeFallback) {
+    --current-translate: 0px;
+    --current-scale: 1;
+  }
+  .DESKTOP nav ul:has(a[href="#fotosWerk"].activeFallback) {
+    --current-translate: var(--colWidth);
+    --current-scale: 1;
+  }
+  .DESKTOP nav ul:has(a[href="#contact"].activeFallback) {
+    --current-translate: calc(2 * var(--colWidth));
+    --current-scale: 1.6;
+  }
+  .DESKTOP nav ul::before,
+  .DESKTOP nav ul::after {
+    transition: translate 0.3s ease, scale 0.3s ease;
+  }
+}
+.DESKTOP nav ul::before,
+.DESKTOP nav ul::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 5ch;
+  border-bottom: 2px solid var(--hoofdKleur);
+  transform-origin: left;
+}
+.DESKTOP nav ul::before {
+  translate: var(--current-translate) 0;
+  scale: var(--current-scale) 1;
+}
+.DESKTOP nav ul::after {
+  opacity: 0.5;
+  filter: blur(1px);
+  translate: var(--hover-translate, var(--current-translate)) 0;
+  scale: var(--hover-scale, var(--current-scale)) 1;
+  transition: translate 0.3s ease, scale 0.3s ease;
+}
+.DESKTOP nav ul:has(li:nth-child(1):hover) {
+  --hover-translate: 0px;
+  --hover-scale: 1;
+}
+.DESKTOP nav ul:has(li:nth-child(2):hover) {
+  --hover-translate: var(--colWidth);
+  --hover-scale: 1;
+}
+.DESKTOP nav ul:has(li:nth-child(3):hover) {
+  --hover-translate: calc(2 * var(--colWidth));
+  --hover-scale: 1.6;
 }
 nav ul li {
   flex: var(--navItemFlex);
@@ -320,11 +392,6 @@ nav ul li a {
 }
 .DESKTOP nav ul li a {
   --accentKleur: var(--hoofdKleur);
-  border-bottom: 2px solid transparent;
-}
-nav ul li a.active,
-nav ul li a:hover {
-  border-bottom: 2px solid var(--accentKleur);
 }
 .MOBILE nav ul li a {
   border: none;
@@ -335,12 +402,82 @@ nav ul li a:hover {
   width: 0.4rem;
   height: 0.4rem;
   margin-inline: 0 0.4rem;
-  background-color: var(--accentKleur);
+  background-color: transparent;
   margin-block: auto 7px;
   border-bottom: none;
+  transition: background-color 0.3s ease;
 }
-.MOBILE nav ul li a.active::before {
-  --accentKleur: var(--hoofdKleur);
+.MOBILE nav ul li a.activeFallback::before {
+  background-color: var(--hoofdKleur);
+}
+@keyframes scrollPosition {
+  0% {
+    --current-translate: 0px;
+    --current-scale: 1;
+  }
+  50% {
+    --current-translate: var(--colWidth);
+    --current-scale: 1;
+  }
+  100% {
+    --current-translate: calc(2 * var(--colWidth));
+    --current-scale: 1.6;
+  }
+}
+@keyframes hideWerkLink {
+  0%,
+  20% {
+    opacity: 1;
+    visibility: visible;
+  }
+  35%,
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@keyframes onloadScatter {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+    scale: 0.1;
+  }
+  100% {
+    transform: translate3d(var(--offset, 0, 0, 0));
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes exitDienst {
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+    scale: 0.1;
+  }
+}
+@keyframes enableSlickScroll {
+  0%,
+  30% {
+    overflow-y: hidden;
+  }
+  31%,
+  69% {
+    overflow-y: auto;
+  }
+  70%,
+  100% {
+    overflow-y: hidden;
+  }
+}
+@keyframes revealInzet {
+  0%,
+  75% {
+    box-shadow: 0 0 transparent;
+  }
+  90%,
+  100% {
+    box-shadow: 0 -2rem white;
+  }
 }
 @starting-style {
   .MOBILE nav {
@@ -350,18 +487,15 @@ nav ul li a:hover {
   }
 }
 section {
-  height: var(--sectionHeight);
-  overflow: hidden auto;
+  height: calc(100dvh - var(--headerHeight));
+  overflow: hidden;
   scroll-snap-align: start;
-}
-@supports (height:100dvh) {
-  section {
-    height: calc(100dvh - var(--headerHeight));
-  }
+  padding-top: 16px;
 }
 section.diensten {
   text-transform: uppercase;
   position: relative;
+  view-timeline-name: --section1;
 }
 section.diensten h1 {
   display: none;
@@ -382,18 +516,12 @@ section.diensten ul {
   margin-left: calc(var(--colWidth) + 1.25rem);
 }
 section.diensten ul li {
-  --ofset: 0, 0, 0;
   padding-block: 0.5rem;
   color: white;
-  transition: transform 500ms ease-in-out, opacity 500ms ease-in-out;
-  transform: translate3d(var(--offset));
+  transform: translate3d(var(--offset, 0, 0, 0));
 }
 .MOBILE section.diensten ul li {
   text-indent: -1.25rem;
-}
-.DESKTOP section.diensten ul li {
-  opacity: 0;
-  scale: 0.1;
 }
 .DESKTOP section.diensten ul li.limitWidth {
   max-width: calc(3.33 * var(--colWidth));
@@ -409,9 +537,15 @@ section.diensten ul li:before {
   background-color: black;
   margin-right: 0.5rem;
 }
-.DESKTOP section.diensten.visible li[class*=dienst] {
-  opacity: 1;
-  scale: 1;
+.DESKTOP section.diensten li[class*=dienst] {
+  animation: onloadScatter 1s ease-in both;
+}
+@supports (animation-timeline: view()) {
+  .DESKTOP section.diensten li[class*=dienst] {
+    animation: onloadScatter 1s ease-in both, exitDienst both;
+    animation-timeline: auto, --section1;
+    animation-range: normal, exit;
+  }
 }
 .MOBILE section.diensten .werkLink {
   margin-left: var(--colWidth);
@@ -427,6 +561,7 @@ section.diensten ul li:before {
 section.fotosWerk {
   display: flex;
   flex-direction: var(--mobileDirection);
+  view-timeline-name: --section2;
 }
 section.fotosWerk h2 {
   position: var(--headerPosition);
@@ -479,8 +614,14 @@ section.fotosWerk .slick::-webkit-scrollbar {
   top: auto;
   bottom: 0;
 }
-.MOBILE section.fotosWerk.visible .slick {
+.MOBILE section.fotosWerk .slick {
   overflow-y: auto;
+}
+@supports (animation-timeline: view()) {
+  .MOBILE section.fotosWerk .slick {
+    animation: enableSlickScroll both;
+    animation-timeline: --section2;
+  }
 }
 section.fotosWerk .slick-list {
   border: solid white;
@@ -548,6 +689,10 @@ section.contact {
 section.contact p {
   max-width: 27ch;
 }
+section.contact p.text {
+  line-height: 1.4;
+  max-width: none;
+}
 section.contact .payOff {
   padding-block: 0.5rem 1.5rem;
 }
@@ -569,25 +714,15 @@ section.contact .inzet {
 section.contact .inzet * {
   opacity: 1;
 }
-.DESKTOP section.contact.visible .inzet {
-  box-shadow: 0 -2rem white;
+.DESKTOP section.contact .inzet {
+  animation: revealInzet both;
+  animation-timeline: scroll(root);
 }
 section.contact .gegevens {
   padding: 1rem var(--gutterWidth) 0 var(--inzetPadding);
   line-height: 1.8rem;
-  flex: 0 0 calc(0.65 * var(--inzetWidth));
+  flex: 0 0 calc(0.75 * var(--inzetWidth));
   z-index: 1;
-}
-section.contact .swapColRow {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-section.contact .swapColRow div {
-  flex: 0 0 50%;
-}
-.MOBILE section.contact .swapColRow {
-  flex-direction: row;
 }
 section.contact h3,
 section.contact p,
@@ -643,7 +778,7 @@ section.contact .logo {
 }
 .MOBILE section.contact .logo {
   width: 180px;
-  margin-left: calc(-6 * var(--gutterWidth));
+  margin-left: calc(-5 * var(--gutterWidth));
 }
 @media (orientation: landscape) {
   .MOBILEhtml {

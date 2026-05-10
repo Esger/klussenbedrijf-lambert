@@ -35,6 +35,18 @@
     }
 }
 
+@property --current-translate {
+    syntax       : "<length-percentage>";
+    inherits     : true;
+    initial-value: 0px;
+}
+
+@property --current-scale {
+    syntax       : "<number>";
+    inherits     : true;
+    initial-value: 1;
+}
+
 @media (min-width:769px) {
 
     :root,
@@ -57,56 +69,53 @@
         --inzetPadding   : var(--gutterWidth);
     }
 
-    .visible {
+    @media (prefers-reduced-motion: no-preference) {
 
-        @media (prefers-reduced-motion: no-preference) {
-
-            .dienst1 {
-                --offset: 0, 2rem, 0;
-            }
-
-
-            .dienst2 {
-                --offset: calc(6.5 * var(--colWidth)), 0, 0;
-            }
-
-            .dienst3 {
-                --offset: calc(.75 * var(--colWidth)), calc(.75 * var(--colWidth)), 0;
-            }
-
-            .dienst4 {
-                --offset: calc(2 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
-            }
-
-            .dienst5 {
-                --offset: calc(0 * var(--colWidth)), calc(3.5 * var(--colWidth)), 0;
-            }
-
-            .dienst6 {
-                --offset: calc(7.5 * var(--colWidth)), calc(0 * var(--colWidth)), 0;
-            }
-
-            .dienst7 {
-                --offset: calc(1.25 * var(--colWidth)),
-                    calc(1.25 * var(--colWidth)),
-                    0;
-            }
-
-            .dienst8 {
-                --offset: calc(7 * var(--colWidth)), calc(.25 * var(--colWidth)), 0;
-            }
-
-            .dienst9 {
-                --offset: calc(3.5 * var(--colWidth)), calc(1 * var(--colWidth)), 0;
-            }
-
-            .dienst10 {
-                --offset: calc(5.25 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
-            }
-
+        .dienst1 {
+            --offset: 0, 2rem, 0;
         }
+
+        .dienst2 {
+            --offset: calc(6.5 * var(--colWidth)), 0, 0;
+        }
+
+        .dienst3 {
+            --offset: calc(.75 * var(--colWidth)), calc(.75 * var(--colWidth)), 0;
+        }
+
+        .dienst4 {
+            --offset: calc(2 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
+        }
+
+        .dienst5 {
+            --offset: calc(0 * var(--colWidth)), calc(3.5 * var(--colWidth)), 0;
+        }
+
+        .dienst6 {
+            --offset: calc(7.5 * var(--colWidth)), calc(0 * var(--colWidth)), 0;
+        }
+
+        .dienst7 {
+            --offset: calc(1.25 * var(--colWidth)),
+                calc(1.25 * var(--colWidth)),
+                0;
+        }
+
+        .dienst8 {
+            --offset: calc(7 * var(--colWidth)), calc(.25 * var(--colWidth)), 0;
+        }
+
+        .dienst9 {
+            --offset: calc(3.5 * var(--colWidth)), calc(1 * var(--colWidth)), 0;
+        }
+
+        .dienst10 {
+            --offset: calc(5.25 * var(--colWidth)), calc(1.5 * var(--colWidth)), 0;
+        }
+
     }
 }
+
 
 @media (min-width:1200px) {
     :root {
@@ -123,9 +132,11 @@
 html {
     overflow          : hidden auto;
     scroll-behavior   : smooth;
-    scroll-padding-top: calc(var(--headerHeight) + 16px);
-    scroll-snap-type  : y proximity;
-    scroll-snap-align : top;
+    scroll-padding-top: var(--headerHeight);
+
+    &.scrollSnap {
+        scroll-snap-type: y proximity;
+    }
 
     @media screen and (prefers-reduced-motion: reduce) {
         scroll-behavior: auto;
@@ -318,8 +329,10 @@ header {
     }
 
     .werkLink {
-        position: absolute;
-        width   : calc(100% + 1 * var(--gutterWidth));
+        position          : absolute;
+        width             : calc(100% + 1 * var(--gutterWidth));
+        animation         : hideWerkLink both;
+        animation-timeline: scroll(root);
     }
 }
 
@@ -331,7 +344,7 @@ nav {
     }
 
     .MOBILE & {
-        position           : absolute;
+        position           : fixed;
         position-anchor    : --hamburger;
         position-area      : left;
         border             : none;
@@ -364,8 +377,76 @@ nav {
         }
 
         .DESKTOP & {
+            position       : relative;
             margin         : 0 var(--colWidth) 0 0;
             justify-content: space-between;
+
+            @supports (animation-timeline: scroll(root)) {
+                animation         : scrollPosition linear;
+                animation-timeline: scroll(root);
+            }
+
+            @supports not (animation-timeline: scroll(root)) {
+                &:has(a[href="#diensten"].activeFallback) {
+                    --current-translate: 0px;
+                    --current-scale    : 1;
+                }
+
+                &:has(a[href="#fotosWerk"].activeFallback) {
+                    --current-translate: var(--colWidth);
+                    --current-scale    : 1;
+                }
+
+                &:has(a[href="#contact"].activeFallback) {
+                    --current-translate: calc(2 * var(--colWidth));
+                    --current-scale    : 1.6;
+                }
+
+                &::before,
+                &::after {
+                    transition: translate 0.3s ease, scale 0.3s ease;
+                }
+            }
+
+            &::before,
+            &::after {
+                content         : '';
+                display         : block;
+                position        : absolute;
+                left            : 0;
+                bottom          : 0;
+                width           : 5ch;
+                border-bottom   : 2px solid var(--hoofdKleur);
+                transform-origin: left;
+            }
+
+            &::before {
+                translate: var(--current-translate) 0;
+                scale    : var(--current-scale) 1;
+            }
+
+            &::after {
+                opacity   : 0.5;
+                filter    : blur(1px);
+                translate : var(--hover-translate, var(--current-translate)) 0;
+                scale     : var(--hover-scale, var(--current-scale)) 1;
+                transition: translate 0.3s ease, scale 0.3s ease;
+            }
+
+            &:has(li:nth-child(1):hover) {
+                --hover-translate: 0px;
+                --hover-scale    : 1;
+            }
+
+            &:has(li:nth-child(2):hover) {
+                --hover-translate: var(--colWidth);
+                --hover-scale    : 1;
+            }
+
+            &:has(li:nth-child(3):hover) {
+                --hover-translate: calc(2 * var(--colWidth));
+                --hover-scale    : 1.6;
+            }
         }
 
         li {
@@ -380,31 +461,112 @@ nav {
 
                 .DESKTOP & {
                     --accentKleur: var(--hoofdKleur);
-                    border-bottom: 2px solid transparent;
                 }
-
-                &.active,
-                &:hover {
-                    border-bottom: 2px solid var(--accentKleur);
-                }
-
 
                 .MOBILE & {
                     border: none;
 
                     &::before {
-                        .squareBefore(var(--accentKleur), .4rem);
+                        .squareBefore(transparent, .4rem);
                         margin-block : auto 7px;
                         border-bottom: none;
+                        transition   : background-color 0.3s ease;
                     }
 
-                    &.active::before {
-                        --accentKleur: var(--hoofdKleur);
+                    &.activeFallback::before {
+                        background-color: var(--hoofdKleur);
                     }
                 }
 
             }
         }
+    }
+}
+
+@keyframes scrollPosition {
+    0% {
+        --current-translate: 0px;
+        --current-scale    : 1;
+    }
+
+    50% {
+        --current-translate: var(--colWidth);
+        --current-scale    : 1;
+    }
+
+    100% {
+        --current-translate: calc(2 * var(--colWidth));
+        --current-scale    : 1.6;
+    }
+}
+
+
+
+@keyframes hideWerkLink {
+
+    0%,
+    20% {
+        opacity   : 1;
+        visibility: visible;
+    }
+
+    35%,
+    100% {
+        opacity   : 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes onloadScatter {
+    0% {
+        transform: translate3d(0, 0, 0);
+        opacity  : 0;
+        scale    : 0.1;
+    }
+
+    100% {
+        transform: translate3d(var(--offset, 0, 0, 0));
+        opacity  : 1;
+        scale    : 1;
+    }
+}
+
+@keyframes exitDienst {
+    100% {
+        transform: translate3d(0, 0, 0);
+        opacity  : 0;
+        scale    : 0.1;
+    }
+}
+
+@keyframes enableSlickScroll {
+
+    0%,
+    30% {
+        overflow-y: hidden;
+    }
+
+    31%,
+    69% {
+        overflow-y: auto;
+    }
+
+    70%,
+    100% {
+        overflow-y: hidden;
+    }
+}
+
+@keyframes revealInzet {
+
+    0%,
+    75% {
+        box-shadow: 0 0 transparent;
+    }
+
+    90%,
+    100% {
+        box-shadow: 0 -2rem white;
     }
 }
 
@@ -417,18 +579,15 @@ nav {
 }
 
 section {
-    height: var(--sectionHeight);
-
-    @supports(height:100dvh) {
-        height: calc(100dvh - var(--headerHeight));
-    }
-
-    overflow         : hidden auto;
+    height           : calc(100dvh - var(--headerHeight));
+    overflow         : hidden;
     scroll-snap-align: start;
+    padding-top      : 16px;
 
     &.diensten {
-        text-transform: uppercase;
-        position      : relative;
+        text-transform    : uppercase;
+        position          : relative;
+        view-timeline-name: --section1;
 
         h1 {
             display: none;
@@ -452,19 +611,15 @@ section {
             }
 
             li {
-                --ofset      : 0, 0, 0;
                 padding-block: .5rem;
                 color        : white;
-                transition   : transform 500ms ease-in-out, opacity 500ms ease-in-out;
-                transform    : translate3d(var(--offset));
+                transform    : translate3d(var(--offset, 0, 0, 0));
 
                 .MOBILE & {
                     text-indent: -1.25rem;
                 }
 
                 .DESKTOP & {
-                    opacity: 0;
-                    scale  : .1;
 
                     &.limitWidth {
                         max-width  : calc(3.33 * var(--colWidth));
@@ -480,10 +635,15 @@ section {
             }
         }
 
-        &.visible li[class*=dienst] {
+        li[class*=dienst] {
             .DESKTOP & {
-                opacity: 1;
-                scale  : 1;
+                animation: onloadScatter 1s ease-in both;
+
+                @supports (animation-timeline: view()) {
+                    animation         : onloadScatter 1s ease-in both, exitDienst both;
+                    animation-timeline: auto, --section1;
+                    animation-range   : normal, exit;
+                }
             }
         }
 
@@ -505,8 +665,9 @@ section {
     }
 
     &.fotosWerk {
-        display       : flex;
-        flex-direction: var(--mobileDirection);
+        display           : flex;
+        flex-direction    : var(--mobileDirection);
+        view-timeline-name: --section2;
 
         h2 {
             position      : var(--headerPosition);
@@ -567,9 +728,14 @@ section {
             }
         }
 
-        &.visible .slick {
+        .slick {
             .MOBILE & {
                 overflow-y: auto;
+
+                @supports (animation-timeline: view()) {
+                    animation         : enableSlickScroll both;
+                    animation-timeline: --section2;
+                }
             }
         }
 
@@ -655,6 +821,11 @@ section {
 
         p {
             max-width: 27ch;
+
+            &.text {
+                line-height: 1.4;
+                max-width  : none;
+            }
         }
 
         .payOff {
@@ -683,30 +854,17 @@ section {
         }
 
         .DESKTOP & {
-            &.visible .inzet {
-                box-shadow: 0 -2rem white;
+            .inzet {
+                animation         : revealInzet both;
+                animation-timeline: scroll(root);
             }
         }
 
         .gegevens {
             padding    : 1rem var(--gutterWidth) 0 var(--inzetPadding);
             line-height: 1.8rem;
-            flex       : 0 0 calc(.65 * var(--inzetWidth));
+            flex       : 0 0 calc(.75 * var(--inzetWidth));
             z-index    : 1;
-        }
-
-        .swapColRow {
-            display       : flex;
-            flex-direction: column;
-            gap           : 1rem;
-
-            div {
-                flex: 0 0 50%;
-            }
-
-            .MOBILE & {
-                flex-direction: row;
-            }
         }
 
         h3,
@@ -769,7 +927,7 @@ section {
 
             .MOBILE & {
                 width      : 180px;
-                margin-left: calc(-6 * var(--gutterWidth));
+                margin-left: calc(-5 * var(--gutterWidth));
             }
         }
     }
